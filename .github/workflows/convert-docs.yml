@@ -11,7 +11,7 @@ on:
         default: '3.3' # Seems like < 3.3 is not working for us, especially for tables.
         type: string
       force_sync:
-        description: 'Force sync to CakePHP docs repo'
+        description: 'Force sync to docs-md repo'
         required: false
         default: false
         type: boolean
@@ -84,56 +84,136 @@ jobs:
         Co-Authored-By: github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
         git push
 
-    - name: Checkout CakePHP docs repository
+    - name: Sync to docs-md repository
       if: steps.check_changes.outputs.changes == 'true' || github.event.inputs.force_sync == 'true'
-      uses: actions/checkout@v5
-      with:
-        repository: cakephp/docs
-        ref: 5.x-vitepress
-        path: cakephp-docs
-        token: ${{ secrets.CAKEPHP_DOCS_TOKEN }}
-
-    - name: Sync docs to CakePHP repository
-      if: steps.check_changes.outputs.changes == 'true' || github.event.inputs.force_sync == 'true'
+      env:
+        DOCS_MD_TOKEN: ${{ secrets.DOCS_MD_TOKEN }}
       run: |
-        # Use rsync to sync only changed folders from /docs to /docs in the target repo
-        # --archive preserves permissions, timestamps, etc.
-        # --update only copies files that are newer in the source
-        # --exclude protects files we don't want to touch
-        rsync -avz \
-          --exclude='.git*' \
-          --exclude='public/' \
-          docs/ cakephp-docs/docs/
+        # Configure git to use the token for authentication
+        git config --global url."https://x-access-token:${DOCS_MD_TOKEN}@github.com/".insteadOf "git@github.com:"
 
-    - name: Commit and push to CakePHP docs repository
-      if: steps.check_changes.outputs.changes == 'true' || github.event.inputs.force_sync == 'true'
-      run: |
-        cd cakephp-docs
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
+        # Track which branches were updated
+        UPDATED_BRANCHES=""
+        SKIPPED_BRANCHES=""
 
-        # Check if there are any changes to commit
-        if [ -n "$(git status --porcelain)" ]; then
-          git add .
-          git commit -m "Sync documentation updates from cakephp-docs-md
+        # Process each version
+        for VERSION in 2 3 4 5; do
+          BRANCH="${VERSION}.x"
+          LOCAL_EN_DIR="docs/${VERSION}.x"
+          LOCAL_JA_DIR="docs/ja/${VERSION}.x"
 
-          🤖 Generated with GitHub Actions from $(date -u +'%Y-%m-%d %H:%M:%S UTC')
+          echo "=================================================="
+          echo "Processing version ${VERSION}.x"
+          echo "=================================================="
 
-          Co-Authored-By: github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
-          git push origin 5.x-vitepress
-          echo "✅ Successfully synced changes to CakePHP docs repository"
-        else
-          echo "ℹ️ No changes to sync to CakePHP docs repository"
-        fi
+          # Check if we have docs for this version
+          if [ ! -d "$LOCAL_EN_DIR" ] && [ ! -d "$LOCAL_JA_DIR" ]; then
+            echo "⚠️  No docs found for version ${VERSION}.x, skipping..."
+            SKIPPED_BRANCHES="${SKIPPED_BRANCHES} ${BRANCH}"
+            continue
+          fi
+
+          # Create a temporary directory for this branch
+          TEMP_DIR="temp_docs_md_${VERSION}"
+          rm -rf "$TEMP_DIR"
+          mkdir -p "$TEMP_DIR"
+
+          # Clone the specific branch (shallow clone for efficiency)
+          echo "Cloning docs-md repository branch ${BRANCH}..."
+          if ! git clone --depth 1 --branch "$BRANCH" "https://x-access-token:${DOCS_MD_TOKEN}@github.com/cakephp/docs-md.git" "$TEMP_DIR" 2>/dev/null; then
+            echo "⚠️  Branch ${BRANCH} not found in docs-md repository, skipping..."
+            SKIPPED_BRANCHES="${SKIPPED_BRANCHES} ${BRANCH}"
+            rm -rf "$TEMP_DIR"
+            continue
+          fi
+
+          cd "$TEMP_DIR"
+
+          # Configure git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Clear existing docs directories
+          echo "Clearing existing docs..."
+          rm -rf docs/en docs/ja
+          mkdir -p docs/en docs/ja
+
+          # Copy English docs if they exist
+          if [ -d "../${LOCAL_EN_DIR}" ]; then
+            echo "Copying English docs from ${LOCAL_EN_DIR}..."
+            rsync -av --exclude='.git*' "../${LOCAL_EN_DIR}/" docs/en/
+          else
+            echo "No English docs found for version ${VERSION}.x"
+          fi
+
+          # Copy Japanese docs if they exist
+          if [ -d "../${LOCAL_JA_DIR}" ]; then
+            echo "Copying Japanese docs from ${LOCAL_JA_DIR}..."
+            rsync -av --exclude='.git*' "../${LOCAL_JA_DIR}/" docs/ja/
+          else
+            echo "No Japanese docs found for version ${VERSION}.x"
+          fi
+
+          # Check if there are any changes
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Changes detected, committing to ${BRANCH}..."
+            git add .
+            git commit -m "Update documentation for ${BRANCH}
+
+        🤖 Generated with GitHub Actions from $(date -u +'%Y-%m-%d %H:%M:%S UTC')
+
+        Co-Authored-By: github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+
+            echo "Pushing to ${BRANCH}..."
+            git push origin "$BRANCH"
+            echo "✅ Successfully updated ${BRANCH}"
+            UPDATED_BRANCHES="${UPDATED_BRANCHES} ${BRANCH}"
+          else
+            echo "ℹ️  No changes for ${BRANCH}, skipping commit"
+            SKIPPED_BRANCHES="${SKIPPED_BRANCHES} ${BRANCH}"
+          fi
+
+          # Return to root directory and cleanup
+          cd ..
+          rm -rf "$TEMP_DIR"
+
+          echo ""
+        done
+
+        # Store results for summary
+        echo "updated_branches=${UPDATED_BRANCHES}" >> $GITHUB_ENV
+        echo "skipped_branches=${SKIPPED_BRANCHES}" >> $GITHUB_ENV
 
     - name: Create summary
+      if: always()
       run: |
         echo "## Documentation Conversion Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+
         if [ "${{ steps.check_changes.outputs.changes }}" == "true" ]; then
-          echo "✅ Documentation updated successfully" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ Documentation Conversion" >> $GITHUB_STEP_SUMMARY
+          echo "Documentation updated successfully in source repository" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Changes made:" >> $GITHUB_STEP_SUMMARY
-          git show --stat HEAD >> $GITHUB_STEP_SUMMARY
         else
-          echo "ℹ️ No changes detected - documentation is up to date" >> $GITHUB_STEP_SUMMARY
+          echo "### ℹ️ Documentation Conversion" >> $GITHUB_STEP_SUMMARY
+          echo "No changes detected - documentation is up to date" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
         fi
+
+        if [ "${{ steps.check_changes.outputs.changes }}" == "true" ] || [ "${{ github.event.inputs.force_sync }}" == "true" ]; then
+          echo "### 📦 Sync to docs-md Repository" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ -n "${{ env.updated_branches }}" ]; then
+            echo "**Updated branches:**${{ env.updated_branches }}" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [ -n "${{ env.skipped_branches }}" ]; then
+            echo "**Skipped branches (no changes):**${{ env.skipped_branches }}" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
+        fi
+
+        echo "---" >> $GITHUB_STEP_SUMMARY
+        echo "*Generated at $(date -u +'%Y-%m-%d %H:%M:%S UTC')*" >> $GITHUB_STEP_SUMMARY
