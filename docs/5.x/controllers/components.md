@@ -193,6 +193,8 @@ use App\Service\UserService;
 
 class SsoComponent extends Component
 {
+    private Users $users;
+
     public function __construct(
         ComponentRegistry $registry,
         array $config = [],

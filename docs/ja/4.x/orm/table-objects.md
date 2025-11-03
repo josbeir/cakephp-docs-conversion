@@ -280,7 +280,7 @@ Table の `beforeRules()` メソッドが呼ばれた後に発行されます。
 
 ### afterRules
 
-`method` Cake\\ORM\\Table::**afterRules**(EventInterface $event, EntityInterface $entity, ArrayObject $options, $result, $operation)
+`method` Cake\\ORM\\Table::**afterRules(EventInterface $event, EntityInterface $entity, ArrayObject $options, bool $result, string $operation): bool**()
 
 `Model.afterRules` イベントはルールがエンティティーに適用された後に発行されます。
 このイベントが止まると、操作をチェックするためのルールの結果の値を返すことができます。
