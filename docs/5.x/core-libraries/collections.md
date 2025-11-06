@@ -285,8 +285,8 @@ $items = $collection->unfold(function ($page, $key) {
 $allPagesItems = $items->toList();
 ```
 
-If you are using PHP 5.5+, you can use the `yield` keyword inside `unfold()`
-to return as many elements for each item in the collection as you may need:
+You can use the `yield` keyword inside `unfold()`to return as
+many elements for each item in the collection as you may need:
 
 ``` php
 $oddNumbers = [1, 3, 5, 7];
@@ -1303,7 +1303,6 @@ The `buffered()` method is also useful for converting non-rewindable iterators
 into collections that can be iterated more than once:
 
 ``` php
-// In PHP 5.5+
 public function results()
 {
     ...
