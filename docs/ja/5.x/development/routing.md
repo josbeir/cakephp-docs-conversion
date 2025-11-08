@@ -1612,5 +1612,3 @@ public function beforeFilter(Event $event)
 これは、 `$this->request->getParam('named')` にすべての渡された引数にある
 名前付きパラメーターを移します。すべての名前付きパラメーターとして変換された引数は
 渡された引数のリストから除去されます。
-
-- [ディスパッチャーフィルター](../development/dispatch-filters)
