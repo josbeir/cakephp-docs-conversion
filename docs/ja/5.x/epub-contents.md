@@ -14,7 +14,6 @@ orphan
 - [コントローラー](controllers)
 - [ビュー](views)
 - [データベースアクセス & ORM](orm)
-- [AuthComponent](controllers/components/authentication)
 - [キャッシュ](core-libraries/caching)
 - [Bake コンソール](bake)
 - [コンソールコマンド](console-commands)

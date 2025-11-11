@@ -101,8 +101,7 @@ App.baseUrl
 App.base  
 アプリの存在するベースディレクトリーです。もし `false` をセットしたら、自動で検出されます。
 `false` 以外の場合、書き出しは <span class="title-ref">/</span> から始め、 <span class="title-ref">/</span> で終わらないことを確認してください。
-例えば、 <span class="title-ref">/basedir</span> は有効な App.base です。さもなければ、
-AuthComponent は適切に動かなくなります。
+例えば、 <span class="title-ref">/basedir</span> は有効な App.base です。
 
 App.encoding  
 あなたのアプリケーションで使用するエンコードを指定します。

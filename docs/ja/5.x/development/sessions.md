@@ -426,7 +426,7 @@ $session->destroy();
 
 `method` Session::**renew**()
 
-ユーザーがログインやログアウトした時、 `AuthComponent` は自動的にセッション ID を更新しますが、
+ユーザーがログインやログアウトした時、 `Authentication Plugin` は自動的にセッション ID を更新しますが、
 セッション ID を手動で切り替えたい時もあるでしょう。そのためには、 `renew()` メソッドを
 使います。 :
 

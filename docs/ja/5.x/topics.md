@@ -23,7 +23,6 @@ CakePHP のすべての重要な部分の紹介
 - [モデルのないフォーム](core-libraries/form)
 - [セッション](development/sessions)
 - [REST](development/rest)
-- [AuthComponent](controllers/components/authentication)
 - [ページネーション](controllers/pagination)
 - [Csrf Middleware](security/csrf#csrf-middleware)
 - [Mailer](core-libraries/email)

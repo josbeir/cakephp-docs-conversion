@@ -10,9 +10,7 @@ CakePHP には、様々な共通のタスクを支援するための素晴らし
 CakePHP の中に含まれるコンポーネントの詳細については、各コンポーネントの章を
 チェックしてください。
 
-- [AuthComponent](../controllers/components/authentication)
 - [フラッシュ](../controllers/components/flash)
-- [セキュリティ](../controllers/components/security)
 - [リクエストハンドリング](../controllers/components/request-handling)
 - [フォームの保護](../controllers/components/form-protection)
 - [HTTPキャッシュの確認](../controllers/components/check-http-cache)
@@ -84,16 +82,16 @@ class PostsController extends AppController
     }
 }
 
-// src/Controller/Component/MyAuthComponent.php
-use Cake\Controller\Component\AuthComponent;
+// src/Controller/Component/MyFlashComponent.php
+use Cake\Controller\Component\FlashComponent;
 
-class MyAuthComponent extends AuthComponent
+class MyFlashComponent extends FlashComponent
 {
-    // コア AuthComponent を上書きするコードを追加
+    // Add your code to override the core FlashComponent
 }
 ```
 
-上記の例ではコントローラーにて `MyAuthComponent` に `$this->Auth` という
+上記の例ではコントローラーにて `MyFlushComponent` に `$this->Flash` という
 *別名* をつけています。
 
 > [!NOTE]

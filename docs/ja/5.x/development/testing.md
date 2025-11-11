@@ -1020,41 +1020,6 @@ $this->configRequest([
 
 これらのヘルパーメソッドによって設定された状態は、 `tearDown()` メソッドでリセットされます。
 
-### 認証が必要なアクションのテスト
-
-もし `AuthComponent` を使用している場合、AuthComponent がユーザーの ID を検証するために
-使用するセッションデータをスタブ化する必要があります。これを行うには、 `IntegrationTestTrait`
-のヘルパーメソッドを使用します。 `ArticlesController` が add メソッドを含み、
-その add メソッドに必要な認証を行っていたと仮定すると、次のテストを書くことができます。 :
-
-``` php
-public function testAddUnauthenticatedFails(): void
-{
-    // セッションデータの未設定
-    $this->get('/articles/add');
-
-    $this->assertRedirect(['controller' => 'Users', 'action' => 'login']);
-}
-
-public function testAddAuthenticated(): void
-{
-    // セッションデータのセット
-    $this->session([
-        'Auth' => [
-            'User' => [
-                'id' => 1,
-                'username' => 'testing',
-                // 他のキー
-            ]
-        ]
-    ]);
-    $this->get('/articles/add');
-
-    $this->assertResponseOk();
-    // その他のアサーション
-}
-```
-
 ### ステートレス認証と API のテスト
 
 Basic 認証のようなステートレス認証を使用する API をテストするために、実際の認証の
@@ -1062,7 +1027,7 @@ Basic 認証のようなステートレス認証を使用する API をテスト
 
 Basic または Digest 認証をテストする際、自動的に
 [PHP が作成する](https://php.net/manual/ja/features.http-auth.php)
-環境変数を追加できます。これらの環境変数は、 [Basic Authentication](../controllers/components/authentication#basic-authentication) に概説されている
+環境変数を追加できます。これらの環境変数は、 [Basic Authentication](#basic-authentication) に概説されている
 認証アダプター内で使用されます。 :
 
 ``` php

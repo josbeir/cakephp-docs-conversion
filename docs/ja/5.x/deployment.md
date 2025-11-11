@@ -67,7 +67,7 @@ variables.
 
 - [Csrf Middleware](security/csrf#csrf-middleware) コンポーネントまたはミドルウェアを使用していることを確認して
   下さい。
-- [セキュリティ](controllers/components/security) コンポーネントを有効化しておいた方が
+- [フォームの保護](controllers/components/form-protection) コンポーネントを有効化しておいた方が
   いいかもしれません。フォームの改ざんや一括代入 (mass-assignment) 脆弱性に関する
   問題の発生可能性を削減することができます。
 - 各モデルにおいて、正しい [バリデーション](core-libraries/validation) ルールが
