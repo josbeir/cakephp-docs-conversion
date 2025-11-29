@@ -376,4 +376,3 @@ public function logout()
 ### より詳しく知りたい方のための読みもの
 
 1.  [Bake でコード生成](../../bake/usage) 基本的な CRUD コードの生成について
-2.  [AuthComponent](../../controllers/components/authentication): ユーザーの登録とログインについて
