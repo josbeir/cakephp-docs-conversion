@@ -454,6 +454,9 @@ Maps to the `TIMESTAMP(N)` type.
 time  
 Maps to a `TIME` type in all databases.
 
+year  
+Maps to the `YEAR` type. Only supported in MySQL.
+
 json  
 Maps to a `JSON` type if it's available, otherwise it maps to `TEXT`.
 
@@ -472,6 +475,15 @@ Maps to a single line in geospatial storage.
 polygon  
 Maps to a single polygon in geospatial storage.
 
+inet  
+Maps to the `INET` type. Only implemented in postgres.
+
+cidr  
+Maps to the `CIDR` type. Only implemented in postgres.
+
+macaddr  
+Maps to the `MACADDR` type. Only implemented in postgres.
+
 These types are used in both the schema reflection features that CakePHP
 provides, and schema generation features CakePHP uses when using test fixtures.
 
@@ -488,6 +500,10 @@ The `geometry`, `point`, `linestring`, and `polygon` types were added.
 
 ::: info Changed in version 5.2.0
 The `nativeuuid` type was added.
+:::
+
+::: info Added in version 5.3.0
+The `inet`, `cidr`, `macaddr`, and `year` types were added.
 :::
 
 <a id="datetime-type"></a>

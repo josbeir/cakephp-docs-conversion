@@ -548,8 +548,19 @@ use Cake\TestSuite\Fixture\TestFixture;
 
 class ArticlesFixture extends TestFixture
 {
-      // Optional. Set this property to load fixtures to a different test datasource
+      // Optional. Set this property to load fixtures
+      // to a different test datasource
       public $connection = 'test';
+
+      // Optional. Lets you define which table alias is used when
+      // reflecting schema and inserting rows. Inferred from the
+      // class name by default. Added in 5.3.0
+      public $tableAlias = 'Articles';
+
+      // Optional. Lets you define the table name for a fixture.
+      // If defined, this table name will be camelized to create
+      // $tableAlias.
+      public $table = 'articles';
 
       public $records = [
           [
@@ -1283,7 +1294,17 @@ $this->assertFlashElement('Flash/error');
 
 // Assert the second flash message element
 $this->assertFlashElementAt(1, 'Flash/error');
+
+// Assert a flash message contains a substring (Added in 5.3.0)
+$this->assertFlashMessageContains('deleted', 'flash');
+
+// Assert the second flash message contains a substring (Added in 5.3.0)
+$this->assertFlashMessageContainsAt(1, 'really deleted');
 ```
+
+::: info Added in version 5.3.0
+`assertFlashMessageContains()` and `assertFlashMessageContainsAt()` were added.
+:::
 
 ### Testing a JSON Responding Controller
 
@@ -1563,6 +1584,12 @@ $this->assertResponseCode(200);
 
 // Check the Location header
 $this->assertRedirect(['controller' => 'Articles', 'action' => 'index']);
+
+// Check the Location header matches the same previous URL
+$this->assertRedirectBack();
+
+// Check the Location header matches the referer URL
+$this->assertRedirectBackToReferer();
 
 // Check that no Location header has been set
 $this->assertNoRedirect();

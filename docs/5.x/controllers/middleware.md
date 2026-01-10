@@ -55,6 +55,9 @@ CakePHP provides several middleware to handle common tasks in web applications:
 - [Cake\Http\Middleware\SecurityHeadersMiddleware](../security/security-headers)
   makes it possible to add security related headers like `X-Frame-Options` to
   responses.
+- [Cake\Http\Middleware\RateLimitMiddleware](../controllers/middleware/rate-limit)
+  provides configurable rate limiting to protect against abuse and ensure fair
+  usage of resources.
 
 <a id="using-middleware"></a>
 

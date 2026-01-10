@@ -138,8 +138,7 @@ $article->has('undefined'); // false
 ```
 
 The `has()` method will return `true` if a field is defined. You can use
-`isEmpty()` and `hasValue()` to check if a field contains a 'non-empty'
-value:
+`hasValue()` to check if a field contains a 'non-empty' value:
 
 ``` php
 $article = new Article([
@@ -149,19 +148,15 @@ $article = new Article([
     'links' => [],
 ]);
 $article->has('title'); // true
-$article->isEmpty('title');  // false
 $article->hasValue('title'); // true
 
 $article->has('user_id'); // true
-$article->isEmpty('user_id');  // true
 $article->hasValue('user_id'); // false
 
 $article->has('text'); // true
-$article->isEmpty('text');  // true
 $article->hasValue('text'); // false
 
 $article->has('links'); // true
-$article->isEmpty('links');  // true
 $article->hasValue('links'); // false
 ```
 

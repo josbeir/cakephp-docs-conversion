@@ -194,6 +194,21 @@ instance, often referred to as a singleton, you can mark a service as 'shared':
 $container->addShared(BillingService::class);
 ```
 
+### Using ORM Tables as Services
+
+If you want to have ORM Tables injected as a dependency to a service, you can
+add `TableContainer` to your applications's service container:
+
+``` php
+// In your Application::services() method.
+// Allow your Tables to be dependency injected.
+$container->delegate(new \Cake\ORM\Locator\TableContainer());
+```
+
+::: info Added in version 5.3.0
+`TableContainer` was added.
+:::
+
 ### Extending Definitions
 
 Once a service is defined you can modify or update the service definition by
@@ -221,12 +236,30 @@ $container->add(ReportAggregate::class, function () use ($container) {
 });
 ```
 
+<a id="configure-dependency-injection"></a>
+
 ### Using Configuration Data
 
-Often you'll need configuration data in your services. While you could add
-all the configuration keys your service needs into the container, that can be
-tedious. To make configuration easier to work with CakePHP includes an
-injectable configuration reader:
+Often you'll need configuration data in your services. If you need a specific value,
+you can inject it as a constructor argument using the `Cake\Core\Attribute\Configure`
+attribute:
+
+``` php
+use Cake\Core\Attribute\Configure;
+
+class InjectedService
+{
+    public function __construct(
+        #[Configure('MyService.apiKey')] protected string $apiKey,
+    ) { }
+}
+```
+
+::: info Added in version 5.3.0
+:::
+
+If you want to inject a copy of all configuration data, CakePHP includes
+an injectable configuration reader:
 
 ``` php
 use Cake\Core\ServiceConfig;

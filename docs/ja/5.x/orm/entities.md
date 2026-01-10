@@ -117,7 +117,7 @@ $article->has('undefined'); // false.
 ```
 
 `has()` メソッドは、プロパティが定義されていてヌル以外の値を持つ場合、 `true` を返します。
-`isEmpty()` と `hasValue()` を使って、プロパティに '空でない' 値が含まれているかどうかを
+`hasValue()` を使って、プロパティに '空でない' 値が含まれているかどうかを
 調べることができます。 :
 
 ``` php
@@ -125,10 +125,7 @@ $article = new Article([
     'title' => 'First post',
     'user_id' => null
 ]);
-$article->isEmpty('title');  // false
 $article->hasValue('title'); // true
-
-$article->isEmpty('user_id');  // true
 $article->hasValue('user_id'); // false
 ```
 

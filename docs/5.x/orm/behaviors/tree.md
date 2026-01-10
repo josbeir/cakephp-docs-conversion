@@ -69,7 +69,7 @@ count of descendants it has:
 
 ``` php
 $node = $categories->get(1);
-echo $categories->childCount($node);
+echo $categories->getBehavior('Tree')->childCount($node);
 ```
 
 ### Getting direct descendents
@@ -200,13 +200,13 @@ having to change their parent:
 $node = $categories->get(5);
 
 // Move the node so it shows up one position up when listing children.
-$categories->moveUp($node);
+$categories->getBehavior('Tree')->moveUp($node);
 
 // Move the node to the top of the list inside the same level.
-$categories->moveUp($node, true);
+$categories->getBehavior('Tree')->moveUp($node, true);
 
 // Move the node to the bottom.
-$categories->moveDown($node, true);
+$categories->getBehavior('Tree')->moveDown($node, true);
 ```
 
 ## Configuration
@@ -263,14 +263,14 @@ having the column `country_name` set to 'Brazil'. You can change the scoping
 on the fly by using the 'config' function:
 
 ``` php
-$this->behaviors()->Tree->setConfig('scope', ['country_name' => 'France']);
+$this->getBehavior('Tree')->setConfig('scope', ['country_name' => 'France']);
 ```
 
 Optionally, you can have a finer grain control of the scope by passing a closure
 as the scope:
 
 ``` php
-$this->behaviors()->Tree->setConfig('scope', function ($query) {
+$this->getBehavior('Tree')->setConfig('scope', function ($query) {
     $country = $this->getConfigureContry(); // A made-up function
     return $query->where(['country_name' => $country]);
 });
@@ -347,7 +347,7 @@ immediately superior parent node in the tree:
 
 ``` php
 $aCategory = $categoriesTable->get(10);
-$categoriesTable->removeFromTree($aCategory);
+$categoriesTable->getBehavior('Tree')->removeFromTree($aCategory);
 $categoriesTable->delete($aCategory);
 ```
 

@@ -176,13 +176,13 @@ for example, to update the counter cache after importing data directly into the 
 
 ``` php
 // Update the counter cache for all configured associations
-$table->updateCounterCache();
+$table->getBehavior('CounterCache')->updateCounterCache();
 
 // Update the counter cache for a specific association, 200 records per batch
-$table->updateCounterCache('Articles', 200);
+$table->getBehavior('CounterCache')->updateCounterCache('Articles', 200);
 
 // Update only the first page of records
-$table->updateCounterCache('Articles', page: 1);
+$table->getBehavior('CounterCache')->updateCounterCache('Articles', page: 1);
 ```
 
 ::: info Added in version 5.2.0

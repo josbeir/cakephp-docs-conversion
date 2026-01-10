@@ -48,23 +48,23 @@ application as well.
 
 ## List of Methods
 
-|              |              |                 |     |
-|--------------|--------------|-----------------|-----|
-| `append`     | `appendItem` | `avg`           |     |
-| `buffered`   | `chunk`      | `chunkWithKeys` |     |
-| `combine`    | `compile`    | `contains`      |     |
-| `countBy`    | `each`       | `every`         |     |
-| `extract`    | `filter`     | `first`         |     |
-| `firstMatch` | `groupBy`    | `indexBy`       |     |
-| `insert`     | `isEmpty`    | `last`          |     |
-| `listNested` | `map`        | `match`         |     |
-| `max`        | `median`     | `min`           |     |
-| `nest`       | `prepend`    | `prependItem`   |     |
-| `reduce`     | `reject`     | `sample`        |     |
-| `shuffle`    | `skip`       | `some`          |     |
-| `sortBy`     | `stopWhen`   | `sumOf`         |     |
-| `take`       | `through`    | `transpose`     |     |
-| `unfold`     | `zip`        |                 |     |
+|                 |              |              |
+|-----------------|--------------|--------------|
+| `any`           | `append`     | `appendItem` |
+| `avg`           | `buffered`   | `chunk`      |
+| `chunkWithKeys` | `combine`    | `compile`    |
+| `contains`      | `countBy`    | `each`       |
+| `every`         | `extract`    | `filter`     |
+| `first`         | `firstMatch` | `groupBy`    |
+| `indexBy`       | `insert`     | `isEmpty`    |
+| `last`          | `listNested` | `map`        |
+| `match`         | `max`        | `median`     |
+| `min`           | `nest`       | `prepend`    |
+| `prependItem`   | `reduce`     | `reject`     |
+| `sample`        | `shuffle`    | `skip`       |
+| `some`          | `sortBy`     | `stopWhen`   |
+| `sumOf`         | `take`       | `through`    |
+| `transpose`     | `unfold`     | `zip`        |
 
 ## Iterating
 
@@ -394,17 +394,22 @@ $allYoungPeople = $collection->every(function ($person) {
 });
 ```
 
+`method` Cake\\Collection\\Collection::**any**($callback)
+
 `method` Cake\\Collection\\Collection::**some**($callback)
 
 You can see if the collection contains at least one element matching a filter
-function using the `some()` method:
+function using the `any()` method:
 
 ``` php
 $collection = new Collection($people);
-$hasYoungPeople = $collection->some(function ($person) {
+$hasYoungPeople = $collection->any(function ($person) {
     return $person->age < 21;
 });
 ```
+
+> [!NOTE]
+> The `some()` method is an alias of `any()`.
 
 `method` Cake\\Collection\\Collection::**match**($conditions)
 

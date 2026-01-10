@@ -726,9 +726,12 @@ as well as HTML attributes. This subsection will cover the options specific to
 
   On the other hand you can set this to `true` for any control type to force the
   generated input element inside the label. If you change this for radio buttons
-  then you need to also modify the default
-  [radioWrapper](#create-radio-button) template. Depending on the generated
-  control type it defaults to `true` or `false`.
+  then you might want to also modify the default [radioWrapper](#create-radio-button)
+  template to add a wrapping `div`. Depending on the generated control type it
+  defaults to `true` or `false`.
+
+  If you want to disable the nesting of checkbox and radio inputs globally you can
+  set `nestedCheckboxAndRadio` option of `FormHelper` to `false`.
 
 - `$options['templates']` - The templates you want to use for this input. Any
   specified templates will be merged on top of the already loaded templates.

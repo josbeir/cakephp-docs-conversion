@@ -771,6 +771,26 @@ Using this feature is handy when you have many different functions your users
 can access and you want to let your users edit different data based on their
 privileges.
 
+When using the `fields` option, validation will be applied to all fields in
+the request data. You can limit validation to only the allowed fields by passing
+`strictFields` to the `patchEntity()` or `newEntity()` call:
+
+``` php
+// Contains ['user_id' => 100, 'title' => 'Hacked!'];
+$data = $this->request->getData();
+
+// Only title will be validated and updated.
+$entity = $this->patchEntity($entity, $data, [
+    'fields' => ['title'],
+    'strictFields' => true,
+]);
+$this->save($entity);
+```
+
+::: info Added in version 5.3.0
+The `strictFields` option was added in 5.3.0.
+:::
+
 <a id="saving-entities"></a>
 
 ## Saving Entities
