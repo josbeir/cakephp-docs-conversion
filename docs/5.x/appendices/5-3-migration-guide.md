@@ -25,13 +25,13 @@ If you are not running on **PHP 8.2 or higher**, you will need to upgrade PHP be
 
 ### Core
 
-- `InstanceConfigTrait::deleteConfig()` was added. For classes using this  
-  trait, you can now use `$this->deleteConfig('key')` instead of `$this->setConfig('key', null)`
+- `InstanceConfigTrait::deleteConfig()` was added. For classes using this trait,
+  you can now use `$this->deleteConfig('key')` instead of `$this->setConfig('key', null)`
 
 ### Database
 
-- `Query::with()` now accepts an array of expressions to align with other query clauses. This also  
-  allows clearing the expressions with an empty array.
+- `Query::with()` now accepts an array of expressions to align with other query clauses.
+  This also allows clearing the expressions with an empty array.
 
 ### ORM
 
@@ -135,8 +135,8 @@ If you are not running on **PHP 8.2 or higher**, you will need to upgrade PHP be
 
 ### Error
 
-- `Debugger` now replaces `` `ROOT `` with <span class="title-ref"> the
-  </span><span class="title-ref">Debugger.editorBasePath</span>\` Configure value if defined. This improves
+- `Debugger` now replaces `ROOT` with the
+  `Debugger.editorBasePath` Configure value if defined. This improves
   debugging workflows within containerized environments.
 
 ### Http
