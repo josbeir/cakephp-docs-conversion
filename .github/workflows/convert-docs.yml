@@ -133,15 +133,29 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Clear existing docs directories
-          echo "Clearing existing docs..."
-          rm -rf docs/en docs/ja
+          # Ensure docs directories exist
           mkdir -p docs/en docs/ja
+
+          # Define files to preserve in target repository (add your custom files here)
+          # These files will NOT be deleted even if they don't exist in source
+          PRESERVE_FILES=(
+            "README.md"
+            "CUSTOM.md"
+            "index-new.md"
+            # Add more files to preserve as needed
+          )
+
+          # Build rsync exclude arguments
+          RSYNC_EXCLUDES="--exclude='.git*'"
+          for file in "${PRESERVE_FILES[@]}"; do
+            RSYNC_EXCLUDES="$RSYNC_EXCLUDES --exclude='$file'"
+          done
 
           # Copy English docs if they exist
           if [ -d "../${LOCAL_EN_DIR}" ]; then
             echo "Copying English docs from ${LOCAL_EN_DIR}..."
-            rsync -av --exclude='.git*' "../${LOCAL_EN_DIR}/" docs/en/
+            # Use --delete to remove files not in source, but preserve excluded files
+            eval rsync -av --delete $RSYNC_EXCLUDES "../${LOCAL_EN_DIR}/" docs/en/
           else
             echo "No English docs found for version ${VERSION}.x"
           fi
@@ -149,7 +163,8 @@ jobs:
           # Copy Japanese docs if they exist
           if [ -d "../${LOCAL_JA_DIR}" ]; then
             echo "Copying Japanese docs from ${LOCAL_JA_DIR}..."
-            rsync -av --exclude='.git*' "../${LOCAL_JA_DIR}/" docs/ja/
+            # Use --delete to remove files not in source, but preserve excluded files
+            eval rsync -av --delete $RSYNC_EXCLUDES "../${LOCAL_JA_DIR}/" docs/ja/
           else
             echo "No Japanese docs found for version ${VERSION}.x"
           fi
