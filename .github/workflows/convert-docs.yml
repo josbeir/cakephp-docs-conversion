@@ -8,7 +8,7 @@ on:
       pandoc_version:
         description: 'Pandoc version'
         required: false
-        default: '3.3' # Seems like < 3.3 is not working for us, especially for tables.
+        default: '3.8.3' # Seems like < 3.3 is not working for us, especially for tables.
         type: string
       force_sync:
         description: 'Force sync to docs-md repo'

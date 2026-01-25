@@ -5,10 +5,19 @@
 
 set -e
 
+# Allow custom pandoc binary path via environment variable
+PANDOC_BIN="${PANDOC_BIN:-pandoc}"
+
+# Resolve to absolute path if it's a relative path
+if [[ "$PANDOC_BIN" != /* ]] && [[ "$PANDOC_BIN" != "pandoc" ]]; then
+    PANDOC_BIN="$(cd "$(dirname "$PANDOC_BIN")" && pwd)/$(basename "$PANDOC_BIN")"
+fi
+
 # Check if pandoc is installed
-if ! command -v pandoc &> /dev/null; then
+if ! command -v "$PANDOC_BIN" &> /dev/null; then
     echo "Error: pandoc is required but not installed."
     echo "Please install pandoc 3.x or later."
+    echo "Or set PANDOC_BIN environment variable to point to your pandoc binary."
     exit 1
 fi
 
@@ -215,7 +224,7 @@ sys.stdout.write(fixed_content)
     DESTINATION_FOLDER="$DESTINATION_FOLDER" \
     SOURCE_FOLDER="$SOURCE_FOLDER" \
     CURRENT_SOURCE_FILE="$CURRENT_SOURCE_FILE" \
-    pandoc \
+    "$PANDOC_BIN" \
         --from=rst \
         --to=gfm \
         --wrap=preserve \
@@ -224,6 +233,7 @@ sys.stdout.write(fixed_content)
         --lua-filter="$FILTERS_DIR/ref.lua" \
         --lua-filter="$FILTERS_DIR/php_domain.lua" \
         --lua-filter="$FILTERS_DIR/fqdn_cleanup.lua" \
+        --lua-filter="$FILTERS_DIR/url_anchor_cleanup.lua" \
         --lua-filter="$FILTERS_DIR/containers.lua" \
         --lua-filter="$FILTERS_DIR/versionadded.lua" \
         --lua-filter="$FILTERS_DIR/language.lua" \
@@ -239,6 +249,103 @@ sys.stdout.write(fixed_content)
     sed -i -e "s/MINPHPVERSION_MARKER/|minphpversion|/g" \
            -e "s/PHPVERSION_MARKER/|phpversion|/g" \
            "$md_file_abs"
+
+    # Post-process tables to fix multi-line cells
+    # GFM tables don't support multi-line cells, so we need to collapse continuation lines
+    python3 <<'EOF' - "$md_file_abs"
+import sys
+import re
+
+def fix_table_continuations(content):
+    lines = content.split('\n')
+    result = []
+    i = 0
+    in_code_block = False
+    
+    while i < len(lines):
+        line = lines[i]
+        
+        # Track code block boundaries
+        if line.strip().startswith('```'):
+            in_code_block = not in_code_block
+            result.append(line)
+            i += 1
+            continue
+        
+        # Skip processing if we're inside a code block
+        if in_code_block:
+            result.append(line)
+            i += 1
+            continue
+        
+        # Check if this is a table row (contains | and has content)
+        if '|' in line and line.strip():
+            # Collect all continuation lines
+            full_line = line
+            
+            while i + 1 < len(lines):
+                next_line = lines[i + 1]
+                
+                # Don't process continuation if next line is a code fence
+                if next_line.strip().startswith('```'):
+                    break
+                
+                # Check if next line is a continuation
+                # Continuation: doesn't start with |, OR starts with just spaces/period and ends with |
+                is_continuation = False
+                
+                if next_line.strip():
+                    # Line is not empty
+                    if not next_line.lstrip().startswith('|'):
+                        # Doesn't start with | after stripping leading spaces
+                        # But make sure it's not a quote block or other markdown
+                        if not next_line.lstrip().startswith('>') and not next_line.lstrip().startswith('#'):
+                            is_continuation = True
+                    elif next_line.strip().startswith('.') and next_line.strip().endswith('|'):
+                        # Special case: ". |" continuation pattern
+                        is_continuation = True
+                
+                if is_continuation:
+                    # This is a continuation line
+                    continuation_text = next_line.strip()
+                    
+                    # Remove trailing | if it exists in continuation
+                    if continuation_text.endswith('|'):
+                        continuation_text = continuation_text[:-1].strip()
+                    
+                    # Remove leading period if it exists
+                    if continuation_text.startswith('.'):
+                        continuation_text = continuation_text[1:].strip()
+                    
+                    # Merge with the previous line
+                    # Remove trailing spaces and | from current line, add continuation, add | back
+                    if full_line.rstrip().endswith('|'):
+                        full_line = full_line.rstrip()[:-1].rstrip() + ' ' + continuation_text + ' |'
+                    else:
+                        full_line = full_line.rstrip() + ' ' + continuation_text
+                    
+                    i += 1
+                else:
+                    break
+            
+            result.append(full_line)
+        else:
+            result.append(line)
+        
+        i += 1
+    
+    return '\n'.join(result)
+
+if __name__ == '__main__':
+    filename = sys.argv[1]
+    with open(filename, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    fixed_content = fix_table_continuations(content)
+    
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.write(fixed_content)
+EOF
 
     # Clean up temp file in RST directory
     rm -f "$temp_in_rst_dir"

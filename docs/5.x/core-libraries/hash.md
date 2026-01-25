@@ -22,15 +22,12 @@ elements. You apply matchers to expression elements.
 
 ### Expression Types
 
-| Expression | Definition                              |
-|------------|-----------------------------------------|
-| `{n}`      | Represents a numeric key. Will match    
-              any string or numeric key.               |
-| `{s}`      | Represents a string. Will match any     
-              string value including numeric string    
-              values.                                  |
-| `{*}`      | Matches any value.                      |
-| `Foo`      | Matches keys with the exact same value. |
+| Expression | Definition |
+|----|----|
+| `{n}` | Represents a numeric key. Will match any string or numeric key. |
+| `{s}` | Represents a string. Will match any string value including numeric string values. |
+| `{*}` | Matches any value. |
+| `Foo` | Matches keys with the exact same value. |
 
 All expression elements are supported by all methods. In addition to expression
 elements, you can use attribute matching with certain methods. They are `extract()`,
@@ -39,19 +36,16 @@ elements, you can use attribute matching with certain methods. They are `extract
 
 ### Attribute Matching Types
 
-| Matcher        | Definition                               |
-|----------------|------------------------------------------|
-| `[id]`         | Match elements with a given array key.   |
-| `[id=2]`       | Match elements with id equal to 2.       |
-| `[id!=2]`      | Match elements with id not equal to 2.   |
-| `[id>2]`       | Match elements with id greater than 2.   |
-| `[id>=2]`      | Match elements with id greater than      
-                  or equal to 2.                            |
-| `[id<2]`       | Match elements with id less than 2       |
-| `[id<=2]`      | Match elements with id less than         
-                  or equal to 2.                            |
-| `[text=/.../]` | Match elements that have values matching 
-                  the regular expression inside `...`.      |
+| Matcher | Definition |
+|----|----|
+| `[id]` | Match elements with a given array key. |
+| `[id=2]` | Match elements with id equal to 2. |
+| `[id!=2]` | Match elements with id not equal to 2. |
+| `[id>2]` | Match elements with id greater than 2. |
+| `[id>=2]` | Match elements with id greater than or equal to 2. |
+| `[id<2]` | Match elements with id less than 2 |
+| `[id<=2]` | Match elements with id less than or equal to 2. |
+| `[text=/.../]` | Match elements that have values matching the regular expression inside `...`. |
 
 > `get()` is a simplified version of `extract()`, it only supports direct
 > path expressions. Paths with `{n}`, `{s}`, `{*}` or matchers are not

@@ -110,10 +110,7 @@
 
 ### TestSuite
 
-- CakePHP およびアプリのテンプレートは PHPUnit `^10.5.5 || ^11.1.3"` を使用するように更新されました。
-- `ConnectionHelper` のメソッドがすべて static になりました。このクラスは状態を持たず、メソッドが static に更新されました。
-- `LogTestTrait` が追加されました。この新しいトレイトにより、テスト内でログを簡単にキャプチャし、ログメッセージの有無をアサートできるようになりました。
-- `IntegrationTestTrait::replaceRequest()` が追加されました。
+- CakePHP およびアプリのテンプレートは PHPUnit `^10.5.5 || ^11.1.3"` を使用するように更新されました。 - `ConnectionHelper` のメソッドがすべて static になりました。このクラスは状態を持たず、メソッドが static に更新されました。 - `LogTestTrait` が追加されました。この新しいトレイトにより、テスト内でログを簡単にキャプチャし、ログメッセージの有無をアサートできるようになりました。 - `IntegrationTestTrait::replaceRequest()` が追加されました。
 
 ### Utility
 

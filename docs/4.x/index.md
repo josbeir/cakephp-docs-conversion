@@ -1,8 +1,6 @@
 # Welcome
 
-CakePHP 4 is a web development framework running on PHP |phpversion| (min. PHP |minphpversion|).
-Read [CakePHP at a Glance](intro) to get an introduction to the
-fundamentals of CakePHP.
+CakePHP 4 is a web development framework running on PHP |phpversion| (min. PHP |minphpversion|). Read [CakePHP at a Glance](intro) to get an introduction to the fundamentals of CakePHP.
 
 The CakePHP book is an openly developed and community editable documentation
 project. Notice the pencil icon button fixated against the right wall; it will

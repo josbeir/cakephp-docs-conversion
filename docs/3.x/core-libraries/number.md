@@ -61,23 +61,18 @@ scheme:
 The third parameter is an array of options for further defining the
 output. The following options are available:
 
-| Option           | Description                                       |
-|------------------|---------------------------------------------------|
-| before           | Text to display before the rendered number.       |
-| after            | Text to display after the rendered number.        |
-| zero             | The text to use for zero values; can be a string  
-                    or a number. ie. 0, 'Free!'.                       |
-| places           | Number of decimal places to use, ie. 2            |
-| precision        | Maximal number of decimal places to use, ie. 2    |
-| locale           | The locale name to use for formatting number,     
-                    ie. "fr_FR".                                       |
-| fractionSymbol   | String to use for fraction numbers, ie. ' cents'. |
-| fractionPosition | Either 'before' or 'after' to place the fraction  
-                    symbol.                                            |
-| pattern          | An ICU number pattern to use for formatting the   
-                    number ie. \#,###.00                               |
-| useIntlCode      | Set to `true` to replace the currency symbol      
-                    with the international currency code.              |
+| Option | Description |
+|----|----|
+| before | Text to display before the rendered number. |
+| after | Text to display after the rendered number. |
+| zero | The text to use for zero values; can be a string or a number. ie. 0, 'Free!'. |
+| places | Number of decimal places to use, ie. 2 |
+| precision | Maximal number of decimal places to use, ie. 2 |
+| locale | The locale name to use for formatting number, ie. "fr_FR". |
+| fractionSymbol | String to use for fraction numbers, ie. ' cents'. |
+| fractionPosition | Either 'before' or 'after' to place the fraction symbol. |
+| pattern | An ICU number pattern to use for formatting the number ie. \#,###.00 |
+| useIntlCode | Set to `true` to replace the currency symbol with the international currency code. |
 
 If `$currency` value is `null`, the default currency will be retrieved from
 `Cake\I18n\Number::defaultCurrency()`. To format currencies in an
@@ -124,10 +119,9 @@ echo Number::precision(456.91873645, 2);
 
 `method` Cake\\I18n\\Number::**toPercentage**(mixed $value, int $precision = 2, array $options = [])
 
-| Option   | Description                                        |
-|----------|----------------------------------------------------|
-| multiply | Boolean to indicate whether the value has to be    
-            multiplied by 100. Useful for decimal percentages.  |
+| Option | Description |
+|----|----|
+| multiply | Boolean to indicate whether the value has to be multiplied by 100. Useful for decimal percentages. |
 
 Like `Cake\I18n\Number::precision()`, this method formats a number
 according to the supplied precision (where numbers are rounded to meet the
@@ -200,16 +194,14 @@ resides.
   or places for the function.
 - If you pass an associated array, you can use the following keys:
 
-| Option    | Description                                     |
-|-----------|-------------------------------------------------|
-| places    | Number of decimal places to use, ie. 2          |
-| precision | Maximum number of decimal places to use, ie. 2  |
-| pattern   | An ICU number pattern to use for formatting the 
-             number ie. \#,###.00                             |
-| locale    | The locale name to use for formatting number,   
-             ie. "fr_FR".                                     |
-| before    | Text to display before the rendered number.     |
-| after     | Text to display after the rendered number.      |
+| Option | Description |
+|----|----|
+| places | Number of decimal places to use, ie. 2 |
+| precision | Maximum number of decimal places to use, ie. 2 |
+| pattern | An ICU number pattern to use for formatting the number ie. \#,###.00 |
+| locale | The locale name to use for formatting number, ie. "fr_FR". |
+| before | Text to display before the rendered number. |
+| after | Text to display after the rendered number. |
 
 Example:
 
@@ -284,14 +276,13 @@ zero decimal places.
 
 The `$options` parameter takes the same keys as `Number::format()` itself:
 
-| Option    | Description                                    |
-|-----------|------------------------------------------------|
-| places    | Number of decimal places to use, ie. 2         |
-| precision | Maximum number of decimal places to use, ie. 2 |
-| locale    | The locale name to use for formatting number,  
-             ie. "fr_FR".                                    |
-| before    | Text to display before the rendered number.    |
-| after     | Text to display after the rendered number.     |
+| Option    | Description                                                |
+|-----------|------------------------------------------------------------|
+| places    | Number of decimal places to use, ie. 2                     |
+| precision | Maximum number of decimal places to use, ie. 2             |
+| locale    | The locale name to use for formatting number, ie. "fr_FR". |
+| before    | Text to display before the rendered number.                |
+| after     | Text to display after the rendered number.                 |
 
 Example:
 

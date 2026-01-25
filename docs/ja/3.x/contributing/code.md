@@ -10,8 +10,7 @@ CakePHP の修正に取りかかる前に自分の環境を整えることをお
 以下のソフトウェアが必要になります。
 
 - Git
-- PHP |minphpversion| 以上
-- PHPUnit 5.7.0 以上
+- PHP |minphpversion| 以上 - PHPUnit 5.7.0 以上
 
 ユーザー情報（自分の名前/ハンドル名とメールアドレス）をセットしてください。 :
 

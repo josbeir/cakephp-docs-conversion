@@ -503,8 +503,7 @@ belongsToMany アソシエーションでは三つのデータベーステーブ
 | 関係 | 結合テーブルのフィールド |
 |----|----|
 | Article belongsToMany Tag | articles_tags.id, articles_tags.tag_id, articles_tags.article_id |
-| Patient belongsToMany Doctor | doctors_patients.id, doctors_patients.doctor_id,
-doctors_patients.patient_id. |
+| Patient belongsToMany Doctor | doctors_patients.id, doctors_patients.doctor_id, doctors_patients.patient_id. |
 
 次のようにして 両方のモデルの中で belongsTo アソシエーションを定義することができます。 :
 

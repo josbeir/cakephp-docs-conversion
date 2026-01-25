@@ -532,8 +532,7 @@ names.
 | Relationship | Join Table Fields |
 |----|----|
 | Articles belongsToMany Tags | articles_tags.id, articles_tags.tag_id, articles_tags.article_id |
-| Patients belongsToMany Doctors | doctors_patients.id, doctors_patients.doctor_id,
-doctors_patients.patient_id. |
+| Patients belongsToMany Doctors | doctors_patients.id, doctors_patients.doctor_id, doctors_patients.patient_id. |
 
 We can define the belongsToMany association in both our models as follows:
 

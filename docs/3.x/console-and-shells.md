@@ -80,8 +80,7 @@ Running the Console with no arguments produces this help message:
     - migrations
     - migrations.migrations
 
-    To run a command, type `cake shell_name [args|options]`
-    To get help on a specific command, type `cake shell_name --help`
+    To run a command, type `cake shell_name [args|options]` To get help on a specific command, type `cake shell_name --help`
 
 The first information printed relates to paths. This is helpful if you're
 running the console from different parts of the filesystem.

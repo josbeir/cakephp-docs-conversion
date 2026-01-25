@@ -219,9 +219,7 @@ public $validate = array(
 ### allowEmpty
 
 `false` にすると、その項目の値は『nonempty』でなければなりません。
-ここで "nonempty" は `!empty($value) || is_numeric($value)`
-と定義されます。数値のチェックがあるため `$value` がゼロでも
-CakePHP は正しく動作します。
+ここで "nonempty" は `!empty($value) || is_numeric($value)` と定義されます。数値のチェックがあるため `$value` がゼロでも CakePHP は正しく動作します。
 
 `required` と `allowEmpty` の違いは少し紛らわしいです。
 `'required' => true` の場合、 `$this->data` の中にその

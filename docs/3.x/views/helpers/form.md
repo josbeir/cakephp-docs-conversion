@@ -1690,16 +1690,7 @@ These options are common for the date and time related controls:
 - `'empty'` - If `true` an extra, empty, `option` HTML element is
   added inside `select` at the top of the list. If a string, that string is
   displayed as the empty element. Defaults to `true`.
-- `'default'` \| `value` - Use either of the two to set the default value to
-  be shown by the field. A value in `$this->request->getData()` matching the field
-  name will override this value. If no default is provided `time()` will
-  be used.
-- `'year', 'month', 'day', 'hour', 'minute', 'second', 'meridian'` - These
-  options allow you to control which control elements are generated or not.
-  By setting any of these options to `false` you can disable the generation
-  of that specific that select picker (if by default it would be rendered in
-  the used method). In addition each option allows you to pass HTML attributes
-  to that specific `select` element.
+- `'default'` \| `value` - Use either of the two to set the default value to be shown by the field. A value in `$this->request->getData()` matching the field name will override this value. If no default is provided `time()` will be used. - `'year', 'month', 'day', 'hour', 'minute', 'second', 'meridian'` - These options allow you to control which control elements are generated or not. By setting any of these options to `false` you can disable the generation of that specific that select picker (if by default it would be rendered in the used method). In addition each option allows you to pass HTML attributes to that specific `select` element.
 
 <a id="date-options"></a>
 

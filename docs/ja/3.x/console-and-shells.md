@@ -81,8 +81,7 @@ $ bin/cake
     - migrations
     - migrations.migrations
 
-    To run a command, type `cake shell_name [args|options]`
-    To get help on a specific command, type `cake shell_name --help`
+    To run a command, type `cake shell_name [args|options]` To get help on a specific command, type `cake shell_name --help`
 
 先頭部分にはパスに関連する情報が表示されます。
 これはファイルシステム上の異なる場所からコンソールを動かしている場合に便利です。

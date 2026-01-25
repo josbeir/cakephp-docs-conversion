@@ -50,30 +50,21 @@ automatically echo the output into the view.
 > The third parameter is an array of options for further defining the
 > output. The following options are available:
 >
-> | Option           | Description                                         |
-> |------------------|-----------------------------------------------------|
-> | before           | The currency symbol to place before whole numbers   
->                     ie. '\$'                                             |
-> | after            | The currency symbol to place after decimal numbers  
->                     ie. 'c'. Set to boolean false to use no decimal      
->                     symbol. eg. 0.35 =\> \$0.35.                         |
-> | zero             | The text to use for zero values, can be a string or 
->                     a number. ie. 0, 'Free!'                             |
-> | places           | Number of decimal places to use. ie. 2              |
-> | thousands        | Thousands separator ie. ','                         |
-> | decimals         | Decimal separator symbol ie. '.'                    |
-> | negative         | Symbol for negative numbers. If equal to '()', the  
->                     number will be wrapped with ( and )                  |
-> | escape           | Should the output be htmlentity escaped? Defaults   
->                     to true                                              |
-> | wholeSymbol      | String to use for whole numbers ie. ' dollars'      |
-> | wholePosition    | Either 'before' or 'after' to place the whole       
->                     symbol                                               |
-> | fractionSymbol   | String to use for fraction numbers ie. ' cents'     |
-> | fractionPosition | Either 'before' or 'after' to place the fraction    
->                     symbol                                               |
-> | fractionExponent | Fraction exponent of this specific currency.        
->                     Defaults to 2.                                       |
+> | Option | Description |
+> |----|----|
+> | before | The currency symbol to place before whole numbers ie. '\$' |
+> | after | The currency symbol to place after decimal numbers ie. 'c'. Set to boolean false to use no decimal symbol. eg. 0.35 =\> \$0.35. |
+> | zero | The text to use for zero values, can be a string or a number. ie. 0, 'Free!' |
+> | places | Number of decimal places to use. ie. 2 |
+> | thousands | Thousands separator ie. ',' |
+> | decimals | Decimal separator symbol ie. '.' |
+> | negative | Symbol for negative numbers. If equal to '()', the number will be wrapped with ( and ) |
+> | escape | Should the output be htmlentity escaped? Defaults to true |
+> | wholeSymbol | String to use for whole numbers ie. ' dollars' |
+> | wholePosition | Either 'before' or 'after' to place the whole symbol |
+> | fractionSymbol | String to use for fraction numbers ie. ' cents' |
+> | fractionPosition | Either 'before' or 'after' to place the fraction symbol |
+> | fractionExponent | Fraction exponent of this specific currency. Defaults to 2. |
 >
 > If a non-recognized \$currency value is supplied, it is prepended to
 > a USD formatted number. For example:
@@ -183,10 +174,9 @@ automatically echo the output into the view.
 > param array \$options  
 > Options, see below.
 >
-> | Option   | Description                                        |
-> |----------|----------------------------------------------------|
-> | multiply | Boolean to indicate whether the value has to be    
->             multiplied by 100. Useful for decimal percentages.  |
+> | Option | Description |
+> |----|----|
+> | multiply | Boolean to indicate whether the value has to be multiplied by 100. Useful for decimal percentages. |
 >
 > Like precision(), this method formats a number according to the
 > supplied precision (where numbers are rounded to meet the given

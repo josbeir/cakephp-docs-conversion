@@ -211,7 +211,7 @@ Shells and Tasks have been moved from `Console/Command` and
 ### ApiShell Removed
 
 The ApiShell was removed as it didn't provide any benefit over the file source
-itself and the online documentation/[API](https://api.cakephp.org/).
+itself and the online documentation/\`API \<https://api.cakephp.org/\>\`\_.
 
 ### SchemaShell Removed
 
@@ -473,16 +473,7 @@ for using the session object.
   `_components`. If you need to load components at runtime you should use
   `$this->loadComponent()` on your controller.
 - The signature of `Cake\Controller\Controller::redirect()` has been
-  changed to `Controller::redirect(string|array $url, int $status = null)`.
-  The 3rd argument `$exit` has been dropped. The method can no longer send
-  response and exit script, instead it returns a `Response` instance with
-  appropriate headers set.
-- The `base`, `webroot`, `here`, `data`, `action`, and `params`
-  magic properties have been removed. You should access all of these properties
-  on `$this->request` instead.
-- Underscore prefixed controller methods like `_someMethod()` are no longer
-  treated as private methods. Use proper visibility keywords instead. Only
-  public methods can be used as controller actions.
+  changed to `Controller::redirect(string|array $url, int $status = null)`. The 3rd argument `$exit` has been dropped. The method can no longer send response and exit script, instead it returns a `Response` instance with appropriate headers set. - The `base`, `webroot`, `here`, `data`, `action`, and `params` magic properties have been removed. You should access all of these properties on `$this->request` instead. - Underscore prefixed controller methods like `_someMethod()` are no longer treated as private methods. Use proper visibility keywords instead. Only public methods can be used as controller actions.
 
 ### Scaffold Removed
 

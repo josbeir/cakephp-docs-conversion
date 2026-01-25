@@ -44,7 +44,7 @@ GitHubにはCakePHP自身、また多くのCakePHPプラグインが含まれて
 CakePHPのリリースは [GitHub tags](https://github.com/cakephp/cakephp/tags) で入手できます。
 
 他の手段を用いて、バグ修正や日ごとに行われる細かな機能追加が含まれた、できたてホヤホヤのコードを手に入れることができます。
-これらは [GitHub]() からレポジトリを複製することでアクセスすることができます :
+これらは [GitHub](https://github.com/cakephp/cakephp) からレポジトリを複製することでアクセスすることができます :
 
     git clone -b 2.x git://github.com/cakephp/cakephp.git
 

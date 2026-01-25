@@ -211,7 +211,7 @@ CakePHP 3.0 は、ゼロから再構築された新しい ORM を提供してい
 
 ### ApiShell を削除
 
-ファイルソース自身とオンラインドキュメント/[API](https://api.cakephp.org/)
+ファイルソース自身とオンラインドキュメント/\`API \<https://api.cakephp.org/\>\`\_
 以上の何の利益も提供しなかったので ApiShell は削除されました。
 
 ### SchemaShell を削除
@@ -230,7 +230,8 @@ CakePHP 3.0 は、ゼロから再構築された新しい ORM を提供してい
 
 ### BakeShell / TemplateTask
 
-- Bake は、コアソースの一部ではなくなり、[CakePHP Bake プラグイン](https://github.com/cakephp/bake) に置き換えられます。
+- Bake は、コアソースの一部ではなくなり、\`CakePHP Bake プラグイン
+  \<https://github.com/cakephp/bake\>\`\_ に置き換えられます。
 - Bake テンプレートは **src/Template/Bake** の下に移動されました。
 - Bake テンプレートの構文は PHP コードがプレーンテキストとして扱うことを可能し、
   テンプレートのロジックを示すために、erb 書式のタグ (`<% %>`) を使用しています。
@@ -475,16 +476,7 @@ URL を解析する必要があります。 `Cake\Routing\Router::parseNamedPara
   置き換えられました。実行時にコンポーネントをロードする必要がある場合は、コントローラー上の
   `$this->loadComponent()` を使用する必要があります。
 - `Cake\Controller\Controller::redirect()` のシグネチャは
-  `Controller::redirect(string|array $url, int $status = null)` に変更されました。
-  第三引数 `$exit` は削除されました。このメソッドは、もはやレスポンスを送信し、
-  スクリプトを終了することはできません。その代わりに、設定された適切なヘッダーを持つ
-  `Response` インスタンスを返します。
-- `base`, `webroot`, `here`, `data`, `action`, および `params`
-  マジックプロパティーは削除されました。代わりに `$this->request` で、これらのすべての
-  プロパティーにアクセスする必要があります。
-- `_someMethod()` のようなアンダースコアーがプレフィックスのメソッドは、もはや
-  private メソッドとして扱われなくなりました。代わりに、適切な可視性のキーワードを使用してください。
-  public メソッドのみ、コントローラーのアクションとして使用することができます。
+  `Controller::redirect(string|array $url, int $status = null)` に変更されました。 第三引数 `$exit` は削除されました。このメソッドは、もはやレスポンスを送信し、 スクリプトを終了することはできません。その代わりに、設定された適切なヘッダーを持つ `Response` インスタンスを返します。 - `base`, `webroot`, `here`, `data`, `action`, および `params` マジックプロパティーは削除されました。代わりに `$this->request` で、これらのすべての プロパティーにアクセスする必要があります。 - `_someMethod()` のようなアンダースコアーがプレフィックスのメソッドは、もはや private メソッドとして扱われなくなりました。代わりに、適切な可視性のキーワードを使用してください。 public メソッドのみ、コントローラーのアクションとして使用することができます。
 
 ### Scaffold の削除
 

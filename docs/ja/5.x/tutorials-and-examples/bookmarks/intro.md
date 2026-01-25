@@ -17,11 +17,7 @@
 php -v
 ```
 
-最低でも PHP |minphpversion| (CLI) 以上をインストールしてください。
-あなたのウェブサーバーの PHP バージョンもまた、|minphpversion| 以上でなければなりません。そして、
-コマンドラインインターフェイス (CLI) の PHP バージョンと同じバージョンがベストです。
-完全なアプリケーションを確認したい場合、 [cakephp/bookmarker](https://github.com/cakephp/bookmarker-tutorial) をチェックアウトしてください。
-さあ、はじめましょう!
+最低でも PHP |minphpversion| (CLI) 以上をインストールしてください。 あなたのウェブサーバーの PHP バージョンもまた、|minphpversion| 以上でなければなりません。そして、 コマンドラインインターフェイス (CLI) の PHP バージョンと同じバージョンがベストです。 完全なアプリケーションを確認したい場合、 [cakephp/bookmarker](https://github.com/cakephp/bookmarker-tutorial) をチェックアウトしてください。 さあ、はじめましょう!
 
 ## CakePHP の取得
 

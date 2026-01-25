@@ -37,55 +37,33 @@ allows you to define how the CookieComponent works.
 <tr>
 <td>string $key</td>
 <td>null</td>
-<td><p>This string is used to encrypt
-the value written to the cookie.
-The string should be random and difficult to guess.</p>
-<p>When using rijndael or aes encryption, this value
-must be longer than 32 bytes.</p></td>
+<td><p>This string is used to encrypt the value written to the cookie. The string should be random and difficult to guess.</p>
+<p>When using rijndael or aes encryption, this value must be longer than 32 bytes.</p></td>
 </tr>
 <tr>
 <td>string $domain</td>
 <td>''</td>
-<td>The domain name allowed to access the cookie. For
-example, use '.yourdomain.com' to allow access from
-all your subdomains.</td>
+<td>The domain name allowed to access the cookie. For example, use '.yourdomain.com' to allow access from all your subdomains.</td>
 </tr>
 <tr>
-<td>int or string
-$time</td>
+<td>int or string $time</td>
 <td>'5 Days'</td>
-<td>The time when your cookie will expire. Integers are
-interpreted as seconds. A value of 0 is equivalent
-to a 'session cookie': i.e., the cookie expires when
-the browser is closed. If a string is set, this will
-be interpreted with PHP function strtotime(). You can
-set this directly within the write() method.</td>
+<td>The time when your cookie will expire. Integers are interpreted as seconds. A value of 0 is equivalent to a 'session cookie': i.e., the cookie expires when the browser is closed. If a string is set, this will be interpreted with PHP function strtotime(). You can set this directly within the write() method.</td>
 </tr>
 <tr>
 <td>string $path</td>
 <td>'/'</td>
-<td>The server path on which the cookie will be applied.
-If $path is set to '/foo/', the cookie will
-only be available within the /foo/ directory and all
-sub-directories of your domain, such as /foo/bar. The
-default value is the entire domain. You can set this
-directly within the write() method.</td>
+<td>The server path on which the cookie will be applied. If $path is set to '/foo/', the cookie will only be available within the /foo/ directory and all sub-directories of your domain, such as /foo/bar. The default value is the entire domain. You can set this directly within the write() method.</td>
 </tr>
 <tr>
 <td>boolean $secure</td>
 <td>false</td>
-<td>Indicates that the cookie should only be transmitted
-over a secure HTTPS connection. When set to true, the
-cookie will only be set if a secure connection
-exists. You can set this directly within the write()
-method.</td>
+<td>Indicates that the cookie should only be transmitted over a secure HTTPS connection. When set to true, the cookie will only be set if a secure connection exists. You can set this directly within the write() method.</td>
 </tr>
 <tr>
-<td>boolean
-$httpOnly</td>
+<td>boolean $httpOnly</td>
 <td>false</td>
-<td>Set to true to make HTTP only cookies. Cookies that
-are HTTP only are not accessible in Javascript.</td>
+<td>Set to true to make HTTP only cookies. Cookies that are HTTP only are not accessible in Javascript.</td>
 </tr>
 </tbody>
 </table>

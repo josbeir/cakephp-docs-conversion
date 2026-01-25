@@ -57,25 +57,89 @@ CakePHP が提供するクラスを構成する、アプリケーションから
 下記のテーブルはいくつかのユースケースと CakePHP に予定する互換性についての
 概要となります。
 
-| すること                               | 互換性   |
-|----------------------------------------|----------|
-| クラスに対するタイプヒント             | 有り     |
-| 新しいインスタンスの作成               | 有り     |
-| クラスの継承                           | 有り     |
-| public プロパティーへのアクセス        | 有り     |
-| public メソッドの呼び出し              | 有り     |
-| **クラスを継承して...**                |          |
-| public プロパティーをオーバーライド    | 有り     |
-| protected プロパティーにアクセス       | 無し[^1] |
-| protected プロパティーをオーバーライド | 無し[^2] |
-| protected メソッドをオーバーライド     | 無し[^3] |
-| protected メソッドの呼び出し           | 無し[^4] |
-| public プロパティーの追加              | 無し     |
-| public メソッドの追加                  | 無し     |
-| オーバーライドされたメソッド           
- への引数の追加                          | 無し[^5] |
-| 既存メソッドの引数へのデフォルト値     
- の追加                                  | 有り     |
+<table style="width:85%;">
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr>
+<th>すること</th>
+<th>互換性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>クラスに対するタイプヒント</td>
+<td>有り</td>
+</tr>
+<tr>
+<td>新しいインスタンスの作成</td>
+<td>有り</td>
+</tr>
+<tr>
+<td>クラスの継承</td>
+<td>有り</td>
+</tr>
+<tr>
+<td>public プロパティーへのアクセス</td>
+<td>有り</td>
+</tr>
+<tr>
+<td>public メソッドの呼び出し</td>
+<td>有り</td>
+</tr>
+<tr>
+<td colspan="2"><strong>クラスを継承して...</strong></td>
+</tr>
+<tr>
+<td>public プロパティーをオーバーライド</td>
+<td>有り</td>
+</tr>
+<tr>
+<td>protected プロパティーにアクセス</td>
+<td>無し<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
+</tr>
+<tr>
+<td>protected プロパティーをオーバーライド</td>
+<td>無し<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></td>
+</tr>
+<tr>
+<td>protected メソッドをオーバーライド</td>
+<td>無し<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></td>
+</tr>
+<tr>
+<td>protected メソッドの呼び出し</td>
+<td>無し<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></td>
+</tr>
+<tr>
+<td>public プロパティーの追加</td>
+<td>無し</td>
+</tr>
+<tr>
+<td>public メソッドの追加</td>
+<td>無し</td>
+</tr>
+<tr>
+<td>オーバーライドされたメソッド への引数の追加</td>
+<td>無し<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></td>
+</tr>
+<tr>
+<td>既存メソッドの引数へのデフォルト値 の追加</td>
+<td>有り</td>
+</tr>
+</tbody>
+</table>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>マイナーリリースでコードが破壊される <em>恐れが</em> あります。 詳細は移行ガイドをチェックしてください。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>マイナーリリースでコードが破壊される <em>恐れが</em> あります。 詳細は移行ガイドをチェックしてください。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>マイナーリリースでコードが破壊される <em>恐れが</em> あります。 詳細は移行ガイドをチェックしてください。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>マイナーリリースでコードが破壊される <em>恐れが</em> あります。 詳細は移行ガイドをチェックしてください。<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>マイナーリリースでコードが破壊される <em>恐れが</em> あります。 詳細は移行ガイドをチェックしてください。<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 ## CakePHP での作業
 
@@ -84,34 +148,121 @@ CakePHP をより良くする手助けをしようという場合、機能の追
 
 マイナーリリースでは次のことができます。
 
-| マイナーリリースでできること   |        |
-|--------------------------------|--------|
-| **クラス**                     |        |
-| クラスの削除                   | 不可   |
-| インターフェイスの削除         | 不可   |
-| トレイトの削除                 | 不可   |
-| final にする                   | 不可   |
-| abstract にする                | 不可   |
-| 名前の変更                     | 可[^6] |
-| **プロパティー**               |        |
-| public プロパティーの追加      | 可     |
-| public プロパティーの削除      | 不可   |
-| protected プロパティーの追加   | 可     |
-| protected プロパティーの削除   | 可[^7] |
-| **メソッド**                   |        |
-| public メソッドの追加          | 可     |
-| public メソッドの削除          | 不可   |
-| protected メソッドの追加       | 可     |
-| 親クラスへの移動               | 可     |
-| protected メソッドの削除       | 可[^8] |
-| 可視性の減少                   | 不可   |
-| メソッド名の変更               | 可[^9] |
-| デフォルト値つき引数の新規追加 | 可     |
-| 既存メソッドへの必須引数の     
- 新規追加                        | 不可   |
-| 既存引数からのデフォルト値の   
- 削除                            | 不可   |
-| void 型メソッドの変更          | 可     |
+<table style="width:83%;">
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th colspan="2">マイナーリリースでできること</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2"><strong>クラス</strong></td>
+</tr>
+<tr>
+<td>クラスの削除</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>インターフェイスの削除</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>トレイトの削除</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>final にする</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>abstract にする</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>名前の変更</td>
+<td>可<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
+</tr>
+<tr>
+<td colspan="2"><strong>プロパティー</strong></td>
+</tr>
+<tr>
+<td>public プロパティーの追加</td>
+<td>可</td>
+</tr>
+<tr>
+<td>public プロパティーの削除</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>protected プロパティーの追加</td>
+<td>可</td>
+</tr>
+<tr>
+<td>protected プロパティーの削除</td>
+<td>可<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></td>
+</tr>
+<tr>
+<td colspan="2"><strong>メソッド</strong></td>
+</tr>
+<tr>
+<td>public メソッドの追加</td>
+<td>可</td>
+</tr>
+<tr>
+<td>public メソッドの削除</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>protected メソッドの追加</td>
+<td>可</td>
+</tr>
+<tr>
+<td>親クラスへの移動</td>
+<td>可</td>
+</tr>
+<tr>
+<td>protected メソッドの削除</td>
+<td>可<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></td>
+</tr>
+<tr>
+<td>可視性の減少</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>メソッド名の変更</td>
+<td>可<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></td>
+</tr>
+<tr>
+<td>デフォルト値つき引数の新規追加</td>
+<td>可</td>
+</tr>
+<tr>
+<td>既存メソッドへの必須引数の 新規追加</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>既存引数からのデフォルト値の 削除</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>void 型メソッドの変更</td>
+<td>可</td>
+</tr>
+</tbody>
+</table>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>古いクラス名・メソッド名を利用可能なように残しておくことで名前の変更ができます。 通常、名前の変更は重要な利点を持っていない限り避けられます。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>出来る限り避けましょう。削除したことは移行ガイドに掲載する必要があります。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>出来る限り避けましょう。削除したことは移行ガイドに掲載する必要があります。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>古いクラス名・メソッド名を利用可能なように残しておくことで名前の変更ができます。 通常、名前の変更は重要な利点を持っていない限り避けられます。<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 ## 非推奨
 
@@ -144,28 +295,3 @@ documentation.
 Experimental features are intended to help gather feedback on how a feature
 works before it becomes stable. Once the interfaces and behavior has been vetted
 with the community the experimental flags will be removed.
-
-[^1]: マイナーリリースでコードが破壊される *恐れが* あります。
-    詳細は移行ガイドをチェックしてください。
-
-[^2]: マイナーリリースでコードが破壊される *恐れが* あります。
-    詳細は移行ガイドをチェックしてください。
-
-[^3]: マイナーリリースでコードが破壊される *恐れが* あります。
-    詳細は移行ガイドをチェックしてください。
-
-[^4]: マイナーリリースでコードが破壊される *恐れが* あります。
-    詳細は移行ガイドをチェックしてください。
-
-[^5]: マイナーリリースでコードが破壊される *恐れが* あります。
-    詳細は移行ガイドをチェックしてください。
-
-[^6]: 古いクラス名・メソッド名を利用可能なように残しておくことで名前の変更ができます。
-    通常、名前の変更は重要な利点を持っていない限り避けられます。
-
-[^7]: 出来る限り避けましょう。削除したことは移行ガイドに掲載する必要があります。
-
-[^8]: 出来る限り避けましょう。削除したことは移行ガイドに掲載する必要があります。
-
-[^9]: 古いクラス名・メソッド名を利用可能なように残しておくことで名前の変更ができます。
-    通常、名前の変更は重要な利点を持っていない限り避けられます。

@@ -8,10 +8,7 @@ CakePHP は nginx や lighttpd や Microsoft IIS のような様々なウェブ�
 ## システム要件
 
 - HTTP サーバー。例: Apache。mod_rewrite が推奨されますが、必須ではありません。
-- PHP |minphpversion| 以上 (PHP |phpversion| も含む)
-- mbstring PHP 拡張
-- intl PHP 拡張
-- simplexml PHP 拡張
+- PHP |minphpversion| 以上 (PHP |phpversion| も含む) - mbstring PHP 拡張 - intl PHP 拡張 - simplexml PHP 拡張
 
 > [!NOTE]
 > XAMPP / WAMP のいずれでも、mbstring 拡張が初期インストール状態で
@@ -48,9 +45,7 @@ CakePHP は種々のデータベース・ストレージのエンジンをサポ
 php -v
 ```
 
-PHP |minphpversion| (CLI) 以上がインストールされていなければなりません。
-ウェブサーバー版の PHP もまた |minphpversion| 以上でなければりませんし、
-コマンドラインインターフェース (CLI) 版と同じバージョンを使用してください。
+PHP |minphpversion| (CLI) 以上がインストールされていなければなりません。 ウェブサーバー版の PHP もまた |minphpversion| 以上でなければりませんし、 コマンドラインインターフェース (CLI) 版と同じバージョンを使用してください。
 
 ### Composer のインストール
 
@@ -490,7 +485,7 @@ IIS に htaccess のルールをインポートすることもできます。
 これをするには、以下のステップを踏んでください:
 
 1.  URL [Rewrite Module 2.0](https://www.iis.net/downloads/microsoft/url-rewrite)
-    をインストールするために、[Microsoftの Web Platform Installer](https://www.microsoft.com/web/downloads/platform.aspx)
+    をインストールするために、\`Microsoftの Web Platform Installer \<https://www.microsoft.com/web/downloads/platform.aspx\>\`\_
     を使うか、直接ダウンロードします。([32ビット](https://www.microsoft.com/en-us/download/details.aspx?id=5747) /
     [64ビット](https://www.microsoft.com/en-us/download/details.aspx?id=7435))
 2.  CakePHP のルートフォルダーに web.config という名前の新しいファイルを作成してください。

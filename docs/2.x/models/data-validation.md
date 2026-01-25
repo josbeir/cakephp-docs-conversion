@@ -218,9 +218,7 @@ Support for `create` and `update` were added.
 ### allowEmpty
 
 If set to `false`, the field value must be **nonempty**, where
-"nonempty" is defined as `!empty($value) || is_numeric($value)`.
-The numeric check is so that CakePHP does the right thing when
-`$value` is zero.
+"nonempty" is defined as `!empty($value) || is_numeric($value)`. The numeric check is so that CakePHP does the right thing when `$value` is zero.
 
 The difference between `required` and `allowEmpty` can be
 confusing. `'required' => true` means that you cannot save the

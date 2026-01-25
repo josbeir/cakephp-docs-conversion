@@ -233,7 +233,7 @@ The following diagram gives an overview of what happens inside the
 `newEntity()` or `patchEntity()` method:
 
 <figure class="align-left">
-<img src="/validation-cycle.png" alt="/_static/img/validation-cycle.png" />
+<img src="/validation-cycle.png" alt="Flow diagram showing the marshalling/validation process." />
 </figure>
 
 You can always count on getting an entity back from `newEntity()`. If
@@ -868,7 +868,7 @@ When an entity is saved a few things happen:
 The following diagram illustrates the above process:
 
 <figure class="align-left">
-<img src="/save-cycle.png" alt="/_static/img/save-cycle.png" />
+<img src="/save-cycle.png" alt="Flow diagram showing the save process." />
 </figure>
 
 See the [Application Rules](../orm/validation#application-rules) section for more information on creating and

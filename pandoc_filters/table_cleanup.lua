@@ -1,5 +1,6 @@
--- Table cleanup filter: Remove redundant row separators in GitHub Flavored Markdown tables
+-- Table cleanup filter: Remove redundant row separators and fix multi-line cells in GitHub Flavored Markdown tables
 -- This filter removes table rows that contain only dashes (separator rows) except for the header separator
+-- It also collapses multi-line cell content into single lines for GFM compatibility
 
 -- Import shared utilities
 -- Get the directory where this filter is located
@@ -8,6 +9,24 @@ local filter_dir = debug.getinfo(1, "S").source:match("@(.*/)")  or ""
 package.path = package.path .. ";" .. filter_dir .. "?.lua"
 -- Now require utils from the same directory
 local utils = require('utils')
+
+-- Helper function to collapse multi-line content in table cells
+local function collapse_cell_content(cell_contents)
+    -- Walk through the cell contents and replace any SoftBreak or LineBreak with Space
+    local result = {}
+    for _, block in ipairs(cell_contents) do
+        local walked = pandoc.walk_block(block, {
+            SoftBreak = function(elem)
+                return pandoc.Space()
+            end,
+            LineBreak = function(elem)
+                return pandoc.Space()
+            end
+        })
+        table.insert(result, walked)
+    end
+    return result
+end
 
 -- Helper function to check if a table row contains only separator characters
 local function is_separator_row(row)
@@ -33,8 +52,40 @@ local function is_separator_row(row)
     return true
 end
 
--- Process Table elements to remove redundant separator rows
+-- Process Table elements to remove redundant separator rows and fix multi-line cells
 function Table(tbl)
+    -- First, collapse multi-line content in all table cells
+    -- Process header cells
+    if tbl.head and tbl.head.rows then
+        for _, row in ipairs(tbl.head.rows) do
+            if row.cells then
+                for _, cell in ipairs(row.cells) do
+                    if cell.contents then
+                        cell.contents = collapse_cell_content(cell.contents)
+                    end
+                end
+            end
+        end
+    end
+
+    -- Process body cells
+    if tbl.bodies then
+        for _, body in ipairs(tbl.bodies) do
+            if body.body then
+                for _, row in ipairs(body.body) do
+                    if row.cells then
+                        for _, cell in ipairs(row.cells) do
+                            if cell.contents then
+                                cell.contents = collapse_cell_content(cell.contents)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    -- Now remove redundant separator rows
     if not tbl.bodies or #tbl.bodies == 0 then
         return tbl
     end
@@ -83,6 +134,7 @@ function RawBlock(elem)
         local new_lines = {}
         local in_table = false
         local header_separator_found = false
+        local pending_cell = nil
 
         for i, line in ipairs(lines) do
             -- Check if this looks like a table line
@@ -102,12 +154,34 @@ function RawBlock(elem)
                     -- Skip additional separators
                 else
                     -- This is a data row, keep it
-                    table.insert(new_lines, line)
+                    if pending_cell then
+                        -- Append to previous line
+                        new_lines[#new_lines] = new_lines[#new_lines] .. " " .. utils.trim(line)
+                        pending_cell = nil
+                    else
+                        table.insert(new_lines, line)
+                        pending_cell = nil
+                    end
+                end
+            -- Check if this is a continuation line (indented text without pipes)
+            elseif in_table and line:match("^%s+%S") and not line:match("|") then
+                -- This is a continuation of the previous table cell
+                -- Append it to the last line
+                if #new_lines > 0 then
+                    -- Remove trailing pipe from last line if exists
+                    local last_line = new_lines[#new_lines]
+                    if last_line:match("|%s*$") then
+                        new_lines[#new_lines] = last_line:gsub("|%s*$", " " .. utils.trim(line) .. " |")
+                    else
+                        new_lines[#new_lines] = last_line .. " " .. utils.trim(line)
+                    end
+                    pending_cell = true
                 end
             else
                 -- Not a table line
                 in_table = false
                 header_separator_found = false
+                pending_cell = nil
                 table.insert(new_lines, line)
             end
         end

@@ -1,7 +1,6 @@
 # ようこそ
 
-CakePHP 4 は、 PHP |phpversion| (最小は PHP |minphpversion|) 上で動作するウェブ開発フレームワークです。
-CakePHP の基礎に入門するには [CakePHP 概要](intro) を読んでください。
+CakePHP 4 は、 PHP |phpversion| (最小は PHP |minphpversion|) 上で動作するウェブ開発フレームワークです。 CakePHP の基礎に入門するには [CakePHP 概要](intro) を読んでください。
 
 CakePHP クックブックは、オープンに開発されている、コミュニティーで編集可能なドキュメントのプロジェクトです。
 ドキュメンテーションの品質、正当性、正確性の高さを維持することを期待しています。

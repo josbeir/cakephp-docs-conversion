@@ -1,7 +1,6 @@
 # PHPUnit 10 Upgrade
 
-With CakePHP 5 the minimum PHPUnit version has changed from `^8.5 || ^9.3` to `^10.1`.
-This introduces a few breaking changes from PHPUnit as well as from CakePHP's side.
+With CakePHP 5 the minimum PHPUnit version has changed from `^8.5 || ^9.3` to `^10.1`. This introduces a few breaking changes from PHPUnit as well as from CakePHP's side.
 
 ## phpunit.xml adjustments
 

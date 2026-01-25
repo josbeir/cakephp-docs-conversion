@@ -4,11 +4,7 @@ CakePHP has a few system requirements:
 
 - HTTP Server. For example: Apache. Having mod_rewrite is preferred, but
   by no means required. You can also use nginx, or Microsoft IIS if you prefer.
-- Minimum PHP |minphpversion| (|phpversion| supported).
-- mbstring PHP extension
-- intl PHP extension
-- SimpleXML PHP extension
-- PDO PHP extension
+- Minimum PHP |minphpversion| (|phpversion| supported). - mbstring PHP extension - intl PHP extension - SimpleXML PHP extension - PDO PHP extension
 
 > [!NOTE]
 > In XAMPP, intl extension is included but you have to uncomment
@@ -47,9 +43,7 @@ Before starting you should make sure that your PHP version is up to date:
 php -v
 ```
 
-You should have PHP |minphpversion| (CLI) or higher.
-Your webserver's PHP version must also be of |minphpversion| or higher, and should be
-the same version your command line interface (CLI) uses.
+You should have PHP |minphpversion| (CLI) or higher. Your webserver's PHP version must also be of |minphpversion| or higher, and should be the same version your command line interface (CLI) uses.
 
 ### Installing Composer
 

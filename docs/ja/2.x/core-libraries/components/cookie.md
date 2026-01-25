@@ -34,50 +34,33 @@ Cookie コンポーネントがどのように動くかは、コントローラ�
 <tr>
 <td>string $key</td>
 <td>null</td>
-<td><p>この文字列は Cookie の値を暗号化するために使われます。
-ランダムで特定されにくい文字列を使うべきです。</p>
+<td><p>この文字列は Cookie の値を暗号化するために使われます。 ランダムで特定されにくい文字列を使うべきです。</p>
 <p>Rijndael 暗号化を使うときは32バイトより長い値にしなければなりません。</p></td>
 </tr>
 <tr>
 <td>string $domain</td>
 <td>''</td>
-<td>Cookie を読むことができるドメインの名前を設定します。たとえば、
-'.yourdomain.com' を使うと、あなたのサブドメイン全体
-からのアクセスを許可します。</td>
+<td>Cookie を読むことができるドメインの名前を設定します。たとえば、 '.yourdomain.com' を使うと、あなたのサブドメイン全体 からのアクセスを許可します。</td>
 </tr>
 <tr>
-<td>int または string
-$time</td>
+<td>int または string $time</td>
 <td>'5 Days'</td>
-<td>Cookie が無効になる時間を設定します。整数ならば秒として解釈され、
-0であればセッション Cookie として評価されます。すなわち、ブラウザを
-終了したときに破棄されます。文字列を設定したときは、 PHP の
-strtotime() 関数を使って解釈されます。 write() メソッドの中で
-直接設定することもできます。</td>
+<td>Cookie が無効になる時間を設定します。整数ならば秒として解釈され、 0であればセッション Cookie として評価されます。すなわち、ブラウザを 終了したときに破棄されます。文字列を設定したときは、 PHP の strtotime() 関数を使って解釈されます。 write() メソッドの中で 直接設定することもできます。</td>
 </tr>
 <tr>
 <td>string $path</td>
 <td>'/'</td>
-<td>Cookie が適用されるサーバーのパスを設定します。 $path に '/foo/'
-を設定した場合、この Cookie は、あなたのドメインの /foo/ と、
-それ以下にあるすべてのサブディレクトリ( /foo/bar など) で有効に
-なります。既定ではドメイン全体で有効です。 write() メソッドで
-直接指定することもできます。</td>
+<td>Cookie が適用されるサーバーのパスを設定します。 $path に '/foo/' を設定した場合、この Cookie は、あなたのドメインの /foo/ と、 それ以下にあるすべてのサブディレクトリ( /foo/bar など) で有効に なります。既定ではドメイン全体で有効です。 write() メソッドで 直接指定することもできます。</td>
 </tr>
 <tr>
 <td>boolean $secure</td>
 <td>false</td>
-<td>セキュアな HTTPS 接続を通してのみ Cookie を伝送するかを設定
-します。 true に設定すると、セキュアな接続が確立しているときにのみ
-Cookie を発行するようになります。 write() メソッドで直接指定する
-こともできます。</td>
+<td>セキュアな HTTPS 接続を通してのみ Cookie を伝送するかを設定 します。 true に設定すると、セキュアな接続が確立しているときにのみ Cookie を発行するようになります。 write() メソッドで直接指定する こともできます。</td>
 </tr>
 <tr>
-<td>boolean
-$httpOnly</td>
+<td>boolean $httpOnly</td>
 <td>false</td>
-<td>true に設定すると HTTP のみで有効な Cookie を作成します。これらの
-Cookie は Javascript からアクセスすることはできません。</td>
+<td>true に設定すると HTTP のみで有効な Cookie を作成します。これらの Cookie は Javascript からアクセスすることはできません。</td>
 </tr>
 </tbody>
 </table>

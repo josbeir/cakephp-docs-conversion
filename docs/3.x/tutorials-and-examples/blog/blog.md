@@ -10,13 +10,7 @@ Here's what you'll need:
     though the instructions for using other servers should be very
     similar. We might have to play a little with the server
     configuration, but most folks can get CakePHP up and running without
-    any configuration at all. Make sure you have PHP |minphpversion| or greater, and
-    that the `mbstring` and `intl` extensions are enabled in PHP.
-2.  A database server. We're going to be using MySQL server in this
-    tutorial. You'll need to know enough about SQL in order to create a
-    database: CakePHP will be taking the reins from there. Since we're using MySQL,
-    also make sure that you have `pdo_mysql` enabled in PHP.
-3.  Basic PHP knowledge.
+    any configuration at all. Make sure you have PHP |minphpversion| or greater, and that the `mbstring` and `intl` extensions are enabled in PHP. 2.  A database server. We're going to be using MySQL server in this tutorial. You'll need to know enough about SQL in order to create a database: CakePHP will be taking the reins from there. Since we're using MySQL, also make sure that you have `pdo_mysql` enabled in PHP. 3.  Basic PHP knowledge.
 
 Let's get started!
 
