@@ -816,12 +816,11 @@ $query = $articles->find()
 > If you use `innerJoinWith()` and want to `select()` fields from that association,
 > you need to use an alias for the field:
 >
-> ``` text
+> ``` bash
 > $query
+>     ->select(['country_name' => 'Countries.name'])
+>     ->innerJoinWith('Countries');
 > ```
->
-> > -\>select(\['country_name' =\> 'Countries.name'\])
-> > -\>innerJoinWith('Countries');
 >
 > If you don't use an alias, you will see the data in `_matchingData` as described
 > by `matching()` above. This is an edge case from `matching()` not knowing you

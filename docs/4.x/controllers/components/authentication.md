@@ -302,7 +302,7 @@ and password fields.
 > If you are using Apache with FastCGI-PHP you might need to add this line
 > to your **.htaccess** file in webroot:
 >
-> ``` text
+> ``` php
 > RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
 > ```
 

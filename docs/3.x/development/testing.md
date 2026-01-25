@@ -684,10 +684,12 @@ class ArticlesTest extends TestCase
 > You can also override `TestCase::getFixtures()` instead of defining
 > the `$fixtures` property:
 >
+> ``` php
 > public function getFixtures()
 > {
-> return \['app.Articles', 'app.Comments'\];
+>     return ['app.Articles', 'app.Comments'];
 > }
+> ```
 
 The above will load the Article and Comment fixtures from the application's
 Fixture directory. You can also load fixtures from CakePHP core, or plugins:

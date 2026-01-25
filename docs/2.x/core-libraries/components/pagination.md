@@ -325,14 +325,14 @@ arguments.
 > [!NOTE]
 > You can run into a situation where assigning a value to a nonexistent property will throw errors:
 >
-> ``` php
+> ``` bash
 > $this->paginate['limit'] = 10;
 > ```
 >
 > will throw the error "Notice: Indirect modification of overloaded property \$paginate has no effect."
 > Assigning an initial value to the property solves the issue:
 >
-> ``` php
+> ``` bash
 > $this->paginate = array();
 > $this->paginate['limit'] = 10;
 > //or

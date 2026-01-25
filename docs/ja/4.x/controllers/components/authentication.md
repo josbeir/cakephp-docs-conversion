@@ -288,7 +288,7 @@ AuthComponent がユーザーレコードの格納にセッションを使用し
 > 読み込まれたかどうかをチェックしてください。もし Apache で FastCGI-PHP を使用している場合は、
 > webroot 内の **.htaccess** ファイルに次の行を追加する必要があるかもしれません。 :
 >
-> ``` text
+> ``` php
 > RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
 > ```
 

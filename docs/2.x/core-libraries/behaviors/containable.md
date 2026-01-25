@@ -481,7 +481,7 @@ $users = $this->paginate('User');
 > it will not honor Containable's [recursive option](#containablebehavior-options).
 > So if you set recursive to -1 for example for the model, it won't work:
 >
-> ``` php
+> ``` bash
 > $this->User->recursive = -1;
 > $this->User->contain(array('Profile', 'Account'));
 >

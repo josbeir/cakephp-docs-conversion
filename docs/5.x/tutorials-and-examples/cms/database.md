@@ -170,27 +170,27 @@ bin/cake bake migration CreateArticlesTags article_id:integer:primary tag_id:int
 > composite primary key on `articles_tags` will be set to auto-increment
 > both columns:
 >
-> ``` php
+> ``` bash
 > $table->addColumn('article_id', 'integer', [
+>     'autoIncrement' => true,
+>     'default' => null,
+>     'limit' => 11,
+>     'null' => false,
+> ]);
+> $table->addColumn('tag_id', 'integer', [
+>     'autoIncrement' => true,
+>     'default' => null,
+>     'limit' => 11,
+>     'null' => false,
+> ]);
 > ```
->
-> > 'autoIncrement' =\> true,
-> > 'default' =\> null,
-> > 'limit' =\> 11,
-> > 'null' =\> false,
->
-> \]);
-> \$table-\>addColumn('tag_id', 'integer', \[
-> 'autoIncrement' =\> true,
-> 'default' =\> null,
-> 'limit' =\> 11,
-> 'null' =\> false,
-> \]);
 >
 > Remove those lines to prevent foreign key problems. Once adjustments are
 > done:
 >
+> ``` bash
 > bin/cake migrations migrate
+> ```
 
 Likewise, the starter data records can be done with seeds.
 

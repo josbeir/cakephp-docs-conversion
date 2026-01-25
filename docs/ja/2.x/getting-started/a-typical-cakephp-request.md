@@ -6,7 +6,7 @@ CakePHP の基本的な構成要素について既に考えました。ここか
 「特注ケーキを今すぐ購入！」というリンクをクリックしたとしましょう。
 
 <figure class="align-center">
-<img src="/typical-cake-request.png" alt="Flow diagram showing a typical CakePHP request" />
+<img src="/typical-cake-request.png" alt="/_static/img/typical-cake-request.png" />
 <figcaption>典型的な CakePHP のリクエストを示すフローダイアグラム</figcaption>
 </figure>
 

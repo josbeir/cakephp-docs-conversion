@@ -47,7 +47,9 @@ Table オブジェクトを `ArticlesTable` という名前にすることで、
 > を完了していて `articles` テーブルをブログ用のデータベースに作成してあれば、
 > CakePHP の bake コンソールを活用して `ArticlesTable` モデルを作成することができます。 :
 >
->     bin/cake bake model Articles
+> ``` bash
+> bin/cake bake model Articles
+> ```
 
 bake とコード生成についての詳細は、 [Bake でコード生成](../../bake/usage) を参照してください。
 
@@ -111,7 +113,9 @@ www.example.com/articles/index というリクエストで、そのロジック�
 > を完了していて `articles` テーブルをブログ用のデータベースに作成してあれば、
 > CakePHP の bake コンソールを活用して `ArticlesController` クラスを作成することができます。 :
 >
->     bin/cake bake controller Articles
+> ``` bash
+> bin/cake bake controller Articles
+> ```
 
 bake とコード生成についての詳細は、 [Bake でコード生成](../../bake/usage) を参照してください。
 

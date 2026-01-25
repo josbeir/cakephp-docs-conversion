@@ -7,8 +7,8 @@ Ricardo just clicked on the "Buy A Custom Cake Now!" link on a
 CakePHP application's landing page.
 
 <figure class="align-center">
-<img src="/typical-cake-request.png" alt="Flow diagram showing a typical CakePHP request" />
-<figcaption aria-hidden="true">Flow diagram showing a typical CakePHP request</figcaption>
+<img src="/typical-cake-request.png" alt="/_static/img/typical-cake-request.png" />
+<figcaption>Flow diagram showing a typical CakePHP request</figcaption>
 </figure>
 
 Figure: 2. Typical CakePHP Request.

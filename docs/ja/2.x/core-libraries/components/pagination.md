@@ -337,14 +337,14 @@ $this->Paginator->settings['paramType'] = 'querystring';
 > 存在しないプロパティへの値の代入により、
 > 例外が発生するような状況になる場合があります。 :
 >
-> ``` php
+> ``` bash
 > $this->paginate['limit'] = 10;
 > ```
 >
 > とやると、 "Notice: Indirect modification of overloaded property \$paginate has no effect."
 > という例外が発生します。プロパティに対して初期値を代入しておくことで、この問題を防げます。 :
 >
-> ``` php
+> ``` bash
 > $this->paginate = array();
 > $this->paginate['limit'] = 10;
 > //  または

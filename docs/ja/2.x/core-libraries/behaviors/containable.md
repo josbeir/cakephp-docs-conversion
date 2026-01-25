@@ -467,7 +467,7 @@ $users = $this->paginate('User');
 > [recursive オプション](#containablebehavior-options) は効きません。
 > 例えば、モデルの recursive に -1 をセットした場合、ビヘイビアは働きません。 :
 >
-> ``` php
+> ``` bash
 > $this->User->recursive = -1;
 > $this->User->contain(array('Profile', 'Account'));
 >

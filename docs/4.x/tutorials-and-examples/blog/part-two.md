@@ -49,7 +49,9 @@ chapter of the Manual.
 > our Blog database you can leverage CakePHP's bake console and its code
 > generation capabilities to create the `ArticlesTable` model:
 >
->     bin/cake bake model Articles
+> ``` bash
+> bin/cake bake model Articles
+> ```
 
 For more on bake and its code generation features please visit [Code Generation with Bake](../../bake/usage).
 
@@ -116,7 +118,9 @@ which is set as a view variable called 'articles'.
 > your Blog database you can leverage CakePHP's bake console and its code
 > generation capabilities to create the ArticlesController class:
 >
->     bin/cake bake controller Articles
+> ``` bash
+> bin/cake bake controller Articles
+> ```
 
 For more on bake and its code generation features please visit [Code Generation with Bake](../../bake/usage).
 
