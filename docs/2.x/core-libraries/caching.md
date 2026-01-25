@@ -289,4 +289,150 @@ choose a common prefix for all your configs.
 
 `class` **Cache**
 
+`static` Cache::**config**($name = null, $settings = array())
+
+`Cache::config()` is used to create additional Cache
+configurations. These additional configurations can have different
+duration, engines, paths, or prefixes than your default cache
+config.
+
+`static` Cache::**read**($key, $config = 'default')
+
+`Cache::read()` is used to read the cached value stored under
+`$key` from the `$config`. If \$config is null the default
+config will be used. `Cache::read()` will return the cached value
+if it is a valid cache or `false` if the cache has expired or
+doesn't exist. The contents of the cache might evaluate false, so
+make sure you use the strict comparison operators: `===` or
+`!==`.
+
+For example:
+
+``` php
+$cloud = Cache::read('cloud');
+
+if ($cloud !== false) {
+    return $cloud;
+}
+
+// generate cloud data
+// ...
+
+// store data in cache
+Cache::write('cloud', $cloud);
+return $cloud;
+```
+
+`static` Cache::**write**($key, $value, $config = 'default')
+
+`Cache::write()` will write a \$value to the Cache. You can read or
+delete this value later by referring to it by `$key`. You may
+specify an optional configuration to store the cache in as well. If
+no `$config` is specified, default will be used. `Cache::write()`
+can store any type of object and is ideal for storing results of
+model finds:
+
+``` php
+if (($posts = Cache::read('posts')) === false) {
+    $posts = $this->Post->find('all');
+    Cache::write('posts', $posts);
+}
+```
+
+Using `Cache::write()` and `Cache::read()` to easily reduce the number
+of trips made to the database to fetch posts.
+
+`static` Cache::**delete**($key, $config = 'default')
+
+`Cache::delete()` will allow you to completely remove a cached
+object from the Cache store.
+
+`static` Cache::**set**($settings = array(), $value = null, $config = 'default')
+
+`Cache::set()` allows you to temporarily override a cache config's
+settings for one operation (usually a read or write). If you use
+`Cache::set()` to change the settings for a write, you should
+also use `Cache::set()` before reading the data back in. If you
+fail to do so, the default settings will be used when the cache key
+is read. :
+
+``` php
+Cache::set(array('duration' => '+30 days'));
+Cache::write('results', $data);
+
+// Later on
+
+Cache::set(array('duration' => '+30 days'));
+$results = Cache::read('results');
+```
+
+If you find yourself repeatedly calling `Cache::set()` then perhaps
+you should create a new `Cache::config()`. This will remove the
+need to call `Cache::set()`.
+
+`static` Cache::**increment**($key, $offset = 1, $config = 'default')
+
+Atomically increment a value stored in the cache engine. Ideal for
+modifying counters or semaphore type values.
+
+`static` Cache::**decrement**($key, $offset = 1, $config = 'default')
+
+Atomically decrement a value stored in the cache engine. Ideal for
+modifying counters or semaphore type values.
+
+`static` Cache::**add**($key, $value, $config = 'default')
+
+Add data to the cache, but only if the key does not exist already.
+In the case that data did exist, this method will return false.
+Where possible data is checked & set atomically.
+
+::: info Added in version 2.8
+add method was added in 2.8.0.
+:::
+
+`static` Cache::**clear**($check, $config = 'default')
+
+Destroy all cached values for a cache configuration. In engines like Apc,
+Memcache and Wincache, the cache configuration's prefix is used to remove
+cache entries. Make sure that different cache configurations have different
+prefixes.
+
 `method` Cache::**clearGroup**($group, $config = 'default')
+
+`static` Cache::**gc**($config)
+
+Garbage collects entries in the cache configuration. This is primarily
+used by FileEngine. It should be implemented by any Cache engine
+that requires manual eviction of cached data.
+
+`static` Cache::**groupConfigs**($group = null)
+
+return  
+Array of groups and its related configuration names.
+
+Retrieve group names to config mapping.
+
+`static` Cache::**remember**($key, $callable, $config = 'default')
+
+Provides an easy way to do read-through caching. If the cache key exists
+it will be returned. If the key does not exist, the callable will be invoked
+and the results stored in the cache at the provided key.
+
+For example, you often want to cache query results. You could use
+`remember()` to make this simple. Assuming you are using PHP 5.3 or
+newer:
+
+``` php
+class Articles extends AppModel {
+    function all() {
+        $model = $this;
+        return Cache::remember('all_articles', function () use ($model){
+            return $model->find('all');
+        });
+    }
+}
+```
+
+::: info Added in version 2.5
+remember() was added in 2.5.
+:::

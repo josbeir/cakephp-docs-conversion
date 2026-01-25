@@ -883,6 +883,171 @@ Router::connect(
 
 `class` **Router**
 
+`static` Router::**connect**($route, $defaults = array(), $options = array())
+
+param string \$route  
+ルーティングテンプレートを表現する文字列
+
+param array \$defaults  
+デフォルトのルーティングパラメーターを表現する配列。
+これらのパラメーターはデフォルトで使われ、ルーティングパラメーターを静的に提供します。
+
+param array \$options  
+名前要素に一致した配列かつルーティングの正規表現に一致したもの。
+また、渡されることになるルーティングパラメーターや、ルーティングパラメーターのパターンや
+カスタムルーティングクラスの名前の提供ができる追加のパラメーターを含みます。
+
+ルーティングはリクエストされたURLをオブジェクトで制御する方法です。
+それらのコアルーティングはリクエスト先を一致しさせるための正規表現のセットです。
+
+例:
+
+``` php
+Router::connect('/:controller/:action/*');
+```
+
+最初のパラメーターはコントローラー名として使われ、二番目はアクション名として使われます。
+'/\*' 構文 はこのルートを貪欲にして `/posts/index` のようなリクエストだけではなく `/posts/edit/1/foo/bar`
+のようなリクエストにも一致するようにします。 :
+
+``` php
+Router::connect(
+    '/home-page',
+    array('controller' => 'pages', 'action' => 'display', 'home')
+);
+```
+
+上記は、デフォルトのルーティングパラメーターの使い方を示してます。
+そして、それは静的ルーティングのためのルーティングパラメーターを提供します。 :
+
+``` php
+Router::connect(
+    '/:lang/:controller/:action/:id',
+    array(),
+    array('id' => '[0-9]+', 'lang' => '[a-z]{3}')
+);
+```
+
+これは、それらのパラメーターために用意されたパターンと同じように
+カスタムルーティングパラメーターでにルーティング接続する例です。
+
+\$options は3つの `pass`, `persist` と `routeClass` という特殊キーを持ちます。
+
+- `pass` はどのパラメーターが配列に渡されるのかを定義するために使われます。
+  渡すためにパラメーターを追加することで、それを正規のルーティング配列から削除できます。
+  例えば、 `'pass' => array('slug')` のように。
+- `persist` はURLを新規に生成したときに、どのルーティングパラメーターが
+  自動的にインクルードされるのかを定義するために使われます。
+  URLで再定義することで一定のパラメーターをオーバーライドしたり、
+  `false` に設定することで除去できます。たとえば、 `'persist' => array('lang')` のように。
+- `routeClass` は個別のルーティングがどのようにリクエストをパースするのかを
+  拡張し変更するためと、リバースルーティングを `'routeClass' => 'SlugRoute'` のような
+  カスタムルーティングクラスによって制御するために使われます。
+- `named` は名前付きパラメーターをルーティングレベルで設定するために使われます。
+  このキーは `Router::connectNamed()` と同じオプションを使います。
+
+`static` Router::**redirect**($route, $url, $options = array())
+
+param string \$route  
+どのURLがリダイレクトされるのかを決めるルーティングテンプレート
+
+param mixed \$url  
+`ルーティング配列` かリダイレクト先の文字列URLを入れる。
+
+param array \$options  
+リダイレクトオプションを表す配列。
+
+新しいリダイレクトにルーティング接続します。
+[Redirect Routing](#redirect-routing) に詳細があります。
+
+`static` Router::**connectNamed**($named, $options = array())
+
+param array \$named  
+名前付きパラメーターのリスト。添字のペアが
+正規表現に一致するか配列であった時に受け付けられます。
+
+param array \$options  
+separator, greedy, reset, default などの設定をすべてを制御します。
+
+CakePHP でどの名前付きパラメーターなのか特定するには、入ってきたURLを出力します。
+デフォルトの CakePHP は全部の入ってきたURLにある名前付きパラメーターをパースします。
+[Controlling Named Parameters](#controlling-named-parameters) に詳細があります。
+
+`static` Router::**promote**($which = null)
+
+param integer \$which  
+ゼロからはじまる配列の添え字はルーティングの移動先を表しています。
+例えば、３っつのルートが追加された時、最後の添字は２になります。
+
+リストの先頭にルート (デフォルトでは、最後に追加されたもの)を昇格させます。
+
+`static` Router::**url**($url = null, $full = false)
+
+param mixed \$url  
+"/products/edit/92" や "/presidents/elect/4" や `ルーティング配列`
+のようにCakeに関連するURL
+
+param mixed \$full  
+(boolean) true になっていたら、URLフルパスが出力されます。
+これは以下のキーを受け付けます。
+
+- escape - used when making URLs embedded in HTML escapes query
+  string '&'
+- full - true になっていたら、URLフルパスが先頭に追加されて出力されます。
+
+Generate a URL for the specified action.特定のアクションのためのURLを生成します。
+コントローラー、アクションもしくは \$url の組み合わせて表現可能なURLを返します。
+
+- Empty - このメソッドは実際のコントローラーアクションへのアドレスを見つけます。
+- '/' - このメソッドは、ベースURLを見つけます。
+- コントローラーをアクションの組み合わせ - そのためのURLを見つけます。
+
+いくつかの最後に生成されたURL文字列を変える特殊パラメーターがあります。
+
+- `base` - false にセットすると、ベースURLを除去します。
+  ルートディレクトリに作っているアプリがない場合、 'CakePHP relative' なURLの生成に使えます。
+  "CakePHP relative" なURLs は requestAction を使うときに必要とされます。.
+- `?` - 文字列クエリの配列を取ります。
+- `#` - URLのハッシュフラグメントをセットします。
+- `full_base` - true にすると、 `Router::fullBaseUrl()` が
+  生成されたURLの前に加えられます。
+
+`static` Router::**mapResources**($controller, $options = array())
+
+与えられたコントローラーのために 渡されたREST をもとにどのようにルーティングするか決めます。
+詳細は [REST](../development/rest) ここです。
+
+`static` Router::**parseExtensions**($types)
+
+routes.php でサポートする拡張子（ [File Extensions](#file-extensions) ）を宣言するために使われます。
+引数を用意しないことで、すべての拡張子をサポートします。
+
+`static` Router::**setExtensions**($extensions, $merge = true)
+
+::: info Added in version 2.2
+:::
+
+利用可能な拡張子をセットしたり追加します。これで設定したとしても、
+拡張子をパースするために `Router::parseExtensions()` を呼ぶ必要があります。.
+
+`static` Router::**defaultRouteClass**($classname)
+
+::: info Added in version 2.1
+:::
+
+デフォルトルートは接続するときに時に使われます。
+
+`static` Router::**fullBaseUrl**($url = null)
+
+::: info Added in version 2.4
+:::
+
+生成するURLをに使われる baseURL 。　この値を設定するときには、
+確かなプロトコルを含むドメイン名を使う必要があります。
+
+このメソッドで値をセットすると、
+`Configure` の `App.fullBaseUrl` をアップデートします。.
+
 `class` **CakeRoute**
 
 `method` CakeRoute::**parse**($url)

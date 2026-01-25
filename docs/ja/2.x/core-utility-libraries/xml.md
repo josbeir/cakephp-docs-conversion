@@ -306,53 +306,57 @@ $xml->firstChild->appendChild($child);
 SimpleXml または DOMDocument クラスのオブジェクトを生成する、
 factory クラスまたは変換クラスです。
 
-> XML の文字列やファイルパス、 URL 、配列を与えて
-> SimpleXMLElement または DOMDocument を初期化します。
->
-> 文字列から XML を作成する:
->
-> ``` php
-> $xml = Xml::build('<example>text</example>');
-> ```
->
-> 文字列から XML を作成し、 DOMDocument クラスのオブジェクトとして出力する:
->
-> ``` php
-> $xml = Xml::build('<example>text</example>', array('return' => 'domdocument'));
-> ```
->
-> ローカルのファイルパスから XML を作成する:
->
-> ``` php
-> $xml = Xml::build('/path/to/an/xml/file.xml');
-> ```
->
-> リモート URL から作成する:
->
-> ``` php
-> $xml = Xml::build('http://example.com/example.xml');
-> ```
->
-> 配列から作成する:
->
-> ``` php
-> $value = array(
->     'tags' => array(
->         'tag' => array(
->             array(
->                 'id' => '1',
->                 'name' => 'defect'
->             ),
->             array(
->                 'id' => '2',
->                 'name' => 'enhancement'
->         )
->         )
->     )
-> );
-> $xml = Xml::build($value);
-> ```
->
-> 配列から XML を作成する時は、トップレベルの要素が唯一であることを確認しましょう。
->
-> SimpleXml または DOMDocument クラスのオブジェクトを配列に変換します。
+`static` Xml::**build**($input, $options = array())
+
+XML の文字列やファイルパス、 URL 、配列を与えて
+SimpleXMLElement または DOMDocument を初期化します。
+
+文字列から XML を作成する:
+
+``` php
+$xml = Xml::build('<example>text</example>');
+```
+
+文字列から XML を作成し、 DOMDocument クラスのオブジェクトとして出力する:
+
+``` php
+$xml = Xml::build('<example>text</example>', array('return' => 'domdocument'));
+```
+
+ローカルのファイルパスから XML を作成する:
+
+``` php
+$xml = Xml::build('/path/to/an/xml/file.xml');
+```
+
+リモート URL から作成する:
+
+``` php
+$xml = Xml::build('http://example.com/example.xml');
+```
+
+配列から作成する:
+
+``` php
+$value = array(
+    'tags' => array(
+        'tag' => array(
+            array(
+                'id' => '1',
+                'name' => 'defect'
+            ),
+            array(
+                'id' => '2',
+                'name' => 'enhancement'
+        )
+        )
+    )
+);
+$xml = Xml::build($value);
+```
+
+配列から XML を作成する時は、トップレベルの要素が唯一であることを確認しましょう。
+
+`static` Xml::**toArray**($obj)
+
+SimpleXml または DOMDocument クラスのオブジェクトを配列に変換します。

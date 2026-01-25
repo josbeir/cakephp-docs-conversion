@@ -326,17 +326,23 @@ Cache::config('apc', array('engine' => 'Apc'));
 `CakeSession` をでセッションにアクセスすることも出来ます。他のインターフェースと同じく、
 `CakeSession` はシンプルな CRUD インターフェースを提供します。
 
+`static` CakeSession::**read**($key)
+
 `Set::classicExtract()` 互換記法を用いてセッションから値を読み込みます:
 
 ``` css
 CakeSession::read('Config.language');
 ```
 
+`static` CakeSession::**write**($key, $value)
+
 `$key` はドット区切りで `$value` の書き込み先を指定します:
 
 ``` css
 CakeSession::write('Config.language', 'eng');
 ```
+
+`static` CakeSession::**delete**($key)
 
 セッションからデータ削除が必要なら削除も可能です:
 

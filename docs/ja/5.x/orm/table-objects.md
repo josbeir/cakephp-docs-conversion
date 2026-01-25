@@ -477,6 +477,8 @@ class ArticlesTable extends Table
 
 ### テーブルオブジェクトの設定
 
+`static` Cake\\ORM\\TableLocator::**get**($alias, $config)
+
 テーブルをレジストリーからロードする時に、依存関係をカスタマイズするか、
 `$options` 配列が用意するモックオブジェクトを使います。 :
 

@@ -129,6 +129,8 @@ $time->timezone = 'Europe/Paris';
 
 ## フォーマットする
 
+`static` Cake\\I18n\\Time::**setJsonEncodeFormat**($format)
+
 このメソッドは、オブジェクトを json 形式に変換するときに使われる
 デフォルトのフォーマットをセットします。 :
 

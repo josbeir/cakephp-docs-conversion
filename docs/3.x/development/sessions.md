@@ -386,6 +386,12 @@ When you need to delete data from the session, you can use `delete()`:
 $session->delete('Some.value');
 ```
 
+<div class="php-static-def">
+
+<Session::consume($key)>
+
+</div>
+
 When you need to read and delete data from the session, you can use
 `consume()`:
 

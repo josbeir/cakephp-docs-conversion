@@ -678,6 +678,8 @@ admin routing, prefix routing
 
 ### Prefix Routing
 
+`static` Cake\\Routing\\Router::**prefix**($name, $callback)
+
 Many applications require an administration section where
 privileged users can make changes. This is often done through a
 special URL such as `/admin/users/edit/5`. In CakePHP, prefix routing
@@ -819,6 +821,8 @@ This would link to a controller with the namespace `App\Controller\Admin\MyPrefi
 > The route itself will do the inflection if necessary.
 
 ### Plugin Routing
+
+`static` Cake\\Routing\\Router::**plugin**($name, $options = [], $callback)
 
 Routes for [Plugins](../plugins) should be created using the `plugin()`
 method. This method creates a new routing scope for the plugin's routes:
@@ -992,6 +996,8 @@ file extensions
 <a id="file-extensions"></a>
 
 ### Routing File Extensions
+
+`static` Cake\\Routing\\Router::**extensions**(stringnull $extensions, $merge = true)
 
 To handle different file extensions with your routes, you can define extensions
 on a global, as well as on a scoped level. Defining global extensions can be
@@ -1446,6 +1452,8 @@ Since `5` has a numeric key, it is treated as a passed argument.
 
 ## Generating URLs
 
+`static` Cake\\Routing\\Router::**url**($url = null, $full = false)
+
 Generating URLs or Reverse routing is a feature in CakePHP that is used to
 allow you to change your URL structure without having to modify all your
 code. By using `routing arrays <routing array>` to define your URLs, you
@@ -1652,6 +1660,8 @@ to implement custom parameter handling. You can use plugin route classes using
 standard `plugin syntax`.
 
 ### Default Route Class
+
+`static` Cake\\Routing\\Router::**defaultRouteClass**($routeClass = null)
 
 If you want to use an alternate route class for all your routes besides the
 default `Route`, you can do so by calling `Router::defaultRouteClass()`

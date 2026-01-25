@@ -899,6 +899,8 @@ and authentication mechanics in CakePHP.
 
 `method` AuthComponent::**mapActions**($map = array())
 
+`static` AuthComponent::**password**($pass)
+
 ::: info Deprecated in version 2.4
 :::
 
@@ -915,3 +917,20 @@ and authentication mechanics in CakePHP.
 `method` AuthComponent::**shutdown**($Controller)
 
 `method` AuthComponent::**startup**($Controller)
+
+`static` AuthComponent::**user**($key = null)
+
+param string \$key  
+The user data key you want to fetch. If null,
+all user data will be returned. Can also be called as an instance
+method.
+
+Get data concerning the currently logged in user, you can use a
+property key to fetch specific data about the user:
+
+``` php
+$id = $this->Auth->user('id');
+```
+
+If the current user is not logged in or the key doesn't exist, null will
+be returned.

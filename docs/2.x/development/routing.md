@@ -1015,6 +1015,184 @@ to implement custom parameter handling.
 
 `class` **Router**
 
+`static` Router::**connect**($route, $defaults = array(), $options = array())
+
+param string \$route  
+A string describing the template of the route
+
+param array \$defaults  
+An array describing the default route parameters.
+These parameters will be used by default
+and can supply routing parameters that are not dynamic.
+
+param array \$options  
+An array matching the named elements in the route
+to regular expressions which that element should match. Also contains
+additional parameters such as which routed parameters should be
+shifted into the passed arguments, supplying patterns for routing
+parameters and supplying the name of a custom routing class.
+
+Routes are a way of connecting request URLs to objects in your application.
+At their core routes are a set of regular expressions that are used to
+match requests to destinations.
+
+Examples:
+
+``` php
+Router::connect('/:controller/:action/*');
+```
+
+The first parameter will be used as a controller name while the second is
+used as the action name. The '/\*' syntax makes this route greedy in that
+it will match requests like `/posts/index` as well as requests like
+`/posts/edit/1/foo/bar` . :
+
+``` php
+Router::connect(
+    '/home-page',
+    array('controller' => 'pages', 'action' => 'display', 'home')
+);
+```
+
+The above shows the use of route parameter defaults. And providing routing
+parameters for a static route. :
+
+``` php
+Router::connect(
+    '/:lang/:controller/:action/:id',
+    array(),
+    array('id' => '[0-9]+', 'lang' => '[a-z]{3}')
+);
+```
+
+Shows connecting a route with custom route parameters as well as providing
+patterns for those parameters. Patterns for routing parameters do not need
+capturing groups, as one will be added for each route params.
+
+\$options offers three 'special' keys. `pass`, `persist` and `routeClass`
+have special meaning in the \$options array.
+
+- `pass` is used to define which of the routed parameters should be
+  shifted into the pass array. Adding a parameter to pass will remove
+  it from the regular route array. Ex. `'pass' => array('slug')`
+- `persist` is used to define which route parameters should be automatically
+  included when generating new URLs. You can override persistent parameters
+  by redefining them in a URL or remove them by setting the parameter to
+  `false`. Ex. `'persist' => array('lang')`
+- `routeClass` is used to extend and change how individual routes parse
+  requests and handle reverse routing, via a custom routing class.
+  Ex. `'routeClass' => 'SlugRoute'`
+- `named` is used to configure named parameters at the route level.
+  This key uses the same options as `Router::connectNamed()`
+
+`static` Router::**redirect**($route, $url, $options = array())
+
+param string \$route  
+A route template that dictates which URLs should
+be redirected.
+
+param mixed \$url  
+Either a `routing array` or a string url
+for the destination of the redirect.
+
+param array \$options  
+An array of options for the redirect.
+
+Connects a new redirection Route in the router.
+See [Redirect Routing](#redirect-routing) for more information.
+
+`static` Router::**connectNamed**($named, $options = array())
+
+param array \$named  
+A list of named parameters. Key value pairs are accepted where
+values are either regex strings to match, or arrays.
+
+param array \$options  
+Allows control of all settings:
+separator, greedy, reset, default
+
+Specifies what named parameters CakePHP should be parsing out of
+incoming URLs. By default CakePHP will parse every named parameter
+out of incoming URLs. See [Controlling Named Parameters](#controlling-named-parameters) for
+more information.
+
+`static` Router::**promote**($which = null)
+
+param integer \$which  
+A zero-based array index representing the route to move.
+For example, if 3 routes have been added, the last route would be 2.
+
+Promote a route (by default, the last one added) to the beginning of the list.
+
+`static` Router::**url**($url = null, $full = false)
+
+param mixed \$url  
+Cake-relative URL, like "/products/edit/92" or
+"/presidents/elect/4" or a `routing array`
+
+param mixed \$full  
+If (boolean) true, the full base URL will be prepended
+to the result. If an array accepts the following keys
+
+- escape - used when making URLs embedded in HTML escapes query
+  string '&'
+- full - if true the full base URL will be prepended.
+
+Generate a URL for the specified action. Returns a URL pointing
+to a combination of controller and action. \$url can be:
+
+- Empty - the method will find the address to the actual controller/action.
+- '/' - the method will find the base URL of application.
+- A combination of controller/action - the method will find the URL for it.
+
+There are a few 'special' parameters that can change the final URL string that is generated:
+
+- `base` - Set to false to remove the base path from the generated URL.
+  If your application is not in the root directory, this can be used to
+  generate URLs that are 'CakePHP relative'. CakePHP relative URLs are
+  required when using requestAction.
+- `?` - Takes an array of query string parameters
+- `#` - Allows you to set URL hash fragments.
+- `full_base` - If true the value of `Router::fullBaseUrl()` will
+  be prepended to generated URLs.
+
+`static` Router::**mapResources**($controller, $options = array())
+
+Creates REST resource routes for the given controller(s). See
+the [REST](../development/rest) section for more information.
+
+`static` Router::**parseExtensions**($types)
+
+Used in routes.php to declare which [File Extensions](#file-extensions) your application
+supports. By providing no arguments, all file extensions will be supported.
+
+`static` Router::**setExtensions**($extensions, $merge = true)
+
+::: info Added in version 2.2
+:::
+
+Set or add valid extensions. To have the extensions parsed, you are still
+required to call `Router::parseExtensions()`.
+
+`static` Router::**defaultRouteClass**($classname)
+
+::: info Added in version 2.1
+:::
+
+Set the default route to be used when connecting routes in the future.
+
+`static` Router::**fullBaseUrl**($url = null)
+
+::: info Added in version 2.4
+:::
+
+Get or set the baseURL used for generating URL's. When setting this value
+you should be sure to include the fully qualified domain name including
+protocol.
+
+Setting values with this method will also update `App.fullBaseUrl` in
+`Configure`.
+
 `class` **CakeRoute**
 
 `method` CakeRoute::**parse**($url)

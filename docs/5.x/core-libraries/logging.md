@@ -448,6 +448,41 @@ configured.
 
 `class` Cake\\Log\\**Log**
 
+`static` Cake\\Log\\Log::**setConfig**($key, $config)
+
+param string \$name  
+Name for the logger being connected, used
+to drop a logger later on.
+
+param array \$config  
+Array of configuration information and
+constructor arguments for the logger.
+
+Get or set the configuration for a Logger. See [Log Configuration](#log-configuration) for
+more information.
+
+`static` Cake\\Log\\Log::**configured**()
+
+returns  
+An array of configured loggers.
+
+Get the names of the configured loggers.
+
+`static` Cake\\Log\\Log::**drop**($name)
+
+param string \$name  
+Name of the logger you wish to no longer receive
+messages.
+
+`static` Cake\\Log\\Log::**write**($level, $message, $scope = [])
+
+Write a message into all the configured loggers.
+`$level` indicates the level of log message being created.
+`$message` is the message of the log entry being written to.
+`$scope` is the scope(s) a log message is being created in.
+
+`static` Cake\\Log\\Log::**levels**()
+
 Call this method without arguments, eg: <span class="title-ref">Log::levels()</span> to obtain current
 level configuration.
 
@@ -455,6 +490,22 @@ level configuration.
 
 The following convenience methods were added to log <span class="title-ref">\$message</span> with the
 appropriate log level.
+
+`static` Cake\\Log\\Log::**emergency**($message, $scope = [])
+
+`static` Cake\\Log\\Log::**alert**($message, $scope = [])
+
+`static` Cake\\Log\\Log::**critical**($message, $scope = [])
+
+`static` Cake\\Log\\Log::**error**($message, $scope = [])
+
+`static` Cake\\Log\\Log::**warning**($message, $scope = [])
+
+`static` Cake\\Log\\Log::**notice**($message, $scope = [])
+
+`static` Cake\\Log\\Log::**info**($message, $scope = [])
+
+`static` Cake\\Log\\Log::**debug**($message, $scope = [])
 
 ## Logging Trait
 

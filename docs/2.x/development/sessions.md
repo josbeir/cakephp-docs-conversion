@@ -338,6 +338,8 @@ that provide access to the session. In controllers you can use
 `CakeSession` to access the session as well. Like the other interfaces to the
 session, `CakeSession` provides a simple CRUD interface.
 
+`static` CakeSession::**read**($key)
+
 You can read values from the session using `Set::classicExtract()`
 compatible syntax:
 
@@ -345,11 +347,15 @@ compatible syntax:
 CakeSession::read('Config.language');
 ```
 
+`static` CakeSession::**write**($key, $value)
+
 `$key` should be the dot separated path you wish to write `$value` to:
 
 ``` css
 CakeSession::write('Config.language', 'eng');
 ```
+
+`static` CakeSession::**delete**($key)
 
 When you need to delete data from the session, you can use delete:
 

@@ -305,9 +305,135 @@ In order for scopes to work, you **must** do a few things:
 
 `class` **CakeLog**
 
-::: info Added in version 2.2
-Log levels and scopesCall this method without arguments, eg: `CakeLog::levels()` to obtain current level configuration.To append the additional levels 'user0' and 'user1' to the default log levels use:Calling `CakeLog::levels()` will result in:To set/replace an existing configuration, pass an array with the second argument set to false:Calling `CakeLog::levels()` will result in:Resets log levels to their original values:Checks whether `$streamName` has been enabled.Enable the stream `$streamName`.Disable the stream `$streamName`.Gets `$streamName` from the active streams.
+`static` CakeLog::**config**($name, $config)
+
+param string \$name  
+Name for the logger being connected, used
+to drop a logger later on.
+
+param array \$config  
+Array of configuration information and
+constructor arguments for the logger.
+
+Connect a new logger to CakeLog. Each connected logger
+receives all log messages each time a log message is written.
+
+`static` CakeLog::**configured**()
+
+returns  
+An array of configured loggers.
+
+Get the names of the configured loggers.
+
+`static` CakeLog::**drop**($name)
+
+param string \$name  
+Name of the logger you wish to no longer receive
+messages.
+
+`static` CakeLog::**write**($level, $message, $scope = array())
+
+Write a message into all the configured loggers.
+\$level indicates the level of log message being created.
+\$message is the message of the log entry being written to.
+
+::: info Changed in version 2.2
+`$scope` was added
 :::
+
+::: info Added in version 2.2
+Log levels and scopes
+:::
+
+`static` CakeLog::**levels**()
+
+Call this method without arguments, eg: `CakeLog::levels()` to
+obtain current level configuration.
+
+To append the additional levels 'user0' and 'user1' to the default
+log levels use:
+
+``` php
+CakeLog::levels(array('user0', 'user1'));
+// or
+CakeLog::levels(array('user0', 'user1'), true);
+```
+
+Calling `CakeLog::levels()` will result in:
+
+``` text
+array(
+    0 => 'emergency',
+    1 => 'alert',
+    // ...
+    8 => 'user0',
+    9 => 'user1',
+);
+```
+
+To set/replace an existing configuration, pass an array with the second
+argument set to false:
+
+``` php
+CakeLog::levels(array('user0', 'user1'), false);
+```
+
+Calling `CakeLog::levels()` will result in:
+
+``` text
+array(
+    0 => 'user0',
+    1 => 'user1',
+);
+```
+
+`static` CakeLog::**defaultLevels**()
+
+returns  
+An array of the default log levels values.
+
+Resets log levels to their original values:
+
+``` text
+array(
+    'emergency' => LOG_EMERG,
+    'alert'     => LOG_ALERT,
+    'critical'  => LOG_CRIT,
+    'error'     => LOG_ERR,
+    'warning'   => LOG_WARNING,
+    'notice'    => LOG_NOTICE,
+    'info'      => LOG_INFO,
+    'debug'     => LOG_DEBUG,
+);
+```
+
+`static` CakeLog::**enabled**($streamName)
+
+returns  
+boolean
+
+Checks whether `$streamName` has been enabled.
+
+`static` CakeLog::**enable**($streamName)
+
+returns  
+void
+
+Enable the stream `$streamName`.
+
+`static` CakeLog::**disable**($streamName)
+
+returns  
+void
+
+Disable the stream `$streamName`.
+
+`static` CakeLog::**stream**($streamName)
+
+returns  
+Instance of `BaseLog` or `false` if not found.
+
+Gets `$streamName` from the active streams.
 
 ### Convenience methods
 
@@ -316,3 +442,19 @@ Log levels and scopesCall this method without arguments, eg: `CakeLog::levels()`
 
 The following convenience methods were added to log `$message` with the
 appropriate log level.
+
+`static` CakeLog::**emergency**($message, $scope = array())
+
+`static` CakeLog::**alert**($message, $scope = array())
+
+`static` CakeLog::**critical**($message, $scope = array())
+
+`static` CakeLog::**error**($message, $scope = array())
+
+`static` CakeLog::**warning**($message, $scope = array())
+
+`static` CakeLog::**notice**($message, $scope = array())
+
+`static` CakeLog::**info**($message, $scope = array())
+
+`static` CakeLog::**debug**($message, $scope = array())

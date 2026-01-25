@@ -61,17 +61,22 @@ $dir = new Folder('/path/to/folder', true, 0755);
 
 フォルダー作成時のモード。デフォルトは ``0755`` です。
 Windows マシンでは何も影響しません。
+```
 
+`static` Cake\\Filesystem\\Folder::**addPathElement**(string $path, string $element)
 
-$path と $element の間に適切なスラッシュを加えて返します。 ::
+\$path と \$element の間に適切なスラッシュを加えて返します。 :
 
-    $path = Folder::addPathElement('/a/path/for', 'testing');
-    // $path は /a/path/for/testing となります
+``` php
+$path = Folder::addPathElement('/a/path/for', 'testing');
+// $path は /a/path/for/testing となります
+```
 
-$element は、配列も指定できます。 ::
+\$element は、配列も指定できます。 :
 
-    $path = Folder::addPathElement('/a/path/for', ['testing', 'another']);
-    // $path は /a/path/for/testing/another となります
+``` php
+$path = Folder::addPathElement('/a/path/for', ['testing', 'another']);
+// $path は /a/path/for/testing/another となります
 ```
 
 `method` Cake\\Filesystem\\Folder::**cd**( $path )
@@ -79,6 +84,11 @@ $element は、配列も指定できます。 ::
 `method` Cake\\Filesystem\\Folder::**chmod**(string $path, integer $mode = false, boolean $recursive = true, array $exceptions = [])
 
 `method` Cake\\Filesystem\\Folder::**copy**(array|string $options = [])
+
+`static` Cake\\Filesystem\\Folder::**correctSlashFor**(string $path)
+
+\$path に与えるべき適切なスラッシュを返します。
+（Windows のパスは '\\ で、その他のパスは '/'）
 
 `method` Cake\\Filesystem\\Folder::**create**(string $pathname, integer $mode = false)
 
@@ -101,15 +111,43 @@ $element は、配列も指定できます。 ::
 
 `method` Cake\\Filesystem\\Folder::**inPath**(string $path = '', boolean $reverse = false)
 
+`static` Cake\\Filesystem\\Folder::**isAbsolute**(string $path)
+
+与えられた \$path が絶対パスであれば `true` を返します。
+
+`static` Cake\\Filesystem\\Folder::**isSlashTerm**(string $path)
+
+与えられた \$path がスラッシュで終了していれば true を返します。（つまり、スラッシュ終端） :
+
+``` php
+$result = Folder::isSlashTerm('/my/test/path');
+// $result = false
+$result = Folder::isSlashTerm('/my/test/path/');
+// $result = true
+```
+
+`static` Cake\\Filesystem\\Folder::**isWindowsPath**(string $path)
+
+与えられた \$path が Windows のパスであれば `true` を返します。
+
 `method` Cake\\Filesystem\\Folder::**messages**()
 
 `method` Cake\\Filesystem\\Folder::**move**(array $options)
+
+`static` Cake\\Filesystem\\Folder::**normalizePath**(string $path)
+
+与えられた \$path を適切なスラッシュに調整して返します。
+（Windows のパスは '\\ で、その他のパスは '/'）
 
 `method` Cake\\Filesystem\\Folder::**pwd**()
 
 `method` Cake\\Filesystem\\Folder::**read**(boolean $sort = true, array|boolean $exceptions = false, boolean $fullPath = false)
 
 `method` Cake\\Filesystem\\Folder::**realpath**(string $path)
+
+`static` Cake\\Filesystem\\Folder::**slashTerm**(string $path)
+
+引数の \$path に (Windows や、その他の OS で正しい) 終端のスラッシュを付けたパスを返します。
 
 `method` Cake\\Filesystem\\Folder::**tree**(null|string $path = null, array|boolean $exceptions = true, null|string $type = null)
 
@@ -179,6 +217,12 @@ $file = new File('/path/to/file.php', true, 0644);
 `method` Cake\\Filesystem\\File::**owner**()
 
 `method` Cake\\Filesystem\\File::**perms**()
+
+`static` Cake\\Filesystem\\File::**prepare**(string $data, boolean $forceWindows = false)
+
+ASCII 文字列をファイルへ書き出す事前処理を行います。
+現在の実行環境に合わせて改行文字を変換します。
+Windows なら "\r\n" を、その他の環境なら "\n" が利用されます。
 
 `method` Cake\\Filesystem\\File::**pwd**()
 

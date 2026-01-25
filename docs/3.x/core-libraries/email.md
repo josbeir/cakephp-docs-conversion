@@ -114,6 +114,8 @@ Use `setProfile()` instead of `profile()`.
 
 ### Configuring Transports
 
+`static` Cake\\Mailer\\Email::**configTransport**($key, $config)
+
 Email messages are delivered by transports. Different transports allow you to
 send messages via PHP's `mail()` function, SMTP servers, or not at all which
 is useful for debugging. Configuring transports allows you to keep configuration
@@ -189,6 +191,8 @@ Email::configTransport('default', [
 
 When using a DSN string you can define any additional parameters/options as
 query string arguments.
+
+`static` Cake\\Mailer\\Email::**dropTransport**($key)
 
 Once configured, transports cannot be modified. In order to modify a transport
 you must first drop it and then reconfigure it.

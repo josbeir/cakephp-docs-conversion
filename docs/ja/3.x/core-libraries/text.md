@@ -35,6 +35,8 @@ class UsersController extends AppController
 
 ## ASCII 文字への変換
 
+`static` Cake\\Utility\\Text::**transliterate**($string, $transliteratorId = null)
+
 transliterate はデフォルトで、与えられた文字列の文字すべてを同じ意味の ASCII 文字に置き換えます。
 このメソッドは UTF-8 エンコーディングであることが前提になっています。
 文字変換はトランスリテレーション識別子で制御することができます。
@@ -55,6 +57,8 @@ Text::transliterate('Übérmensch', 'Latin-ASCII;');
 ```
 
 ## URL に安全な文字列の作成
+
+`static` Cake\\Utility\\Text::**slug**($string, $options = [])
 
 slug はすべての文字を ASCII バージョンにトランスリテレートし（別言語の文字に置き換え）、
 マッチしない文字や空白はダッシュに変換します。
@@ -86,6 +90,8 @@ slug をコントロールするオプション配列を渡すことができま
 
 ## UUID の生成
 
+`static` Cake\\Utility\\Text::**uuid**()
+
 UUID メソッドは `4122` 準拠のユニークな識別子を生成するのに使います。
 UUID は `485fc381-e790-47a3-9794-1337c0a8fe68` というフォーマットの 128 ビットの文字列です。 :
 
@@ -94,6 +100,8 @@ Text::uuid(); // 485fc381-e790-47a3-9794-1337c0a8fe68
 ```
 
 ## 単純な文字列のパース
+
+`static` Cake\\Utility\\Text::**tokenize**($data, $separator = ',', $leftBound = '(', $rightBound = ')')
 
 `$separator` を使って文字列をトークン化します。その際、 `$leftBound` と `$rightBound` の間にある `$separator` は無視されます。
 
@@ -116,6 +124,8 @@ $int = Text::parseFileSize('2GB');
 
 ## 文字列のフォーマット
 
+`static` Cake\\Utility\\Text::**insert**($string, $data, $options = [])
+
 insert メソッドは文字列テンプレートを作り、key/value で置き換えるのに使います。 :
 
 ``` php
@@ -125,6 +135,8 @@ Text::insert(
 );
 // これを返す: "My name is Bob and I am 65 years old."
 ```
+
+`static` Cake\\Utility\\Text::**cleanInsert**($string, $options = [])
 
 `$options` 内の 'clean' キーに従って、 `Text::insert` でフォーマットされた文字列を掃除します。
 デフォルトで method に使われるのは text ですが html も使えます。
@@ -143,6 +155,8 @@ $options = [
 ```
 
 ## テキストの改行
+
+`static` Cake\\Utility\\Text::**wrap**($text, $options = [])
 
 テキストのブロックを幅やインデントを指定して改行させます。
 単語が別の行に分離されないように賢く改行してくれます。 :
@@ -163,6 +177,8 @@ never ends.
 - `wordWrap` 単語単位で改行するか。デフォルトは `true` 。
 - `indent` インデントに使う文字。デフォルトは '' 。
 - `indentAt` 何行目からテキストのインデントを開始するか。デフォルトは 0 。
+
+`static` Cake\\Utility\\Text::**wrapBlock**($text, $options = [])
 
 生成されたブロックの合計幅が内部的なインデントと同じ幅を確実に超えないようにする必要があるなら、
 `wrap()` の代わりに `wrapBlock()` を使う必要があります。

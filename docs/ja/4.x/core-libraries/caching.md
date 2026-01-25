@@ -35,6 +35,8 @@ CakePHP には、いくつかのキャッシュエンジンが用意されてい
 
 ## Cache エンジンの設定
 
+`static` Cake\\Cache\\Cache::**setConfig**($key, $config = null)
+
 アプリケーションは、ブート処理中に任意の数の「エンジン」を設定できます。
 キャッシュエンジンの設定は、 **config/app.php** で定義されています。
 
@@ -215,12 +217,16 @@ Cache::setConfig('redis', [
 
 ### 設定されたキャッシュエンジンを削除する
 
+`static` Cake\\Cache\\Cache::**drop**($key)
+
 一度設定が作成されたら、変更することはできません。代わりに、
 `Cake\Cache\Cache::drop()` と `Cake\Cache\Cache::config()`
 を使用して、設定を削除して再作成する必要があります。キャッシュエンジンを削除すると、設定が削除され、
 アダプターが構築されていれば破棄されます。
 
 ## キャッシュへの書き込み
+
+`static` Cake\\Cache\\Cache::**write**($key, $value, $config = 'default')
 
 `Cache::write()` はキャッシュに \$value を書き込みます。
 この値は後で `$key` で参照したり、削除したりすることができます。
@@ -246,6 +252,8 @@ posts を取得しています。
 
 ### 一度に複数のキーを書き込む
 
+`static` Cake\\Cache\\Cache::**writeMany**($data, $config = 'default')
+
 一度に複数のキャッシュキーを書き込む必要が出るかもしれません。
 `write()` を複数回呼び出すこともできますが、 `writeMany()` は
 CakePHP がより効率的なストレージ API を使用できるようにします。
@@ -263,6 +271,8 @@ $result = Cache::writeMany([
 ```
 
 ### アトミックな書き込み
+
+`static` Cake\\Cache\\Cache::**add**($key, $value $config = 'default')
 
 `Cache::add()` を使用すると、キーがキャッシュに存在しない場合に、
 アトミックにキーを値に設定することができます。
@@ -286,6 +296,8 @@ Cache::delete($lockKey);
 
 ### Read-through キャッシュ
 
+`static` Cake\\Cache\\Cache::**remember**($key, $callable, $config = 'default')
+
 Cache を使用すると、Read-through キャッシュを簡単に行うことができます。
 指定されたキャッシュキーが存在する場合、それが返されます。
 キーが存在しない場合、呼び出し可能オブジェクトが呼び出され、結果がキャッシュに格納されます。
@@ -306,6 +318,8 @@ class IssueService
 ```
 
 ## キャッシュからの読み込み
+
+`static` Cake\\Cache\\Cache::**read**($key, $config = 'default')
 
 `Cache::read()` は、 `$key` 配下に格納されたキャッシュされた値を
 `$config` から読み込むために使用されます。 `$config` が null の場合、
@@ -350,6 +364,8 @@ return $cloud;
 
 ### 一度に複数のキーを読み込む
 
+`static` Cake\\Cache\\Cache::**readMany**($keys, $config = 'default')
+
 一度に複数のキーを書き込んだ後、あなたは恐らくそれらを同様に読み込みたいでしょう。
 `read()` を複数回呼び出すこともできますが、 `readMany()` は CakePHP が
 より効率的なストレージ API を使用できるようにします。例えば Memcached を使用している場合、
@@ -365,6 +381,8 @@ $result = Cache::readMany([
 ```
 
 ## キャッシュからの削除
+
+`static` Cake\\Cache\\Cache::**delete**($key, $config = 'default')
 
 `Cache::delete()` を使うと、キャッシュされたオブジェクトをストアから完全に削除できます。 :
 
@@ -382,6 +400,8 @@ Cache::pool('redis')->deleteAsync('my_key');
 
 ### 一度に複数のキーの削除
 
+`static` Cake\\Cache\\Cache::**deleteMany**($keys, $config = 'default')
+
 一度に複数のキーを書き込んだら、それらを削除したいかもしれません。
 `delete()` を複数回呼び出すこともできますが、 `deleteMany()` は CakePHP が
 より効率的なストレージ API を使用できるようにします。例えば Memcached を使用している場合、
@@ -397,6 +417,8 @@ $result = Cache::deleteMany([
 ```
 
 ## キャッシュデータのクリア
+
+`static` Cake\\Cache\\Cache::**clear**($config = 'default')
 
 キャッシュ設定から、すべてのキャッシュされた値を破棄します。Apcu、Memcached、Wincache
 などのエンジンでは、キャッシュ設定のプレフィックスを使用してキャッシュエントリーを削除します。
@@ -419,6 +441,10 @@ Cache::pool('redis')->clearBlocking();
 > 別々にクリアする必要があります。（CLI ではウェブサーバーのキャッシュをクリアできません）
 
 ## キャッシュを使用してカウンターを保存する
+
+`static` Cake\\Cache\\Cache::**increment**($key, $offset = 1, $config = 'default')
+
+`static` Cake\\Cache\\Cache::**decrement**($key, $offset = 1, $config = 'default')
 
 アプリケーション内のカウンターは、キャッシュに保存するのに適しています。
 例として、コンテストの残りの「枠」の単純なカウントダウンをキャッシュに格納することができます。
@@ -484,6 +510,8 @@ public function afterSave($event, $entity, $options = [])
 }
 ```
 
+`static` Cake\\Cache\\Cache::**groupConfigs**($group = null)
+
 `groupConfigs()` を使用すると、グループと設定の間のマッピングを取得できます。
 つまり、同じグループを持ちます。 :
 
@@ -510,6 +538,8 @@ public function afterSave($event, $entity, $options = [])
 
 ## 全体的にキャッシュを有効または無効にする
 
+`static` Cake\\Cache\\Cache::**disable**()
+
 キャッシュの有効期限に関連する問題を把握しようとするときに、
 キャッシュの読み込みと書き込みをすべて無効にする必要があります。
 `enable()` と `disable()` を使ってこれを行うことができます。 :
@@ -521,12 +551,16 @@ Cache::disable();
 
 無効にすると、すべての読み込みと書き込みは `null` を返却します。
 
+`static` Cake\\Cache\\Cache::**enable**()
+
 無効にすると、 `enable()` を使用してキャッシュを再び有効にすることができます。 :
 
 ``` php
 // すべてのキャッシュの読み込みと書き込みを再び有効にする。
 Cache::enable();
 ```
+
+`static` Cake\\Cache\\Cache::**enabled**()
 
 もしキャッシュの状態を確認する必要がある場合は、 `enabled()` を使用してください。
 

@@ -279,4 +279,142 @@ public function afterSave($created, $options = array()) {
 
 `class` **Cache**
 
+`static` Cache::**config**($name = null, $settings = array())
+
+`Cache::config()` は、追加のキャッシュ設定の作成に使用されます。
+これら追加の設定は、デフォルトのキャッシュ設定とは異なる有効期限 (*duration*)・
+エンジン (*engine*)・パス (*path*)・プレフィックス (*prefix*) を持ちます。
+
+`static` Cache::**read**($key, $config = 'default')
+
+`Cache::read()` は、 `$config` から `$key` で指定したキャッシュの値の
+読込に使用します。 `Cache::read()` は、有効なキャッシュがあった場合、
+キャッシュの値を返し、有効期限切れであったり存在しなかった場合は、 `false` を
+返します。キャッシュの内容が false であると判断するには、厳密な比較 (`===`
+または `!==`) を使用してください。
+
+例:
+
+``` php
+$cloud = Cache::read('cloud');
+
+if ($cloud !== false) {
+    return $cloud;
+}
+
+// cloud データの生成
+// ...
+
+// データをキャッシュに格納
+Cache::write('cloud', $cloud);
+return $cloud;
+```
+
+`static` Cache::**write**($key, $value, $config = 'default')
+
+`Cache::write()` はキャッシュに \$value を書き込みます。 その後、
+`$key` を指定することで、この値を読み込んだり削除することができます。
+また、キャッシュを格納する任意の設定を指定できます。 `$config` を
+指定しない場合、デフォルトが使用されます。 `Cache::write()` は
+あらゆる型のオフジェクトを格納することができ、モデルの検索結果を
+格納することに適しています。 :
+
+``` php
+if (($posts = Cache::read('posts')) === false) {
+    $posts = $this->Post->find('all');
+    Cache::write('posts', $posts);
+}
+```
+
+`Cache::write()` と `Cache::read()` を利用することで、データベースから
+posts を取得する回数を容易に削減することができます。
+
+`static` Cache::**delete**($key, $config = 'default')
+
+`Cache::delete()` は、キャッシュに格納されているオブジェクトを完全に削除します。
+
+`static` Cache::**set**($settings = array(), $value = null, $config = 'default')
+
+`Cache::set()` は、１つの操作 (大抵は read や write) のために、
+一時的にキャッシュの設定を上書きできます。もし、write のために設定を変更するなら、
+データを読み込む前にも `Cache::set()` を使用してください。これを行わなかった場合、
+キャッシュキーで読み込む時にデフォルトの設定が使用されます。 :
+
+``` php
+Cache::set(array('duration' => '+30 days'));
+Cache::write('results', $data);
+
+// Later on
+
+Cache::set(array('duration' => '+30 days'));
+$results = Cache::read('results');
+```
+
+もし、 `Cache::set()` を繰り返し呼ぶところを見つけたなら、 新たな
+`Cache::config()`<span class="title-ref"> を作成するべきです。これで </span><span class="title-ref">Cache::set()</span>\` を
+呼ぶ必要が削減できます。
+
+`static` Cache::**increment**($key, $offset = 1, $config = 'default')
+
+キャッシュエンジンに格納された値を自動的に加算します。カウンターやセマフォ型の値の
+更新に適しています。
+
+`static` Cache::**decrement**($key, $offset = 1, $config = 'default')
+
+キャッシュエンジンに格納された値を自動的に減算します。カウンターやセマフォ型の値の
+更新に適しています。
+
+`static` Cache::**add**($key, $value, $config = 'default')
+
+キャッシュにデータを追加します。しかし、キーが存在しない場合に限ります。
+  データが存在する場合、このメソッドは false を返します。
+可能な場合、データはアトミックにチェックとセットされます。
+
+::: info Added in version 2.8
+add メソッドは、2.8.0 で追加されました。
+:::
+
+`static` Cache::**clear**($check, $config = 'default')
+
+指定したキャッシュの設定に関する全てのキャッシュの値を破棄します。 Apc、Memcache、
+Wincache のようなエンジンの場合、キャッシュの削除にキャッシュ設定のプレフィックスを
+使用します。各キャッシュ設定には、それぞれ異なるプレフィックスを設定してください。
+
 `method` Cache::**clearGroup**($group, $config = 'default')
+
+`static` Cache::**gc**($config)
+
+指定したキャッシュ設定のデータを整理 (ガベージコレクト)します。このメソッドは、
+主に FileEngine で使われます。手動でキャッシュデータを消去する必要がある
+キャッシュエンジンに実装されます。
+
+`static` Cache::**groupConfigs**($group = null)
+
+return  
+グループと関連する設定名の配列
+
+設定されたグループ名を返します。
+
+`static` Cache::**remember**($key, $callable, $config = 'default')
+
+キャッシュ経由の読み込みを簡単に利用できます。キャッシュのキーが存在していた場合、
+値を返します。キーが存在しない場合、 callable な関数が実行されて、指定されたキーで
+キャッシュに結果が格納されます。
+
+例えば、問い合わせの結果をキャッシュしたい時、 `remember` を使用して、
+シンプルに実現できます。PHP 5.3 以上を使用している場合、 :
+
+``` php
+class Articles extends AppModel {
+    function all() {
+        $model = $this;
+        return Cache::remember('all_articles', function() use ($model){
+            return $model->find('all');
+        });
+    }
+}
+```
+
+::: info Added in version 2.5
+remember() は 2.5 で追加されました。
+:::

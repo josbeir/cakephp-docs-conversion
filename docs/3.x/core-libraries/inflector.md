@@ -125,6 +125,10 @@ when provided a multi-word argument:
 
 ## Creating Plural & Singular Forms
 
+`static` Cake\\Utility\\Inflector::**singularize**($singular)
+
+`static` Cake\\Utility\\Inflector::**pluralize**($singular)
+
 Both `pluralize` and `singularize()` work on most English nouns. If you need
 to support other languages, you can use [Inflection Configuration](#inflection-configuration) to
 customize the rules used:
@@ -147,6 +151,10 @@ echo Inflector::singularize('People');
 
 ## Creating CamelCase and under_scored Forms
 
+`static` Cake\\Utility\\Inflector::**camelize**($underscored)
+
+`static` Cake\\Utility\\Inflector::**underscore**($camelCase)
+
 These methods are useful when creating class names, or property names:
 
 ``` php
@@ -163,6 +171,8 @@ underscore.
 
 ## Creating Human Readable Forms
 
+`static` Cake\\Utility\\Inflector::**humanize**($underscored)
+
 This method is useful when converting underscored forms into "Title Case" forms
 for human readable values:
 
@@ -172,6 +182,12 @@ Inflector::humanize('apple_pie');
 ```
 
 ## Creating Table and Class Name Forms
+
+`static` Cake\\Utility\\Inflector::**classify**($underscored)
+
+`static` Cake\\Utility\\Inflector::**dasherize**($dashed)
+
+`static` Cake\\Utility\\Inflector::**tableize**($camelCase)
 
 When generating code, or using CakePHP's conventions you may need to inflect
 table names or class names:
@@ -189,6 +205,8 @@ Inflector::tableize('UserProfileSetting');
 
 ## Creating Variable Names
 
+`static` Cake\\Utility\\Inflector::**variable**($underscored)
+
 Variable names are often useful when doing meta-programming tasks that involve
 generating code or doing work based on conventions:
 
@@ -198,6 +216,8 @@ Inflector::variable('apple_pie');
 ```
 
 ## Creating URL Safe Strings
+
+`static` Cake\\Utility\\Inflector::**slug**($word, $replacement = '-')
 
 Slug converts special characters into latin versions and converting unmatched
 characters and spaces to dashes. The slug method expects UTF-8 encoding:
@@ -228,6 +248,8 @@ CakePHP won't recognize your Foci or Fish, you can tell CakePHP about your
 special cases.
 
 ### Loading Custom Inflections
+
+`static` Cake\\Utility\\Inflector::**rules**($type, $rules, $reset = false)
 
 Define new inflection and transliteration rules for Inflector to use. Often,
 this method is used in your **config/bootstrap.php**:

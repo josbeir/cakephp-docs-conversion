@@ -331,6 +331,8 @@ won't end up breaking the MVC structure CakePHP provides.
 
 ### Writing Configuration data
 
+`static` Cake\\Core\\Configure::**write**($key, $value)
+
 Use `write()` to store data in the application's configuration:
 
 ``` php
@@ -357,6 +359,8 @@ where debugging information can cause parsing problems.
 
 ### Reading Configuration Data
 
+`static` Cake\\Core\\Configure::**read**($key = null, $default = null)
+
 Used to read configuration data from the application. If a key is supplied, the
 data is returned. Using our examples from write() above, we can read that data
 back:
@@ -382,6 +386,8 @@ If `$key` is left null, all values in Configure will be returned.
 The `$default` parameter was added in 3.5.0
 :::
 
+`static` Cake\\Core\\Configure::**readOrFail**($key)
+
 Reads configuration data just like `Cake\Core\Configure::read`
 but expects to find a key/value pair. In case the requested pair does not
 exist, a `RuntimeException` will be thrown:
@@ -402,6 +408,8 @@ Configure::readOrFail('Company');
 
 ### Checking to see if Configuration Data is Defined
 
+`static` Cake\\Core\\Configure::**check**($key)
+
 Used to check if a key/path exists and has non-null value:
 
 ``` php
@@ -409,6 +417,8 @@ $exists = Configure::check('Company.name');
 ```
 
 ### Deleting Configuration Data
+
+`static` Cake\\Core\\Configure::**delete**($key)
 
 Used to delete information from the application's configuration:
 
@@ -418,8 +428,12 @@ Configure::delete('Company.name');
 
 ### Reading & Deleting Configuration Data
 
+`static` Cake\\Core\\Configure::**consume**($key)
+
 Read and delete a key from Configure. This is useful when you want to
 combine reading and deleting values in a single operation.
+
+`static` Cake\\Core\\Configure::**consumeOrFail**($key)
 
 Consumes configuration data just like `Cake\Core\Configure::consume`
 but expects to find a key/value pair. In case the requested pair does not
@@ -440,6 +454,8 @@ Configure::consumeOrFail('Company');
 :::
 
 ## Reading and writing configuration files
+
+`static` Cake\\Core\\Configure::**config**($name, $engine)
 
 CakePHP comes with two built-in configuration file engines.
 `Cake\Core\Configure\Engine\PhpConfig` is able to read PHP config
@@ -472,6 +488,8 @@ Configure::configured();
 Configure::configured('default');
 ```
 
+`static` Cake\\Core\\Configure::**drop**($name)
+
 You can also remove attached engines. `Configure::drop('default')`
 would remove the default engine alias. Any future attempts to load configuration
 files with that engine would fail:
@@ -483,6 +501,8 @@ Configure::drop('default');
 <a id="loading-configuration-files"></a>
 
 ### Loading Configuration Files
+
+`static` Cake\\Core\\Configure::**load**($key, $config = 'default', $merge = true)
 
 Once you've attached a config engine to Configure you can load configuration
 files:
@@ -498,6 +518,8 @@ the existing runtime configuration. By setting `$merge` to `true`, values
 will not ever overwrite the existing configuration.
 
 ### Creating or Modifying Configuration Files
+
+`static` Cake\\Core\\Configure::**dump**($key, $config = 'default', $keys = [])
 
 Dumps all or some of the data in Configure into a file or storage system
 supported by a config engine. The serialization format is decided by the config
@@ -524,6 +546,8 @@ configuration files that are readable with `Configure::load()`
 
 ### Storing Runtime Configuration
 
+`static` Cake\\Core\\Configure::**store**($name, $cacheConfig = 'default', $data = null)
+
 You can also store runtime configuration values for use in a future request.
 Since configure only remembers values for the current request, you will
 need to store any modified configuration information if you want to
@@ -538,6 +562,8 @@ Stored configuration data is persisted in the named cache configuration. See the
 [Caching](../core-libraries/caching) documentation for more information on caching.
 
 ### Restoring Runtime Configuration
+
+`static` Cake\\Core\\Configure::**restore**($name, $cacheConfig = 'default')
 
 Once you've stored runtime configuration, you'll probably need to restore it
 so you can access it again. `Configure::restore()` does exactly that:

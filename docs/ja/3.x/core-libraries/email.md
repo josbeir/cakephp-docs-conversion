@@ -108,6 +108,8 @@ $email = new Email(['from' => 'me@example.org', 'transport' => 'my_custom']);
 
 ### トランスポートの設定
 
+`static` Cake\\Mailer\\Email::**configTransport**($key, $config)
+
 メールメッセージは、トランスポートによって配信されます。さまざまなトランスポートを使用すると、
 PHP の `mail()` 関数や SMTP サーバーでメッセージを送信したり、
 デバッグが捗るようメッセージを送信しないこともできます。トランスポートを設定すると、
@@ -177,6 +179,8 @@ DSN 文字列を使用するときは、クエリー文字列引数として任�
 ::: info Deprecated in version 3.4.0
 `configTransport()` の代わりに `setConfigTransport()` を使用してください。
 :::
+
+`static` Cake\\Mailer\\Email::**dropTransport**($key)
 
 設定が完了すると、トランスポートを変更することはできません。
 トランスポートを変更するためには、まずこれを取り消してから再設定する必要があります。

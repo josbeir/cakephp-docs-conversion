@@ -565,6 +565,8 @@ TransportFactory::setConfig('default', [
 When using a DSN string you can define any additional parameters/options as
 query string arguments.
 
+`static` Cake\\Mailer\\Mailer::**drop**($key)
+
 Once configured, transports cannot be modified. In order to modify a transport
 you must first drop it and then reconfigure it.
 

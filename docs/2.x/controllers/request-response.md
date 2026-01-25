@@ -299,6 +299,23 @@ properties and methods.
 
 `method` CakeRequest::**accepts**($type = null)
 
+`static` CakeRequest::**acceptLanguage**($language = null)
+
+Get all the languages accepted by the client,
+or check whether a specific language is accepted.
+
+Get the list of accepted languages:
+
+``` css
+CakeRequest::acceptLanguage();
+```
+
+Check whether a specific language is accepted:
+
+``` css
+CakeRequest::acceptLanguage('es-es');
+```
+
 `method` CakeRequest::**param**($name)
 
 <div class="index">

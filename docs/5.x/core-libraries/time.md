@@ -145,6 +145,8 @@ echo $time->timezoneName; // America/New_York
 
 ## Formatting
 
+`static` Cake\\I18n\\DateTime::**setJsonEncodeFormat**($format)
+
 This method sets the default format used when converting an object to json:
 
 ``` php

@@ -291,6 +291,8 @@ MVC デザインパターンを破壊する誘惑に気をつけてください�
 
 ### 設定データの書き込み
 
+`static` Cake\\Core\\Configure::**write**($key, $value)
+
 `write()` を利用してアプリケーションの設定にデータを保存します。 :
 
 ``` php
@@ -319,6 +321,8 @@ Configure::write('Company', [
 
 ### 設定データの読み込み
 
+`static` Cake\\Core\\Configure::**read**($key = null, $default = null)
+
 アプリケーションから設定データを読み込むために利用されます。もしキーが指定されれば、
 そのデータが返却されます。上記の write() の例を取り上げると、以下のようにデータを読み込みます。 :
 
@@ -339,6 +343,8 @@ Configure::read('Company.nope', 'fallback');
 
 もし `$key` が null のままだと、Configure のすべての値が返却されます。
 
+`static` Cake\\Core\\Configure::**readOrFail**($key)
+
 設定データを単に `Cake\Core\Configure::read` で読み込みますが、
 一方で key/value ペアを検索することを期待します。要求されたペアが存在しない場合、
 `RuntimeException` が投げられます。 :
@@ -355,6 +361,8 @@ Configure::readOrFail('Company');
 
 ### 定義されている設定データのチェック
 
+`static` Cake\\Core\\Configure::**check**($key)
+
 キー / パス が存在しているか、値が null でないかチェックする場合に利用します。 :
 
 ``` php
@@ -362,6 +370,8 @@ $exists = Configure::check('Company.name');
 ```
 
 ### 設定データの削除
+
+`static` Cake\\Core\\Configure::**delete**($key)
 
 アプリケーションの設定から情報を削除するために利用されます。 :
 
@@ -371,8 +381,12 @@ Configure::delete('Company.name');
 
 ### 設定データの読み書き
 
+`static` Cake\\Core\\Configure::**consume**($key)
+
 Configure からキーの読み込みと削除を行います。
 もしあなたが値の読み込みと削除を単一の動作で組み合わせたい時に便利です。
+
+`static` Cake\\Core\\Configure::**consumeOrFail**($key)
 
 `Cake\Core\Configure::consume` のように設定データを消費しますが、
 一方でキーと値のペアが見つかることを期待します。要求されたペアが存在しない場合、
@@ -389,6 +403,8 @@ Configure::consumeOrFail('Company');
 ```
 
 ## 設定ファイルの読み書き
+
+`static` Cake\\Core\\Configure::**config**($name, $engine)
 
 CakePHP は 2 つの組み込み設定ファイルエンジンを搭載しています。
 `Cake\Core\Configure\Engine\PhpConfig` は
@@ -421,6 +437,8 @@ Configure::configured();
 Configure::configured('default');
 ```
 
+`static` Cake\\Core\\Configure::**drop**($name)
+
 配置されたエンジンを取り除くことができます。
 `Configure::drop('default')` は default のエンジンエイリアスを取り除きます。
 この先、そのエンジンを使って設定ファイルを読み込もうとする試みは失敗します。 :
@@ -430,6 +448,8 @@ Configure::drop('default');
 ```
 
 ### 設定ファイルの読み込み
+
+`static` Cake\\Core\\Configure::**load**($key, $config = 'default', $merge = true)
 
 一旦設定エンジンに Configure を設定すると、設定ファイルを読み込むことができます。 :
 
@@ -443,6 +463,8 @@ Configure::load('my_file', 'default');
 `$merge` を `true` にセットすることで、存在している設定の値を上書きしなくなります。
 
 ### 設定ファイルの作成や編集
+
+`static` Cake\\Core\\Configure::**dump**($key, $config = 'default', $keys = [])
 
 全て、もしくはいくつかの Configure にあるデータを、
 ファイルや設定エンジンがサポートしているストレージシステムにダンプします。
@@ -469,6 +491,8 @@ Configure::dump('error', 'default', ['Error', 'Exception']);
 
 ### 実行時の設定を保存
 
+`static` Cake\\Core\\Configure::**store**($name, $cacheConfig = 'default', $data = null)
+
 将来のリクエストのために、実行時の設定を保存することができます。
 設定は現在のリクエストのみ値を記憶するので、
 もしその後のリクエストで編集された設定情報を利用したければ、それを保存する必要があります。 :
@@ -482,6 +506,8 @@ Configure::store('user_1234', 'default');
 キャッシュに関するより詳しい情報は [キャッシュ](../core-libraries/caching) を参照してください。
 
 ### 実行時の設定を復元
+
+`static` Cake\\Core\\Configure::**restore**($name, $cacheConfig = 'default')
 
 実行時の設定を保存すると、おそらくそれを復元して、再びそれにアクセスする必要があります。
 `Configure::restore()` がちょうどそれに該当します。 :

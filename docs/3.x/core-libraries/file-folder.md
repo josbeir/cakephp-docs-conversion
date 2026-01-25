@@ -57,17 +57,22 @@ Whether or not the list results should be sorted by name.
 
 Mode to be used when creating folders. Defaults to ``0755``. Does nothing on
 Windows machines.
+```
 
+`static` Cake\\Filesystem\\Folder::**addPathElement**(string $path, string $element)
 
-Returns $path with $element added, with correct slash in-between::
+Returns \$path with \$element added, with correct slash in-between:
 
-    $path = Folder::addPathElement('/a/path/for', 'testing');
-    // $path equals /a/path/for/testing
+``` php
+$path = Folder::addPathElement('/a/path/for', 'testing');
+// $path equals /a/path/for/testing
+```
 
-$element can also be an array::
+\$element can also be an array:
 
-    $path = Folder::addPathElement('/a/path/for', ['testing', 'another']);
-    // $path equals /a/path/for/testing/another
+``` php
+$path = Folder::addPathElement('/a/path/for', ['testing', 'another']);
+// $path equals /a/path/for/testing/another
 ```
 
 `method` Cake\\Filesystem\\Folder::**cd**( $path )
@@ -75,6 +80,11 @@ $element can also be an array::
 `method` Cake\\Filesystem\\Folder::**chmod**(string $path, integer $mode = false, boolean $recursive = true, array $exceptions = [])
 
 `method` Cake\\Filesystem\\Folder::**copy**(array|string $options = [])
+
+`static` Cake\\Filesystem\\Folder::**correctSlashFor**(string $path)
+
+Returns a correct set of slashes for given \$path ('\\ for
+Windows paths and '/' for other paths).
 
 `method` Cake\\Filesystem\\Folder::**create**(string $pathname, integer $mode = false)
 
@@ -97,15 +107,46 @@ $element can also be an array::
 
 `method` Cake\\Filesystem\\Folder::**inPath**(string $path = '', boolean $reverse = false)
 
+`static` Cake\\Filesystem\\Folder::**isAbsolute**(string $path)
+
+Returns `true` if the given \$path is an absolute path.
+
+`static` Cake\\Filesystem\\Folder::**isSlashTerm**(string $path)
+
+Returns `true` if given \$path ends in a slash (i.e. is slash-terminated):
+
+``` php
+$result = Folder::isSlashTerm('/my/test/path');
+// $result = false
+$result = Folder::isSlashTerm('/my/test/path/');
+// $result = true
+```
+
+`static` Cake\\Filesystem\\Folder::**isWindowsPath**(string $path)
+
+Returns `true` if the given \$path is a Windows path.
+
 `method` Cake\\Filesystem\\Folder::**messages**()
 
 `method` Cake\\Filesystem\\Folder::**move**(array $options)
+
+`static` Cake\\Filesystem\\Folder::**normalizeFullPath**(string $path)
+
+Returns a path with slashes normalized for the operating system.
+
+::: info Added in version 3.7.0
+:::
 
 `method` Cake\\Filesystem\\Folder::**pwd**()
 
 `method` Cake\\Filesystem\\Folder::**read**(boolean $sort = true, array|boolean $exceptions = false, boolean $fullPath = false)
 
 `method` Cake\\Filesystem\\Folder::**realpath**(string $path)
+
+`static` Cake\\Filesystem\\Folder::**slashTerm**(string $path)
+
+Returns \$path with added terminating slash (corrected for
+Windows or other OS).
 
 `method` Cake\\Filesystem\\Folder::**tree**(null|string $path = null, array|boolean $exceptions = true, null|string $type = null)
 
@@ -174,6 +215,12 @@ The current file's absolute path.
 `method` Cake\\Filesystem\\File::**owner**()
 
 `method` Cake\\Filesystem\\File::**perms**()
+
+`static` Cake\\Filesystem\\File::**prepare**(string $data, boolean $forceWindows = false)
+
+Prepares a ascii string for writing. Converts line endings to the
+correct terminator for the current platform. For Windows "\r\n"
+will be used, "\n" for all other platforms.
 
 `method` Cake\\Filesystem\\File::**pwd**()
 

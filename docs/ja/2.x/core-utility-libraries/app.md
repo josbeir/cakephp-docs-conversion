@@ -23,51 +23,53 @@ CakePHP のフレームワークのほぼすべてのクラスは、あなた独
 
 ## クラスのローディング
 
-> rtype  
-> void
->
-> CakePHP ではクラスは遅延ロードされますが、オートローダがクラスを発見出来るためには、
-> どこでファイルを見つけられるのかをまず App に伝えなくてはなりません。
-> どのパッケージでクラスを発見できるのかを App に伝えることで、あるクラスを初めて使用するときに
-> 適切にファイルを見つけることができるのです。
->
-> 一般的なクラスの例をいくつか挙げます:
->
-> Console Commands  
-> `App::uses('AppShell', 'Console/Command');`
->
-> Console Tasks  
-> `App::uses('BakeTask', 'Console/Command/Task');`
->
-> Controllers  
-> `App::uses('PostsController', 'Controller');`
->
-> Components  
-> `App::uses('AuthComponent', 'Controller/Component');`
->
-> Models  
-> `App::uses('MyModel', 'Model');`
->
-> Behaviors  
-> `App::uses('TreeBehavior', 'Model/Behavior');`
->
-> Views  
-> `App::uses('ThemeView', 'View');`
->
-> Helpers  
-> `App::uses('HtmlHelper', 'View/Helper');`
->
-> Libs  
-> `App::uses('PaymentProcessor', 'Lib');`
->
-> Vendors  
-> `App::uses('Textile', 'Vendor');`
->
-> Utilities  
-> `App::uses('CakeText', 'Utility');`
->
-> つまり基本的に、第二パラメータは、コアまたはアプリ内のクラスファイルのフォルダパスと単純に
-> 一致させなくてはなりません。
+`static` App::**uses**(string $class, string $package)
+
+rtype  
+void
+
+CakePHP ではクラスは遅延ロードされますが、オートローダがクラスを発見出来るためには、
+どこでファイルを見つけられるのかをまず App に伝えなくてはなりません。
+どのパッケージでクラスを発見できるのかを App に伝えることで、あるクラスを初めて使用するときに
+適切にファイルを見つけることができるのです。
+
+一般的なクラスの例をいくつか挙げます:
+
+Console Commands  
+`App::uses('AppShell', 'Console/Command');`
+
+Console Tasks  
+`App::uses('BakeTask', 'Console/Command/Task');`
+
+Controllers  
+`App::uses('PostsController', 'Controller');`
+
+Components  
+`App::uses('AuthComponent', 'Controller/Component');`
+
+Models  
+`App::uses('MyModel', 'Model');`
+
+Behaviors  
+`App::uses('TreeBehavior', 'Model/Behavior');`
+
+Views  
+`App::uses('ThemeView', 'View');`
+
+Helpers  
+`App::uses('HtmlHelper', 'View/Helper');`
+
+Libs  
+`App::uses('PaymentProcessor', 'Lib');`
+
+Vendors  
+`App::uses('Textile', 'Vendor');`
+
+Utilities  
+`App::uses('CakeText', 'Utility');`
+
+つまり基本的に、第二パラメータは、コアまたはアプリ内のクラスファイルのフォルダパスと単純に
+一致させなくてはなりません。
 
 > [!NOTE]
 > ベンダーのローディングは通常、規則に従わないパッケージのローディングを意味します。
@@ -89,91 +91,101 @@ App::uses('CommentComponent', 'PluginName.Controller/Component');
 
 ## App::path() を用いたパッケージへのパスの探索
 
-> rtype  
-> array
->
-> 保存されたパス情報を読み込むために用いる:
->
-> ``` php
-> // アプリケーション内のモデルのパスが返る
-> App::path('Model');
-> ```
->
-> アプリケーション内のすべてのパッケージに対してこれを実行できます。
-> プラグインに対するパスを取得することもできます:
->
-> ``` php
-> // DebugKit 内のコンポーネントのパスが返る
-> App::path('Component', 'DebugKit');
-> ```
->
-> rtype  
-> array
->
-> 現在読み込まれているすべてのパスを App から取得します。
-> App が把握している全てのパスを調べたり記憶したりするのに便利です。
-> 特定のパッケージのパスを扱う場合は `App::path()` を使用します。
->
-> rtype  
-> array
->
-> CakePHP 内部のパッケージのパスを見つけるために用いられます:
->
-> ``` php
-> // Cache エンジンへのパスを取得する
-> App::core('Cache/Engine');
-> ```
->
-> rtype  
-> string
->
-> クラスが定義された場所のパッケージ名を返します。
+`static` App::**path**(string $package, string $plugin = null)
+
+rtype  
+array
+
+保存されたパス情報を読み込むために用いる:
+
+``` php
+// アプリケーション内のモデルのパスが返る
+App::path('Model');
+```
+
+アプリケーション内のすべてのパッケージに対してこれを実行できます。
+プラグインに対するパスを取得することもできます:
+
+``` php
+// DebugKit 内のコンポーネントのパスが返る
+App::path('Component', 'DebugKit');
+```
+
+`static` App::**paths**( )
+
+rtype  
+array
+
+現在読み込まれているすべてのパスを App から取得します。
+App が把握している全てのパスを調べたり記憶したりするのに便利です。
+特定のパッケージのパスを扱う場合は `App::path()` を使用します。
+
+`static` App::**core**(string $package)
+
+rtype  
+array
+
+CakePHP 内部のパッケージのパスを見つけるために用いられます:
+
+``` php
+// Cache エンジンへのパスを取得する
+App::core('Cache/Engine');
+```
+
+`static` App::**location**(string $className)
+
+rtype  
+string
+
+クラスが定義された場所のパッケージ名を返します。
 
 ## App がパッケージを探索できるようにパスを追加する
 
-> rtype  
-> void
->
-> ファイルシステム上の各パッケージの場所を設定します。パッケージごとに複数の探索パスを設定することができ、
-> それらは、ファイルがあるフォルダを一度だけ探すために指定された順序で使用されます。
-> すべてのパスはディレクトリセパレータで終了する必要があります。
->
-> 例えばコントローラのパスを追加すると、CakePHP がコントローラを探すパスを置き換えることになるでしょう。
-> この仕組みが、アプリケーションをファイルシステムから分離させてくれます。
->
-> 使い方:
->
-> ``` php
-> //Model パッケージのための新しい探索パスがセットアップされます
-> App::build(array('Model' => array('/a/full/path/to/models/')));
->
-> //このパスはモデルを探索するための唯一正しいパスとしてセットアップされます
-> App::build(array('Model' => array('/path/to/models/')), App::RESET);
->
-> //ヘルパーの複数の探索パスがセットアップされます
-> App::build(array(
->     'View/Helper' => array('/path/to/helpers/', '/another/path/')
-> ));
-> ```
->
-> reset が true に設定されている場合、ロードされたすべてのプラグインは忘れ去られ、
-> それらは再びロードされる必要があります。
->
-> 例:
->
-> ``` php
-> App::build(array('controllers' => array('/full/path/to/controllers/')));
-> //このようになりました
-> App::build(array('Controller' => array('/full/path/to/Controller/')));
->
-> App::build(array('helpers' => array('/full/path/to/views/helpers/')));
-> //このようになりました
-> App::build(array('View/Helper' => array('/full/path/to/View/Helper/')));
-> ```
->
-> ::: info Changed in version 2.0
-> `App::build()` はもはや app のパスと core のパスをマージしません
-> :::
+`static` App::**build**(array $paths = array(), mixed $mode = App::PREPEND)
+
+rtype  
+void
+
+ファイルシステム上の各パッケージの場所を設定します。パッケージごとに複数の探索パスを設定することができ、
+それらは、ファイルがあるフォルダを一度だけ探すために指定された順序で使用されます。
+すべてのパスはディレクトリセパレータで終了する必要があります。
+
+例えばコントローラのパスを追加すると、CakePHP がコントローラを探すパスを置き換えることになるでしょう。
+この仕組みが、アプリケーションをファイルシステムから分離させてくれます。
+
+使い方:
+
+``` php
+//Model パッケージのための新しい探索パスがセットアップされます
+App::build(array('Model' => array('/a/full/path/to/models/')));
+
+//このパスはモデルを探索するための唯一正しいパスとしてセットアップされます
+App::build(array('Model' => array('/path/to/models/')), App::RESET);
+
+//ヘルパーの複数の探索パスがセットアップされます
+App::build(array(
+    'View/Helper' => array('/path/to/helpers/', '/another/path/')
+));
+```
+
+reset が true に設定されている場合、ロードされたすべてのプラグインは忘れ去られ、
+それらは再びロードされる必要があります。
+
+例:
+
+``` php
+App::build(array('controllers' => array('/full/path/to/controllers/')));
+//このようになりました
+App::build(array('Controller' => array('/full/path/to/Controller/')));
+
+App::build(array('helpers' => array('/full/path/to/views/helpers/')));
+//このようになりました
+App::build(array('View/Helper' => array('/full/path/to/View/Helper/')));
+```
+
+::: info Changed in version 2.0
+`App::build()` はもはや app のパスと core のパスをマージしません
+:::
 
 ### アプリケーションに新しいパッケージを追加する
 
@@ -196,96 +208,104 @@ App::build(array(
 
 ## CakePHP が把握しているオブジェクトを探索する
 
-> rtype  
-> mixed 与えられた型のオブジェクトの配列か、不正な場合は false を返します。
->
-> `App::objects('Controller')` を用いて、Appが把握しているオブジェクト、例えば
-> App が把握しているアプリケーションのコントローラ、を見出せます。
->
-> 使用例:
->
-> ``` php
-> //returns array('DebugKit', 'Blog', 'User');
-> App::objects('plugin');
->
-> //returns array('PagesController', 'BlogController');
-> App::objects('Controller');
-> ```
->
-> プラグインドット記法を用いることで、そのプラグイン内においてのオブジェクトを探すこともできます:
->
-> ``` php
-> // returns array('MyPluginPost', 'MyPluginComment');
-> App::objects('MyPlugin.Model');
-> ```
->
-> ::: info Changed in version 2.0
-> :::
->
-> 1.  結果が空の場合や型が不正な場合に false の代わりに `array()` を返します
-> 2.  `App::objects('core')` は、もはやコアオブジェクトを返さずに `array()` を返します
-> 3.  完全なクラス名を返します
+`static` App::**objects**(string $type, mixed $path = null, boolean $cache = true)
+
+rtype  
+mixed 与えられた型のオブジェクトの配列か、不正な場合は false を返します。
+
+`App::objects('Controller')` を用いて、Appが把握しているオブジェクト、例えば
+App が把握しているアプリケーションのコントローラ、を見出せます。
+
+使用例:
+
+``` php
+//returns array('DebugKit', 'Blog', 'User');
+App::objects('plugin');
+
+//returns array('PagesController', 'BlogController');
+App::objects('Controller');
+```
+
+プラグインドット記法を用いることで、そのプラグイン内においてのオブジェクトを探すこともできます:
+
+``` php
+// returns array('MyPluginPost', 'MyPluginComment');
+App::objects('MyPlugin.Model');
+```
+
+::: info Changed in version 2.0
+:::
+
+1.  結果が空の場合や型が不正な場合に false の代わりに `array()` を返します
+2.  `App::objects('core')` は、もはやコアオブジェクトを返さずに `array()` を返します
+3.  完全なクラス名を返します
 
 ## プラグインの配置
 
-> rtype  
-> string
->
-> プラグインも同じように App で配置できます。例えば `App::pluginPath('DebugKit');`
-> を用いることで DebugKit プラグインへのフルパスをあなたに与えます:
->
-> ``` php
-> $path = App::pluginPath('DebugKit');
-> ```
+`static` App::**pluginPath**(string $plugin)
+
+rtype  
+string
+
+プラグインも同じように App で配置できます。例えば `App::pluginPath('DebugKit');`
+を用いることで DebugKit プラグインへのフルパスをあなたに与えます:
+
+``` php
+$path = App::pluginPath('DebugKit');
+```
 
 ## テーマの設置
 
-> rtype  
-> string
->
-> `App::themePath('purple');` のように呼ぶと、 <span class="title-ref">purple</span> テーマのフルパスを取得することができます。
+`static` App::**themePath**(string $theme)
+
+rtype  
+string
+
+`App::themePath('purple');` のように呼ぶと、 <span class="title-ref">purple</span> テーマのフルパスを取得することができます。
 
 ## App::import() でファイルをインクルードする
 
-> rtype  
-> boolean
->
-> 一見すると `App::import` は複雑に見えます。
-> しかしながら、ほとんどのケースではただ二つの引数が要求されるのみです。
->
-> > [!NOTE]
-> > このメソッドはファイルを `require` することと同じです。
-> > その後、クラスの初期化が必要だと理解しておくことは重要です。
->
-> ``` php
-> // require('Controller/UsersController.php'); と同じ
-> App::import('Controller', 'Users');
->
-> // クラスのロードが必要
-> $Users = new UsersController();
->
-> // モデル連携やコンポーネントなどがロードされるようにしたい場合
-> $Users->constructClasses();
-> ```
->
-> **かつて App::import('Core', \$class) を用いてロードされたすべてのクラスは、
-> App::uses() を用いた、正しいパッケージを参照したロードが必要になりました。
-> この変更は、フレームワークに大きなパフォーマンスの向上をもたらしました。**
->
-> ::: info Changed in version 2.0
-> :::
->
-> - このメソッドはもはや再帰的にクラスを検索しなくなり、 `App::build()`
->   に定義されているパスの値を厳格に使用します
-> - クラスをロードするための `App::import('Component', 'Component')` は使用不可になる予定。
->   `App::uses('Component', 'Controller');` を用いて下さい。
-> - コアクラスをロードするためには `App::import('Lib', 'CoreClass');` はもはや使用不可です。
-> - 存在しないファイルのインポート、あるいは `$name` および `$file` のパラメータとして誤った型や
->   パッケージ名や NULL値を渡すと、戻り値は false になります。
-> - `App::import('Core', 'CoreClass')` はもはやサポートされません。 `App::uses()`
->   を用い、残りの部分はクラスのオートローディングにやらせます。
-> - ベンダーファイルのローディングはベンダーフォルダを再帰的に探索しません。かつてのようにファイル名を
->   アンダースコアに変換することも、もうありません。
+`static` App::**import**(mixed $type = null, string $name = null, mixed $parent = true, array $search = array(), string $file = null, boolean $return = false)
+
+rtype  
+boolean
+
+一見すると `App::import` は複雑に見えます。
+しかしながら、ほとんどのケースではただ二つの引数が要求されるのみです。
+
+> [!NOTE]
+> このメソッドはファイルを `require` することと同じです。
+> その後、クラスの初期化が必要だと理解しておくことは重要です。
+
+``` php
+// require('Controller/UsersController.php'); と同じ
+App::import('Controller', 'Users');
+
+// クラスのロードが必要
+$Users = new UsersController();
+
+// モデル連携やコンポーネントなどがロードされるようにしたい場合
+$Users->constructClasses();
+```
+
+**かつて App::import('Core', \$class) を用いてロードされたすべてのクラスは、
+App::uses() を用いた、正しいパッケージを参照したロードが必要になりました。
+この変更は、フレームワークに大きなパフォーマンスの向上をもたらしました。**
+
+::: info Changed in version 2.0
+:::
+
+- このメソッドはもはや再帰的にクラスを検索しなくなり、 `App::build()`
+  に定義されているパスの値を厳格に使用します
+- クラスをロードするための `App::import('Component', 'Component')` は使用不可になる予定。
+  `App::uses('Component', 'Controller');` を用いて下さい。
+- コアクラスをロードするためには `App::import('Lib', 'CoreClass');` はもはや使用不可です。
+- 存在しないファイルのインポート、あるいは `$name` および `$file` のパラメータとして誤った型や
+  パッケージ名や NULL値を渡すと、戻り値は false になります。
+- `App::import('Core', 'CoreClass')` はもはやサポートされません。 `App::uses()`
+  を用い、残りの部分はクラスのオートローディングにやらせます。
+- ベンダーファイルのローディングはベンダーフォルダを再帰的に探索しません。かつてのようにファイル名を
+  アンダースコアに変換することも、もうありません。
 
 ## CakePHP のクラスをオーバーライドする
 
@@ -389,22 +409,28 @@ App::import(
 
 ## App init/load/shutdown メソッド
 
-> rtype  
-> void
->
-> App のキャッシュを初期化し、シャットダウン関数を登録します。
->
-> rtype  
-> boolean
->
-> 自動的なクラスローディングを処理するメソッド。これは、`App::uses()`
-> を使用して定義された各クラスのパッケージを探し出し、その情報を元に、クラスをロードするための
-> フルパスとしてパッケージ名を解決します。各クラスのファイル名はクラス名に従ってください。
-> たとえばクラス名が `MyCustomClass` である場合、ファイル名は `MyCustomClass.php`
-> でなければなりません。
->
-> rtype  
-> void
->
-> オブジェクトのデストラクタ。
-> `$_map` に変更が加えられている場合にキャッシュファイルに書き込みます。
+`static` App::**init**( )
+
+rtype  
+void
+
+App のキャッシュを初期化し、シャットダウン関数を登録します。
+
+`static` App::**load**(string $className)
+
+rtype  
+boolean
+
+自動的なクラスローディングを処理するメソッド。これは、`App::uses()`
+を使用して定義された各クラスのパッケージを探し出し、その情報を元に、クラスをロードするための
+フルパスとしてパッケージ名を解決します。各クラスのファイル名はクラス名に従ってください。
+たとえばクラス名が `MyCustomClass` である場合、ファイル名は `MyCustomClass.php`
+でなければなりません。
+
+`static` App::**shutdown**( )
+
+rtype  
+void
+
+オブジェクトのデストラクタ。
+`$_map` に変更が加えられている場合にキャッシュファイルに書き込みます。

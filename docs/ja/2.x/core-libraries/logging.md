@@ -276,9 +276,132 @@ CakeLog::warning('これは、 shop と payments の両ストリームに書か�
 
 `class` **CakeLog**
 
-::: info Added in version 2.2
-ログレベルとスコープ現在のレベルの設定を取得するために、引数なしでこのメソッドを読びます。 例： `CakeLog::levels()` 。デフォルトで 'user0' と 'user1' という追加のレベルを追加するために、 ログレベルを使用します。 :`CakeLog::levels()` を呼ぶと結果は:既存の設定を置き換えるために、第二引数に false をセットしてください。 :`CakeLog::levels()` を呼ぶと結果は:独自の値にログレベルをリセットします。 :`$streamName` が有効かどうかをチェック。`$streamName` ストリームを有効化。`$streamName` ストリームを無効化。`$streamName` に該当するストリームを取得します。
+`static` CakeLog::**config**($name, $config)
+
+param string \$name  
+接続されるロガーの名前。後でロガーを削除するために
+使用されます。
+
+param array \$config  
+ロガーの設定情報とコンストラクタ引数の配列。
+
+CakeLog と新しいロガーに接続します。接続されたロガーの各々は、
+ログメッセージが書かれるたびに全てのログメッセージを受け取ります。
+
+`static` CakeLog::**configured**()
+
+returns  
+設定されたロガーの配列
+
+設定されたロガーの名前を取得します。
+
+`static` CakeLog::**drop**($name)
+
+param string \$name  
+今後メッセージを受信させたくないロガーの名前。
+
+`static` CakeLog::**write**($level, $message, $scope = array())
+
+全ての設定されたロガーにメッセージを書き込みます。
+\$level は、作成されたログメッセージのレベルを表します。
+\$message は、書き込みたいログのメッセージです。
+
+::: info Changed in version 2.2
+`$scope` は追加されました。
 :::
+
+::: info Added in version 2.2
+ログレベルとスコープ
+:::
+
+`static` CakeLog::**levels**()
+
+現在のレベルの設定を取得するために、引数なしでこのメソッドを読びます。
+例： `CakeLog::levels()` 。
+
+デフォルトで 'user0' と 'user1' という追加のレベルを追加するために、
+ログレベルを使用します。 :
+
+``` php
+CakeLog::levels(array('user0', 'user1'));
+// または
+CakeLog::levels(array('user0', 'user1'), true);
+```
+
+`CakeLog::levels()` を呼ぶと結果は:
+
+``` text
+array(
+    0 => 'emergency',
+    1 => 'alert',
+    // ...
+    8 => 'user0',
+    9 => 'user1',
+);
+```
+
+既存の設定を置き換えるために、第二引数に false をセットしてください。 :
+
+``` php
+CakeLog::levels(array('user0', 'user1'), false);
+```
+
+`CakeLog::levels()` を呼ぶと結果は:
+
+``` text
+array(
+    0 => 'user0',
+    1 => 'user1',
+);
+```
+
+`static` CakeLog::**defaultLevels**()
+
+returns  
+デフォルトのログレベルの値配列
+
+独自の値にログレベルをリセットします。 :
+
+``` text
+array(
+    'emergency' => LOG_EMERG,
+    'alert'     => LOG_ALERT,
+    'critical'  => LOG_CRIT,
+    'error'     => LOG_ERR,
+    'warning'   => LOG_WARNING,
+    'notice'    => LOG_NOTICE,
+    'info'      => LOG_INFO,
+    'debug'     => LOG_DEBUG,
+);
+```
+
+`static` CakeLog::**enabled**($streamName)
+
+returns  
+boolean
+
+`$streamName` が有効かどうかをチェック。
+
+`static` CakeLog::**enable**($streamName)
+
+returns  
+void
+
+`$streamName` ストリームを有効化。
+
+`static` CakeLog::**disable**($streamName)
+
+returns  
+void
+
+`$streamName` ストリームを無効化。
+
+`static` CakeLog::**stream**($streamName)
+
+returns  
+`BaseLog` のインスタンス、見つからない場合は `false`
+
+`$streamName` に該当するストリームを取得します。
 
 ### 便利メソッド
 
@@ -286,3 +409,19 @@ CakeLog::warning('これは、 shop と payments の両ストリームに書か�
 :::
 
 以下の便利メソッドは、 適切なログレベルで `$message` を記録するために追加されました。
+
+`static` CakeLog::**emergency**($message, $scope = array())
+
+`static` CakeLog::**alert**($message, $scope = array())
+
+`static` CakeLog::**critical**($message, $scope = array())
+
+`static` CakeLog::**error**($message, $scope = array())
+
+`static` CakeLog::**warning**($message, $scope = array())
+
+`static` CakeLog::**notice**($message, $scope = array())
+
+`static` CakeLog::**info**($message, $scope = array())
+
+`static` CakeLog::**debug**($message, $scope = array())

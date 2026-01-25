@@ -582,6 +582,8 @@ admin routing, prefix routing
 
 ### プレフィックスルーティング
 
+`static` Cake\\Routing\\RouterBuilder::**prefix**($name, $callback)
+
 多くのアプリケーションは特権を持ったユーザーが変更を加えるための管理者領域が必要です。
 これはしばしば、特別な `/admin/users/edit/5` のような URL を通してなされます。
 CakePHP では、プレフィックスルーティングは, `prefix` スコープメソッドによって
@@ -724,6 +726,8 @@ echo $this->Html->link(
 > 必要に応じて、ルート自体が屈折を行います。
 
 ### プラグインのルーティング
+
+`static` Cake\\Routing\\RouterBuilder::**plugin**($name, $options = [], $callback)
 
 [プラグイン](../plugins) のためのルートは `plugin()` メソッドを使って作成してください。
 このメソッドは、プラグインのルートのための新しいルーティングスコープを作成します。 :
@@ -886,6 +890,8 @@ file extensions
 </div>
 
 ### ファイル拡張子のルーティング
+
+`static` Cake\\Routing\\RouterBuilder::**extensions**(stringnull $extensions, $merge = true)
 
 異なるファイルの拡張子をルートで処理するために、スコープレベルだけでなくグローバルでも
 拡張子を定義できます。グローバルな拡張子を定義するには、スタティックな
@@ -1304,6 +1310,8 @@ Array
 
 ## URL の生成
 
+`static` Cake\\Routing\\RouterBuilder::**url**($url = null, $full = false)
+
 URL の生成やリバースルーティングは、すべてのコードの変更なしに URL の構造を簡単に変更する
 CakePHP の機能です。URL を定義するために `ルーティング配列` を使用することで、
 あとで変更を加えても、生成された URL は自動的に更新されます。
@@ -1485,6 +1493,8 @@ $routes->scope('/', function ($routes) {
 標準的な `プラグイン記法` を使ってプラグインルートクラスを使用できます。
 
 ### デフォルトルートクラス
+
+`static` Cake\\Routing\\RouterBuilder::**defaultRouteClass**($routeClass = null)
 
 デフォルト `Route` 以外のすべての他のルートクラスをデフォルトの基づくルートに
 使いたいときには、 `Router::defaultRouteClass()` を呼ぶことによって すべてのルートを

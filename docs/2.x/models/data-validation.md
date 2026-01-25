@@ -642,320 +642,667 @@ many oft-used validation techniques you won't need to write on your
 own. Below, you'll find a complete list of all the rules, along
 with usage examples.
 
-> The data for the field must only contain letters and numbers. :
->
-> ``` php
-> public $validate = array(
->     'login' => array(
->         'rule' => 'alphaNumeric',
->         'message' => 'Usernames must only contain letters and numbers.'
->     )
-> );
-> ```
->
-> The length of the data for the field must fall within the specified
-> numeric range. Both minimum and maximum values must be supplied.
-> Uses = not. :
->
-> ``` php
-> public $validate = array(
->     'password' => array(
->         'rule' => array('lengthBetween', 5, 15),
->         'message' => 'Passwords must be between 5 and 15 characters long.'
->     )
-> );
-> ```
->
-> The data is checked by number of characters, not number of bytes.
-> If you want to validate against pure ASCII input instead of UTF-8 compatible,
-> you will have to write your own custom validators.
->
-> This rule is used to make sure that the field is left blank or only
-> white space characters are present in its value. White space
-> characters include space, tab, carriage return, and newline. :
->
-> ``` php
-> public $validate = array(
->     'id' => array(
->         'rule' => 'blank',
->         'on' => 'create'
->     )
-> );
-> ```
->
-> The data for the field must be a boolean value. Valid values are
-> true or false, integers 0 or 1 or strings '0' or '1'. :
->
-> ``` php
-> public $validate = array(
->     'myCheckbox' => array(
->         'rule' => array('boolean'),
->         'message' => 'Incorrect value for myCheckbox'
->     )
-> );
-> ```
->
-> This rule is used to check whether the data is a valid credit card
-> number. It takes three parameters: 'type', 'deep' and 'regex'.
->
-> The 'type' key can be assigned to the values of 'fast', 'all' or
-> any of the following:
->
-> - amex
-> - bankcard
-> - diners
-> - disc
-> - electron
-> - enroute
-> - jcb
-> - maestro
-> - mc
-> - solo
-> - switch
-> - visa
-> - voyager
->
-> If 'type' is set to 'fast', it validates the data against the major
-> credit cards' numbering formats. Setting 'type' to 'all' will check
-> with all the credit card types. You can also set 'type' to an array
-> of the types you wish to match.
->
-> The 'deep' key should be set to a boolean value. If it is set to
-> true, the validation will check the Luhn algorithm of the credit
-> card
-> (<https://en.wikipedia.org/wiki/Luhn_algorithm>).
-> It defaults to false.
->
-> The 'regex' key allows you to supply your own regular expression
-> that will be used to validate the credit card number:
->
-> ``` php
-> public $validate = array(
->     'ccnumber' => array(
->         'rule' => array('cc', array('visa', 'maestro'), false, null),
->         'message' => 'The credit card number you supplied was invalid.'
->     )
-> );
-> ```
->
-> Comparison is used to compare numeric values. It supports "is
-> greater", "is less", "greater or equal", "less or equal", "equal
-> to", and "not equal". Some examples are shown below:
->
-> ``` php
-> public $validate = array(
->     'age' => array(
->         'rule' => array('comparison', '>=', 18),
->         'message' => 'Must be at least 18 years old to qualify.'
->     )
-> );
->
-> public $validate = array(
->     'age' => array(
->         'rule' => array('comparison', 'greater or equal', 18),
->         'message' => 'Must be at least 18 years old to qualify.'
->     )
-> );
-> ```
->
-> Used when a custom regular expression is needed:
->
-> ``` php
-> public $validate = array(
->     'infinite' => array(
->         'rule' => array('custom', '\u221E'),
->         'message' => 'Please enter an infinite number.'
->     )
-> );
-> ```
->
-> This rule ensures that data is submitted in valid date formats. A
-> single parameter (which can be an array) can be passed that will be
-> used to check the format of the supplied date. The value of the
-> parameter can be one of the following:
->
-> - 'dmy' e.g. 27-12-2006 or 27-12-06 (separators can be a space,
->   period, dash, forward slash)
-> - 'mdy' e.g. 12-27-2006 or 12-27-06 (separators can be a space,
->   period, dash, forward slash)
-> - 'ymd' e.g. 2006-12-27 or 06-12-27 (separators can be a space,
->   period, dash, forward slash)
-> - 'dMy' e.g. 27 December 2006 or 27 Dec 2006
-> - 'Mdy' e.g. December 27, 2006 or Dec 27, 2006 (comma is optional)
-> - 'My' e.g. (December 2006 or Dec 2006)
-> - 'my' e.g. 12/2006 or 12/06 (separators can be a space, period,
->   dash, forward slash)
-> - 'ym' e.g. 2006/12 or 06/12 (separators can be a space, period,
->   dash, forward slash)
-> - 'y' e.g. 2006 (separators can be a space, period,
->   dash, forward slash)
->
-> If no keys are supplied, the default key that will be used is
-> 'ymd':
->
-> ``` php
-> public $validate = array(
->     'born' => array(
->         'rule' => array('date', 'ymd'),
->         'message' => 'Enter a valid date in YY-MM-DD format.',
->         'allowEmpty' => true
->     )
-> );
-> ```
->
-> While many data stores require a certain date format, you might
-> consider doing the heavy lifting by accepting a wide-array of date
-> formats and trying to convert them, rather than forcing users to
-> supply a given format. The more work you can do for your users, the
-> better.
->
-> ::: info Changed in version 2.4
-> The `ym` and `y` formats were added.
-> :::
->
-> This rule ensures that the data is a valid datetime format. A
-> parameter (which can be an array) can be passed to specify the format
-> of the date. The value of the parameter can be one or more of the
-> following:
->
-> - 'dmy' e.g. 27-12-2006 or 27-12-06 (separators can be a space,
->   period, dash, forward slash)
-> - 'mdy' e.g. 12-27-2006 or 12-27-06 (separators can be a space,
->   period, dash, forward slash)
-> - 'ymd' e.g. 2006-12-27 or 06-12-27 (separators can be a space,
->   period, dash, forward slash)
-> - 'dMy' e.g. 27 December 2006 or 27 Dec 2006
-> - 'Mdy' e.g. December 27, 2006 or Dec 27, 2006 (comma is optional)
-> - 'My' e.g. (December 2006 or Dec 2006)
-> - 'my' e.g. 12/2006 or 12/06 (separators can be a space, period,
->   dash, forward slash)
->
-> If no keys are supplied, the default key that will be used is
-> 'ymd':
->
-> ``` php
-> public $validate = array(
->     'birthday' => array(
->         'rule' => array('datetime', 'dmy'),
->         'message' => 'Please enter a valid date and time.'
->     )
-> );
-> ```
->
-> Also a second parameter can be passed to specify a custom regular
-> expression. If this parameter is used, this will be the only
-> validation that will occur.
->
-> Note that unlike date(), datetime() will validate a date and a time.
->
-> This rule ensures that the data is a valid decimal number. A
-> parameter can be passed to specify the number of digits required
-> after the decimal point. If no parameter is passed, the data will
-> be validated as a scientific float, which will cause validation to
-> fail if no digits are found after the decimal point:
->
-> ``` php
-> public $validate = array(
->     'price' => array(
->         'rule' => array('decimal', 2)
->     )
-> );
-> ```
->
-> This checks whether the data is a valid email address. Passing a
-> boolean true as the second parameter for this rule will also
-> attempt to verify that the host for the address is valid:
->
-> ``` php
-> public $validate = array('email' => array('rule' => 'email'));
->
-> public $validate = array(
->     'email' => array(
->         'rule' => array('email', true),
->         'message' => 'Please supply a valid email address.'
->     )
-> );
-> ```
->
-> This rule will ensure that the value is equal to, and of the same
-> type as the given value.
->
-> ``` php
-> public $validate = array(
->     'food' => array(
->         'rule' => array('equalTo', 'cake'),
->         'message' => 'This value must be the string cake'
->     )
-> );
-> ```
->
-> This rule checks for valid file extensions like .jpg or .png. Allow
-> multiple extensions by passing them in array form.
->
-> ``` php
-> public $validate = array(
->     'image' => array(
->         'rule' => array(
->             'extension',
->             array('gif', 'jpeg', 'png', 'jpg')
->         ),
->         'message' => 'Please supply a valid image.'
->     )
-> );
-> ```
->
-> This rule allows you to check filesizes. You can use `$operator` to
-> decide the type of comparison you want to use. All the operators supported
-> by `~Validation::comparison()` are supported here as well. This
-> method will automatically handle array values from `$_FILES` by reading
-> from the `tmp_name` key if `$check` is an array and contains that key:
->
-> ``` php
-> public $validate = array(
->     'image' => array(
->         'rule' => array('fileSize', '<=', '1MB'),
->         'message' => 'Image must be less than 1MB'
->     )
-> );
-> ```
->
-> ::: info Added in version 2.3
-> This method was added in 2.3
-> :::
->
-> This rule will ensure that the value is in a given set. It needs an
-> array of values. The field is valid if the field's value matches
-> one of the values in the given array.
->
-> Example:
->
-> ``` php
-> public $validate = array(
->     'function' => array(
->          'allowedChoice' => array(
->              'rule' => array('inList', array('Foo', 'Bar')),
->              'message' => 'Enter either Foo or Bar.'
->          )
->      )
->  );
-> ```
->
-> Comparison is case sensitive by default. You can set `$caseInsensitive` to true
-> if you need case insensitive comparison.
->
-> This rule will ensure that a valid IPv4 or IPv6 address has been
-> submitted. Accepts as option 'both' (default), 'IPv4' or 'IPv6'.
->
-> ``` php
-> public $validate = array(
->     'clientip' => array(
->         'rule' => array('ip', 'IPv4'), // or 'IPv6' or 'both' (default)
->         'message' => 'Please supply a valid IP address.'
->     )
-> );
-> ```
+`static` Validation::**alphaNumeric**(mixed $check)
+
+The data for the field must only contain letters and numbers. :
+
+``` php
+public $validate = array(
+    'login' => array(
+        'rule' => 'alphaNumeric',
+        'message' => 'Usernames must only contain letters and numbers.'
+    )
+);
+```
+
+`static` Validation::**lengthBetween**(string $check, integer $min, integer $max)
+
+The length of the data for the field must fall within the specified
+numeric range. Both minimum and maximum values must be supplied.
+Uses = not. :
+
+``` php
+public $validate = array(
+    'password' => array(
+        'rule' => array('lengthBetween', 5, 15),
+        'message' => 'Passwords must be between 5 and 15 characters long.'
+    )
+);
+```
+
+The data is checked by number of characters, not number of bytes.
+If you want to validate against pure ASCII input instead of UTF-8 compatible,
+you will have to write your own custom validators.
+
+`static` Validation::**blank**(mixed $check)
+
+This rule is used to make sure that the field is left blank or only
+white space characters are present in its value. White space
+characters include space, tab, carriage return, and newline. :
+
+``` php
+public $validate = array(
+    'id' => array(
+        'rule' => 'blank',
+        'on' => 'create'
+    )
+);
+```
+
+`static` Validation::**boolean**(string $check)
+
+The data for the field must be a boolean value. Valid values are
+true or false, integers 0 or 1 or strings '0' or '1'. :
+
+``` php
+public $validate = array(
+    'myCheckbox' => array(
+        'rule' => array('boolean'),
+        'message' => 'Incorrect value for myCheckbox'
+    )
+);
+```
+
+`static` Validation::**cc**(mixed $check, mixed $type = 'fast', boolean $deep = false, string $regex = null)
+
+This rule is used to check whether the data is a valid credit card
+number. It takes three parameters: 'type', 'deep' and 'regex'.
+
+The 'type' key can be assigned to the values of 'fast', 'all' or
+any of the following:
+
+- amex
+- bankcard
+- diners
+- disc
+- electron
+- enroute
+- jcb
+- maestro
+- mc
+- solo
+- switch
+- visa
+- voyager
+
+If 'type' is set to 'fast', it validates the data against the major
+credit cards' numbering formats. Setting 'type' to 'all' will check
+with all the credit card types. You can also set 'type' to an array
+of the types you wish to match.
+
+The 'deep' key should be set to a boolean value. If it is set to
+true, the validation will check the Luhn algorithm of the credit
+card
+(<https://en.wikipedia.org/wiki/Luhn_algorithm>).
+It defaults to false.
+
+The 'regex' key allows you to supply your own regular expression
+that will be used to validate the credit card number:
+
+``` php
+public $validate = array(
+    'ccnumber' => array(
+        'rule' => array('cc', array('visa', 'maestro'), false, null),
+        'message' => 'The credit card number you supplied was invalid.'
+    )
+);
+```
+
+`static` Validation::**comparison**(mixed $check1, string $operator = null, integer $check2 = null)
+
+Comparison is used to compare numeric values. It supports "is
+greater", "is less", "greater or equal", "less or equal", "equal
+to", and "not equal". Some examples are shown below:
+
+``` php
+public $validate = array(
+    'age' => array(
+        'rule' => array('comparison', '>=', 18),
+        'message' => 'Must be at least 18 years old to qualify.'
+    )
+);
+
+public $validate = array(
+    'age' => array(
+        'rule' => array('comparison', 'greater or equal', 18),
+        'message' => 'Must be at least 18 years old to qualify.'
+    )
+);
+```
+
+`static` Validation::**custom**(mixed $check, string $regex = null)
+
+Used when a custom regular expression is needed:
+
+``` php
+public $validate = array(
+    'infinite' => array(
+        'rule' => array('custom', '\u221E'),
+        'message' => 'Please enter an infinite number.'
+    )
+);
+```
+
+`static` Validation::**date**(string $check, mixed $format = 'ymd', string $regex = null)
+
+This rule ensures that data is submitted in valid date formats. A
+single parameter (which can be an array) can be passed that will be
+used to check the format of the supplied date. The value of the
+parameter can be one of the following:
+
+- 'dmy' e.g. 27-12-2006 or 27-12-06 (separators can be a space,
+  period, dash, forward slash)
+- 'mdy' e.g. 12-27-2006 or 12-27-06 (separators can be a space,
+  period, dash, forward slash)
+- 'ymd' e.g. 2006-12-27 or 06-12-27 (separators can be a space,
+  period, dash, forward slash)
+- 'dMy' e.g. 27 December 2006 or 27 Dec 2006
+- 'Mdy' e.g. December 27, 2006 or Dec 27, 2006 (comma is optional)
+- 'My' e.g. (December 2006 or Dec 2006)
+- 'my' e.g. 12/2006 or 12/06 (separators can be a space, period,
+  dash, forward slash)
+- 'ym' e.g. 2006/12 or 06/12 (separators can be a space, period,
+  dash, forward slash)
+- 'y' e.g. 2006 (separators can be a space, period,
+  dash, forward slash)
+
+If no keys are supplied, the default key that will be used is
+'ymd':
+
+``` php
+public $validate = array(
+    'born' => array(
+        'rule' => array('date', 'ymd'),
+        'message' => 'Enter a valid date in YY-MM-DD format.',
+        'allowEmpty' => true
+    )
+);
+```
+
+While many data stores require a certain date format, you might
+consider doing the heavy lifting by accepting a wide-array of date
+formats and trying to convert them, rather than forcing users to
+supply a given format. The more work you can do for your users, the
+better.
+
+::: info Changed in version 2.4
+The `ym` and `y` formats were added.
+:::
+
+`static` Validation::**datetime**(array $check, mixed $dateFormat = 'ymd', string $regex = null)
+
+This rule ensures that the data is a valid datetime format. A
+parameter (which can be an array) can be passed to specify the format
+of the date. The value of the parameter can be one or more of the
+following:
+
+- 'dmy' e.g. 27-12-2006 or 27-12-06 (separators can be a space,
+  period, dash, forward slash)
+- 'mdy' e.g. 12-27-2006 or 12-27-06 (separators can be a space,
+  period, dash, forward slash)
+- 'ymd' e.g. 2006-12-27 or 06-12-27 (separators can be a space,
+  period, dash, forward slash)
+- 'dMy' e.g. 27 December 2006 or 27 Dec 2006
+- 'Mdy' e.g. December 27, 2006 or Dec 27, 2006 (comma is optional)
+- 'My' e.g. (December 2006 or Dec 2006)
+- 'my' e.g. 12/2006 or 12/06 (separators can be a space, period,
+  dash, forward slash)
+
+If no keys are supplied, the default key that will be used is
+'ymd':
+
+``` php
+public $validate = array(
+    'birthday' => array(
+        'rule' => array('datetime', 'dmy'),
+        'message' => 'Please enter a valid date and time.'
+    )
+);
+```
+
+Also a second parameter can be passed to specify a custom regular
+expression. If this parameter is used, this will be the only
+validation that will occur.
+
+Note that unlike date(), datetime() will validate a date and a time.
+
+`static` Validation::**decimal**(string $check, integer $places = null, string $regex = null)
+
+This rule ensures that the data is a valid decimal number. A
+parameter can be passed to specify the number of digits required
+after the decimal point. If no parameter is passed, the data will
+be validated as a scientific float, which will cause validation to
+fail if no digits are found after the decimal point:
+
+``` php
+public $validate = array(
+    'price' => array(
+        'rule' => array('decimal', 2)
+    )
+);
+```
+
+`static` Validation::**email**(string $check, boolean $deep = false, string $regex = null)
+
+This checks whether the data is a valid email address. Passing a
+boolean true as the second parameter for this rule will also
+attempt to verify that the host for the address is valid:
+
+``` php
+public $validate = array('email' => array('rule' => 'email'));
+
+public $validate = array(
+    'email' => array(
+        'rule' => array('email', true),
+        'message' => 'Please supply a valid email address.'
+    )
+);
+```
+
+`static` Validation::**equalTo**(mixed $check, mixed $compareTo)
+
+This rule will ensure that the value is equal to, and of the same
+type as the given value.
+
+``` php
+public $validate = array(
+    'food' => array(
+        'rule' => array('equalTo', 'cake'),
+        'message' => 'This value must be the string cake'
+    )
+);
+```
+
+`static` Validation::**extension**(mixed $check, array $extensions = array('gif', 'jpeg', 'png', 'jpg'))
+
+This rule checks for valid file extensions like .jpg or .png. Allow
+multiple extensions by passing them in array form.
+
+``` php
+public $validate = array(
+    'image' => array(
+        'rule' => array(
+            'extension',
+            array('gif', 'jpeg', 'png', 'jpg')
+        ),
+        'message' => 'Please supply a valid image.'
+    )
+);
+```
+
+`static` Validation::**fileSize**($check, $operator = null, $size = null)
+
+This rule allows you to check filesizes. You can use `$operator` to
+decide the type of comparison you want to use. All the operators supported
+by `~Validation::comparison()` are supported here as well. This
+method will automatically handle array values from `$_FILES` by reading
+from the `tmp_name` key if `$check` is an array and contains that key:
+
+``` php
+public $validate = array(
+    'image' => array(
+        'rule' => array('fileSize', '<=', '1MB'),
+        'message' => 'Image must be less than 1MB'
+    )
+);
+```
+
+::: info Added in version 2.3
+This method was added in 2.3
+:::
+
+`static` Validation::**inList**(string $check, array $list, boolean $caseInsensitive = false)
+
+This rule will ensure that the value is in a given set. It needs an
+array of values. The field is valid if the field's value matches
+one of the values in the given array.
+
+Example:
+
+``` php
+public $validate = array(
+    'function' => array(
+         'allowedChoice' => array(
+             'rule' => array('inList', array('Foo', 'Bar')),
+             'message' => 'Enter either Foo or Bar.'
+         )
+     )
+ );
+```
+
+Comparison is case sensitive by default. You can set `$caseInsensitive` to true
+if you need case insensitive comparison.
+
+`static` Validation::**ip**(string $check, string $type = 'both')
+
+This rule will ensure that a valid IPv4 or IPv6 address has been
+submitted. Accepts as option 'both' (default), 'IPv4' or 'IPv6'.
+
+``` php
+public $validate = array(
+    'clientip' => array(
+        'rule' => array('ip', 'IPv4'), // or 'IPv6' or 'both' (default)
+        'message' => 'Please supply a valid IP address.'
+    )
+);
+```
 
 `method` Validation::**Model::isUnique()**()
+
+`static` Validation::**luhn**(string|array $check, boolean $deep = false)
+
+The Luhn algorithm: A checksum formula to validate a variety of
+identification numbers. See <https://en.wikipedia.org/wiki/Luhn_algorithm> for
+more information.
+
+`static` Validation::**maxLength**(string $check, integer $max)
+
+This rule ensures that the data stays within a maximum length
+requirement:
+
+``` php
+public $validate = array(
+    'login' => array(
+        'rule' => array('maxLength', 15),
+        'message' => 'Usernames must be no larger than 15 characters long.'
+    )
+);
+```
+
+This will ensure that the 'login' field is less than or equal to 15
+characters, not 15 bytes.
+
+`static` Validation::**maxLengthBytes**(string $check, integer $max)
+
+This rule ensures that the data stays within a maximum length
+requirement:
+
+``` php
+public $validate = array(
+    'data' => array(
+        'rule' => array('maxLengthBytes', 2 ** 24 - 1),
+        'message' => 'Data can not be bigger than 16 MB.'
+    )
+);
+```
+
+This will ensure that the 'data' field is less than or equal to 16777215 bytes.
+
+`static` Validation::**mimeType**(mixed $check, array|string $mimeTypes)
+
+::: info Added in version 2.2
+:::
+
+This rule checks for valid mime types. Comparison is case sensitive.
+
+::: info Changed in version 2.5
+:::
+
+Since 2.5 `$mimeTypes` can be a regex string.
+
+``` php
+public $validate = array(
+    'image' => array(
+        'rule' => array('mimeType', array('image/gif')),
+        'message' => 'Invalid mime type.'
+    ),
+    'logo' => array(
+        'rule' => array('mimeType', '#image/.+#'),
+        'message' => 'Invalid mime type.'
+    ),
+);
+```
+
+`static` Validation::**minLength**(string $check, integer $min)
+
+This rule ensures that the data meets a minimum length
+requirement:
+
+``` php
+public $validate = array(
+    'login' => array(
+        'rule' => array('minLength', 8),
+        'message' => 'Usernames must be at least 8 characters long.'
+    )
+);
+```
+
+The length here is number of characters, not the number of bytes.
+If you want to validate against pure ASCII input instead of UTF-8 compatible,
+you will have to write your own custom validators.
+
+`static` Validation::**minLengthBytes**(string $check, integer $min)
+
+This rule ensures that the data meets a minimum length
+requirement:
+
+``` php
+public $validate = array(
+    'login' => array(
+        'rule' => array('minLengthBytes', 2 ** 16 - 1),
+        'message' => 'Data can not be smaller than 64KB.'
+    )
+);
+```
+
+The length here is number of bytes.
+
+`static` Validation::**money**(string $check, string $symbolPosition = 'left')
+
+This rule will ensure that the value is in a valid monetary
+amount.
+
+Second parameter defines where symbol is located (left/right).
+
+``` php
+public $validate = array(
+    'salary' => array(
+        'rule' => array('money', 'left'),
+        'message' => 'Please supply a valid monetary amount.'
+    )
+);
+```
+
+`static` Validation::**multiple**(mixed $check, mixed $options = array(), boolean $caseInsensitive = false)
+
+Use this for validating a multiple select input. It supports
+parameters "in", "max" and "min".
+
+``` php
+public $validate = array(
+    'multiple' => array(
+        'rule' => array('multiple', array(
+            'in'  => array('do', 're', 'mi', 'fa', 'sol', 'la', 'ti'),
+            'min' => 1,
+            'max' => 3
+        )),
+        'message' => 'Please select one, two or three options'
+    )
+);
+```
+
+Comparison is case sensitive by default. You can set `$caseInsensitive` to true
+if you need case insensitive comparison.
+
+`static` Validation::**notEmpty**(mixed $check)
+
+::: info Deprecated in version 2.7
+:::
+
+Use `notBlank` instead.
+
+`static` Validation::**notBlank**(mixed $check)
+
+::: info Added in version 2.7
+:::
+
+The basic rule to ensure that a field is not empty. :
+
+``` php
+public $validate = array(
+    'title' => array(
+        'rule' => 'notBlank',
+        'message' => 'This field cannot be left blank'
+    )
+);
+```
+
+Do not use this for a multiple select input as it will cause an
+error. Instead, use "multiple".
+
+`static` Validation::**numeric**(string $check)
+
+Checks if the data passed is a valid number. :
+
+``` php
+public $validate = array(
+    'cars' => array(
+        'rule' => 'numeric',
+        'message' => 'Please supply the number of cars.'
+    )
+);
+```
+
+`static` Validation::**naturalNumber**(mixed $check, boolean $allowZero = false)
+
+::: info Added in version 2.2
+:::
+
+This rule checks if the data passed is a valid natural number.
+If `$allowZero` is set to true, zero is also accepted as a value.
+
+``` php
+public $validate = array(
+    'wheels' => array(
+        'rule' => 'naturalNumber',
+        'message' => 'Please supply the number of wheels.'
+    ),
+    'airbags' => array(
+        'rule' => array('naturalNumber', true),
+        'message' => 'Please supply the number of airbags.'
+    ),
+);
+```
+
+`static` Validation::**phone**(mixed $check, string $regex = null, string $country = 'all')
+
+Phone validates US phone numbers. If you want to validate non-US
+phone numbers, you can provide a regular expression as the second
+parameter to cover additional number formats.
+
+``` php
+public $validate = array(
+    'phone' => array(
+        'rule' => array('phone', null, 'us')
+    )
+);
+```
+
+`static` Validation::**postal**(mixed $check, string $regex = null, string $country = 'us')
+
+Postal is used to validate ZIP codes from the U.S. (us), Canada
+(ca), U.K (uk), Italy (it), Germany (de) and Belgium (be). For
+other ZIP code formats, you may provide a regular expression as the
+second parameter.
+
+``` php
+public $validate = array(
+    'zipcode' => array(
+        'rule' => array('postal', null, 'us')
+    )
+);
+```
+
+`static` Validation::**range**(string $check, integer $lower = null, integer $upper = null)
+
+This rule ensures that the value is in a given range. If no range
+is supplied, the rule will check to ensure the value is a legal
+finite on the current platform.
+
+``` php
+public $validate = array(
+    'number' => array(
+        'rule' => array('range', -1, 11),
+        'message' => 'Please enter a number between -1 and 11'
+    )
+);
+```
+
+The above example will accept any value which is larger than -1
+(e.g., -0.99) and less than 11 (e.g., 10.99).
+
+> [!NOTE]
+> The range lower/upper are not inclusive
+
+`static` Validation::**ssn**(mixed $check, string $regex = null, string $country = null)
+
+Ssn validates social security numbers from the U.S. (us), Denmark
+(dk), and the Netherlands (nl). For other social security number
+formats, you may provide a regular expression.
+
+``` php
+public $validate = array(
+    'ssn' => array(
+        'rule' => array('ssn', null, 'us')
+    )
+);
+```
+
+`static` Validation::**time**(string $check)
+
+Time validation, determines if the string passed is a valid time. Validates
+time as 24hr (HH:MM) or am/pm (\[H\]H:MM\[a\|p\]m) Does not allow/validate seconds.
+
+`static` Validation::**uploadError**(mixed $check)
+
+::: info Added in version 2.2
+:::
+
+This rule checks if a file upload has an error.
+
+``` php
+public $validate = array(
+    'image' => array(
+        'rule' => 'uploadError',
+        'message' => 'Something went wrong with the upload.'
+    ),
+);
+```
+
+`static` Validation::**url**(string $check, boolean $strict = false)
+
+This rule checks for valid URL formats. Supports http(s), ftp(s),
+file, news, and gopher protocols:
+
+``` php
+public $validate = array(
+    'website' => array(
+        'rule' => 'url'
+    )
+);
+```
+
+To ensure that a protocol is in the url, strict mode can be enabled
+like so:
+
+``` php
+public $validate = array(
+    'website' => array(
+        'rule' => array('url', true)
+    )
+);
+```
+
+This validation method uses a complex regular expression that can sometimes
+cause issues with Apache2 on Windows using mod_php.
+
+`static` Validation::**userDefined**(mixed $check, object $object, string $method, array $args = null)
+
+Runs an user-defined validation.
+
+`static` Validation::**uuid**(string $check)
+
+Checks that a value is a valid UUID: <https://tools.ietf.org/html/rfc4122>
 
 ## Localized Validation
 

@@ -8,6 +8,10 @@ hashing and encrypting data.
 
 ## Encrypting and Decrypting Data
 
+`static` Cake\\Utility\\Security::**encrypt**($text, $key, $hmacSalt = null)
+
+`static` Cake\\Utility\\Security::**decrypt**($cipher, $key, $hmacSalt = null)
+
 Encrypt `$text` using AES-256. The `$key` should be a value with a
 lots of variance in the data much like a good password. The returned result
 will be the encrypted value with an HMAC checksum.
@@ -47,6 +51,8 @@ If the value cannot be decrypted due to changes in the key or HMAC salt
 
 ## Hashing Data
 
+`static` Cake\\Utility\\Security::**hash**( $string, $type = NULL, $salt = false )
+
 Create a hash from string using given method. Fallback on next
 available method. If `$salt` is set to `true`, the application's salt
 value will be used:
@@ -77,6 +83,8 @@ And any other hash algorithm that PHP's `hash()` function supports.
 
 ## Getting Secure Random Data
 
+`static` Cake\\Utility\\Security::**randomBytes**($length)
+
 Get `$length` number of bytes from a secure random source. This function draws
 data from one of the following sources:
 
@@ -85,6 +93,8 @@ data from one of the following sources:
 
 If neither source is available a warning will be emitted and an unsafe value
 will be used for backwards compatibility reasons.
+
+`static` Cake\\Utility\\Security::**randomString**($length)
 
 Get a random string `$length` long from a secure random source. This method
 draws from the same random source as `randomBytes()` and will encode the data

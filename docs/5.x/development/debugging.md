@@ -8,7 +8,7 @@ your application.
 
 ## Basic Debugging
 
-> noindex  
+`function` **debug(mixed $var, boolean $showHtml = null, $showFrom = true)**
 
 The `debug()` function is a globally available function that works
 similarly to the PHP function `print_r()`. The `debug()` function
@@ -23,8 +23,12 @@ has been set to `true`.
 
 Also see `dd()`, `pr()` and `pj()`.
 
+`function` **stackTrace()**
+
 The `stackTrace()` function is available globally, and allows you to output
 a stack trace wherever the function is called.
+
+`function` **breakpoint()**
 
 If you have [Psysh](https://psysh.org/) installed you can use this
 function in CLI environments to open an interactive console with the current
@@ -64,6 +68,8 @@ The `Debugger.editorBasePath` configure option was added.
 :::
 
 ## Outputting Values
+
+`static` Cake\\Error\\Debugger::**dump**($var, $depth = 3)
 
 Dump prints out the contents of a variable. It will print out all
 properties and methods (if any) of the supplied variable:
@@ -112,6 +118,8 @@ output masks.
 
 ## Logging With Stack Traces
 
+`static` Cake\\Error\\Debugger::**log**($var, $level = 7, $depth = 3)
+
 Creates a detailed stack trace log at the time of invocation. The
 `log()` method prints out data similar to that done by
 `Debugger::dump()`, but to the debug.log instead of the output
@@ -119,6 +127,8 @@ buffer. Note your **tmp** directory (and its contents) must be
 writable by the web server for `log()` to work correctly.
 
 ## Generating Stack Traces
+
+`static` Cake\\Error\\Debugger::**trace**($options)
 
 Returns the current stack trace. Each line of the trace includes
 the calling method, including which file and line the call
@@ -140,6 +150,8 @@ a controller action. Reading the stack trace bottom to top shows
 the order of currently running functions (stack frames).
 
 ## Getting an Excerpt From a File
+
+`static` Cake\\Error\\Debugger::**excerpt**($file, $line, $context)
 
 Grab an excerpt from the file at \$path (which is an absolute
 filepath), highlights line number \$line with \$context number of
@@ -163,6 +175,8 @@ Array
 Although this method is used internally, it can be handy if you're
 creating your own error messages or log entries for custom
 situations.
+
+`static` Debugger::**getType**($var)
 
 Get the type of a variable. Objects will return their class name
 

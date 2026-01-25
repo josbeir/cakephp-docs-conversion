@@ -385,6 +385,8 @@ class ArticlesTable extends Table
 
 ### テーブルオブジェクトの設定
 
+`static` Cake\\ORM\\TableRegistry::**get**($alias, $config)
+
 テーブルをレジストリーからロードする時に、依存関係をカスタマイズするか、
 `$options` 配列が用意するモックオブジェクトを使います。 :
 
@@ -425,6 +427,8 @@ TableRegistry::config('Users', ['table' => 'my_users']);
 > 代わりにテーブルロケーターを直接使用してください。
 
 ### レジストリーの初期化（追加設定の消去）
+
+`static` Cake\\ORM\\TableRegistry::**clear**()
 
 テストケースで、レジストリーをフラッシュしたいこともあるでしょう。
 モックオブジェクトを使う時やテーブルの依存関係を設定する時に便利です。 :

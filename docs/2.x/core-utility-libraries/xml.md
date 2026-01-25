@@ -299,54 +299,58 @@ $xml->firstChild->appendChild($child);
 A factory and conversion class for creating SimpleXml or DOMDocument objects
 from a number of sources including strings, arrays and remote URLs.
 
-> Initialize SimpleXMLElement or DOMDocument from a given XML string, file
-> path, URL or array
->
-> Building XML from a string:
->
-> ``` php
-> $xml = Xml::build('<example>text</example>');
-> ```
->
-> Building XML from string (output DOMDocument):
->
-> ``` php
-> $xml = Xml::build('<example>text</example>', array('return' => 'domdocument'));
-> ```
->
-> Building XML from a file path:
->
-> ``` php
-> $xml = Xml::build('/path/to/an/xml/file.xml');
-> ```
->
-> Building from a remote URL:
->
-> ``` php
-> $xml = Xml::build('http://example.com/example.xml');
-> ```
->
-> Building from an array:
->
-> ``` php
-> $value = array(
->     'tags' => array(
->         'tag' => array(
->             array(
->                 'id' => '1',
->                 'name' => 'defect'
->             ),
->             array(
->                 'id' => '2',
->                 'name' => 'enhancement'
->         )
->         )
->     )
-> );
-> $xml = Xml::build($value);
-> ```
->
-> When building XML from an array ensure that there is only one top level
-> element.
->
-> Convert either a SimpleXml or DOMDocument object into an array.
+`static` Xml::**build**($input, $options = array())
+
+Initialize SimpleXMLElement or DOMDocument from a given XML string, file
+path, URL or array
+
+Building XML from a string:
+
+``` php
+$xml = Xml::build('<example>text</example>');
+```
+
+Building XML from string (output DOMDocument):
+
+``` php
+$xml = Xml::build('<example>text</example>', array('return' => 'domdocument'));
+```
+
+Building XML from a file path:
+
+``` php
+$xml = Xml::build('/path/to/an/xml/file.xml');
+```
+
+Building from a remote URL:
+
+``` php
+$xml = Xml::build('http://example.com/example.xml');
+```
+
+Building from an array:
+
+``` php
+$value = array(
+    'tags' => array(
+        'tag' => array(
+            array(
+                'id' => '1',
+                'name' => 'defect'
+            ),
+            array(
+                'id' => '2',
+                'name' => 'enhancement'
+        )
+        )
+    )
+);
+$xml = Xml::build($value);
+```
+
+When building XML from an array ensure that there is only one top level
+element.
+
+`static` Xml::**toArray**($obj)
+
+Convert either a SimpleXml or DOMDocument object into an array.

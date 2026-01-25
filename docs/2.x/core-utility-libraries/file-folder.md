@@ -62,29 +62,44 @@ Whether or not the list results should be sorted by name.
 
 Mode to be used when creating folders. Defaults to ``0755``. Does nothing on
 Windows machines.
-
-
-:rtype: string
-
-Returns $path with $element added, with correct slash in-between::
-
-    $path = Folder::addPathElement('/a/path/for', 'testing');
-    // $path equals /a/path/for/testing
-
-$element can also be an array::
-
-    $path = Folder::addPathElement('/a/path/for', array('testing', 'another'));
-    // $path equals /a/path/for/testing/another
-
-.. versionadded:: 2.5
-    $element parameter accepts an array as of 2.5
 ```
+
+`static` Folder::**addPathElement**(string $path, string $element)
+
+rtype  
+string
+
+Returns \$path with \$element added, with correct slash in-between:
+
+``` php
+$path = Folder::addPathElement('/a/path/for', 'testing');
+// $path equals /a/path/for/testing
+```
+
+\$element can also be an array:
+
+``` php
+$path = Folder::addPathElement('/a/path/for', array('testing', 'another'));
+// $path equals /a/path/for/testing/another
+```
+
+::: info Added in version 2.5
+$element parameter accepts an array as of 2.5
+:::
 
 `method` Folder::**cd**(string $path)
 
 `method` Folder::**chmod**(string $path, integer $mode = false, boolean $recursive = true, array $exceptions = array())
 
 `method` Folder::**copy**(array|string $options = array())
+
+`static` Folder::**correctSlashFor**(string $path)
+
+rtype  
+string
+
+Returns a correct set of slashes for given \$path ('\\ for
+Windows paths and '/' for other paths).
 
 `method` Folder::**create**(string $pathname, integer $mode = false)
 
@@ -107,15 +122,60 @@ $element can also be an array::
 
 `method` Folder::**inPath**(string $path = '', boolean $reverse = false)
 
+`static` Folder::**isAbsolute**(string $path)
+
+rtype  
+boolean
+
+Returns true if the given \$path is an absolute path.
+
+`static` Folder::**isSlashTerm**(string $path)
+
+rtype  
+boolean
+
+Returns true if given \$path ends in a slash (i.e. is slash-terminated):
+
+``` php
+<?php
+$result = Folder::isSlashTerm('/my/test/path');
+// $result = false
+$result = Folder::isSlashTerm('/my/test/path/');
+// $result = true
+```
+
+`static` Folder::**isWindowsPath**(string $path)
+
+rtype  
+boolean
+
+Returns true if the given \$path is a Windows path.
+
 `method` Folder::**messages**()
 
 `method` Folder::**move**(array $options)
+
+`static` Folder::**normalizePath**(string $path)
+
+rtype  
+string
+
+Returns a correct set of slashes for given \$path ('\\ for
+Windows paths and '/' for other paths).
 
 `method` Folder::**pwd**()
 
 `method` Folder::**read**(boolean $sort = true, array|boolean $exceptions = false, boolean $fullPath = false)
 
 `method` Folder::**realpath**(string $path)
+
+`static` Folder::**slashTerm**(string $path)
+
+rtype  
+string
+
+Returns \$path with added terminating slash (corrected for
+Windows or other OS).
 
 `method` Folder::**tree**(null|string $path = null, array|boolean $exceptions = true, null|string $type = null)
 
@@ -185,6 +245,19 @@ The current file's absolute path.
 `method` File::**owner**()
 
 `method` File::**perms**()
+
+<div class="php-static-def">
+
+<File::prepare(string> \$data, boolean \$forceWindows = false)
+
+rtype  
+string
+
+Prepares a ascii string for writing. Converts line endings to the
+correct terminator for the current platform. For Windows "rn"
+will be used, "n" for all other platforms.
+
+</div>
 
 `method` File::**pwd**()
 

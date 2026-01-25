@@ -6,6 +6,8 @@ The App class is responsible for resource location and path management.
 
 ## Finding Classes
 
+`static` Cake\\Core\\App::**classname**($name, $type = '', $suffix = '')
+
 This method is used to resolve classnames throughout CakePHP. It resolves
 the short form names CakePHP uses and returns the fully resolved classname:
 
@@ -29,6 +31,8 @@ classnames do not exist, `false` will be returned.
 
 ## Finding Paths to Namespaces
 
+`static` Cake\\Core\\App::**path**(string $package, string $plugin = null)
+
 Used to get locations for paths based on conventions:
 
 ``` php
@@ -48,6 +52,8 @@ App::path('Component', 'DebugKit');
 provide any information about additional paths the autoloader is configured
 for.
 
+`static` Cake\\Core\\App::**core**(string $package)
+
 Used for finding the path to a package inside CakePHP:
 
 ``` php
@@ -56,6 +62,8 @@ App::core('Cache/Engine');
 ```
 
 ## Locating Plugins
+
+`static` Plugin::**path**(string $plugin)
 
 Plugins can be located with Plugin. Using `Plugin::path('DebugKit');`
 for example, will give you the full path to the DebugKit plugin:

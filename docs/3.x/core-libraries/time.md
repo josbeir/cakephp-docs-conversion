@@ -127,6 +127,8 @@ $time->timezone = 'Europe/Paris';
 
 ## Formatting
 
+`static` Cake\\I18n\\Time::**setJsonEncodeFormat**($format)
+
 This method sets the default format used when converting an object to json:
 
 ``` php

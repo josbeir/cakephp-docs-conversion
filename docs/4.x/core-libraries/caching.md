@@ -42,6 +42,8 @@ Regardless of the CacheEngine you choose to use, your application interacts with
 
 ## Configuring Cache Engines
 
+`static` Cake\\Cache\\Cache::**setConfig**($key, $config = null)
+
 Your application can configure any number of 'engines' during its bootstrap
 process. Cache engine configurations are defined in **config/app.php**.
 
@@ -243,12 +245,16 @@ When there is no fallback cache failures will be raised as exceptions.
 
 ### Removing Configured Cache Engines
 
+`static` Cake\\Cache\\Cache::**drop**($key)
+
 Once a configuration is created you cannot change it. Instead you should drop
 the configuration and re-create it using `Cake\Cache\Cache::drop()` and
 `Cake\Cache\Cache::setConfig()`. Dropping a cache engine will remove
 the config and destroy the adapter if it was constructed.
 
 ## Writing to a Cache
+
+`static` Cake\\Cache\\Cache::**write**($key, $value, $config = 'default')
 
 `Cache::write()` will write a \$value to the Cache. You can read or
 delete this value later by referring to it by `$key`. You may
@@ -275,6 +281,8 @@ of trips made to the database to fetch posts.
 
 ### Writing Multiple Keys at Once
 
+`static` Cake\\Cache\\Cache::**writeMany**($data, $config = 'default')
+
 You may find yourself needing to write multiple cache keys at once. While you
 can use multiple calls to `write()`, `writeMany()` allows CakePHP to use
 more efficient storage APIs where available. For example using `writeMany()`
@@ -291,6 +299,8 @@ $result = Cache::writeMany([
 ```
 
 ### Atomic writes
+
+`static` Cake\\Cache\\Cache::**add**($key, $value $config = 'default')
 
 Using `Cache::add()` will let you atomically set a key to a value if the key
 does not already exist in the cache. If the key already exists in the cache
@@ -313,6 +323,8 @@ Cache::delete($lockKey);
 
 ### Read Through Caching
 
+`static` Cake\\Cache\\Cache::**remember**($key, $callable, $config = 'default')
+
 Cache helps with read-through caching. If the named cache key exists,
 it will be returned. If the key does not exist, the callable will be invoked
 and the results stored in the cache at the provided key.
@@ -333,6 +345,8 @@ class IssueService
 ```
 
 ## Reading From a Cache
+
+`static` Cake\\Cache\\Cache::**read**($key, $config = 'default')
 
 `Cache::read()` is used to read the cached value stored under
 `$key` from the `$config`. If `$config` is null the default
@@ -377,6 +391,8 @@ return $cloud;
 
 ### Reading Multiple Keys at Once
 
+`static` Cake\\Cache\\Cache::**readMany**($keys, $config = 'default')
+
 After you've written multiple keys at once, you'll probably want to read them as
 well. While you could use multiple calls to `read()`, `readMany()` allows
 CakePHP to use more efficient storage APIs where available. For example using
@@ -392,6 +408,8 @@ $result = Cache::readMany([
 ```
 
 ## Deleting From a Cache
+
+`static` Cake\\Cache\\Cache::**delete**($key, $config = 'default')
 
 `Cache::delete()` will allow you to completely remove a cached
 object from the store:
@@ -410,6 +428,8 @@ Cache::pool('redis')->deleteAsync('my_key');
 
 ### Deleting Multiple Keys at Once
 
+`static` Cake\\Cache\\Cache::**deleteMany**($keys, $config = 'default')
+
 After you've written multiple keys at once, you may want to delete them. While
 you could use multiple calls to `delete()`, `deleteMany()` allows CakePHP to use
 more efficient storage APIs where available. For example using `deleteMany()`
@@ -425,6 +445,8 @@ $result = Cache::deleteMany([
 ```
 
 ## Clearing Cached Data
+
+`static` Cake\\Cache\\Cache::**clear**($config = 'default')
 
 Destroy all cached values for a cache configuration. In engines like: Apcu,
 Memcached, and Wincache, the cache configuration's prefix is used to remove
@@ -448,6 +470,10 @@ Cache::pool('redis')->clearBlocking();
 > have to be cleared separately (CLI cannot clear webserver and vice versa).
 
 ## Using Cache to Store Counters
+
+`static` Cake\\Cache\\Cache::**increment**($key, $offset = 1, $config = 'default')
+
+`static` Cake\\Cache\\Cache::**decrement**($key, $offset = 1, $config = 'default')
 
 Counters in your application are good candidates for storage in a cache. As an
 example, a simple countdown for remaining 'slots' in a contest could be stored
@@ -520,6 +546,8 @@ public function afterSave($event, $entity, $options = [])
 }
 ```
 
+`static` Cake\\Cache\\Cache::**groupConfigs**($group = null)
+
 `groupConfigs()` can be used to retrieve mapping between group and
 configurations, i.e.: having the same group:
 
@@ -547,6 +575,8 @@ choose a common prefix for all your configs.
 
 ## Globally Enable or Disable Cache
 
+`static` Cake\\Cache\\Cache::**disable**()
+
 You may need to disable all Cache read & writes when trying to figure out cache
 expiration related issues. You can do this using `enable()` and
 `disable()`:
@@ -558,12 +588,16 @@ Cache::disable();
 
 Once disabled, all reads and writes will return `null`.
 
+`static` Cake\\Cache\\Cache::**enable**()
+
 Once disabled, you can use `enable()` to re-enable caching:
 
 ``` php
 // Re-enable all cache reads, and cache writes.
 Cache::enable();
 ```
+
+`static` Cake\\Cache\\Cache::**enabled**()
 
 If you need to check on the state of Cache, you can use `enabled()`.
 

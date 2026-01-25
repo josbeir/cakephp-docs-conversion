@@ -138,6 +138,8 @@ echo $time->timezoneName; // America/New_York
 
 ## フォーマットする
 
+`static` Cake\\I18n\\FrozenTime::**setJsonEncodeFormat**($format)
+
 このメソッドは、オブジェクトを json 形式に変換するときに使われる
 デフォルトのフォーマットをセットします。 :
 

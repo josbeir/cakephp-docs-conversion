@@ -299,6 +299,8 @@ BigBoxesTable と、コントローラー BigBoxesController は、全て自動�
 
 ### コネクションへのアクセス
 
+`static` Cake\\Datasource\\ConnectionManager::**get**($name)
+
 一度設定した接続は、 `Cake\Datasource\ConnectionManager::get()` を
 使って取り出すことができます。
 このメソッドはすでに確立しているコネクションを返すか、もしまだ接続していないのであれば
@@ -412,6 +414,8 @@ timestamp か 整形した日付文字列に変換します。
 :::
 
 ### 独自の型を作成する
+
+`static` Cake\\Database\\Type::**map**($name, $class)
 
 もしあなたが CakePHP に実装されていない、データベース独自の型が必要な場合、
 CakePHP の型システムに新たな型を追加することができます。

@@ -425,8 +425,10 @@ CakePHP のアクセス制御リスト(ACL)機能で使われる定数。
 ほとんどの構成用設定は Configure によって処理されますが、実行時に
 CakePHP が参照する定数がいくつか存在します。
 
-> エラー定数。エラーログ出力とデバッグを区別するのに使われます。
-> 現在 PHP は LOG_DEBUG をサポートします。
+`constant` **LOG_ERROR**
+
+エラー定数。エラーログ出力とデバッグを区別するのに使われます。
+現在 PHP は LOG_DEBUG をサポートします。
 
 ### コアのキャッシュ設定
 
@@ -468,92 +470,118 @@ CakePHP の Configure クラスは、アプリケーションや実行時固有�
 
 ``` php
 Configure::read('debug');
+```
 
+`static` Configure::**write**($key, $value)
 
-:param string $key: 書き込むキー。 :term:`ドット記法` が使えます。
-:param mixed $value: 保存する値
+param string \$key  
+書き込むキー。 `ドット記法` が使えます。
 
-アプリケーションの設定の中で ``write()`` を使ってデータを格納します::
+param mixed \$value  
+保存する値
 
-    Configure::write('Company.name','Pizza, Inc.');
-    Configure::write('Company.slogan','Pizza for your body and soul');
+アプリケーションの設定の中で `write()` を使ってデータを格納します:
 
-.. note::
+``` php
+Configure::write('Company.name','Pizza, Inc.');
+Configure::write('Company.slogan','Pizza for your body and soul');
+```
 
-    ``$key`` パラメーターで使われる :term:`ドット記法` により、
-    あなたの構成設定値を論理的にグループ化できます。
+> [!NOTE]
+> `$key` パラメーターで使われる `ドット記法` により、
+> あなたの構成設定値を論理的にグループ化できます。
 
-直前の例は、以下のような単一の呼び出しとしても書けます::
+直前の例は、以下のような単一の呼び出しとしても書けます:
 
-    Configure::write(
-        'Company',
-        array(
-            'name' => 'Pizza, Inc.',
-            'slogan' => 'Pizza for your body and soul'
-        )
-    );
+``` php
+Configure::write(
+    'Company',
+    array(
+        'name' => 'Pizza, Inc.',
+        'slogan' => 'Pizza for your body and soul'
+    )
+);
+```
 
-``Configure::write('debug', $int)`` を使えば、その場で動的に
+`Configure::write('debug', $int)` を使えば、その場で動的に
 デバッグモードと本番モードを行ったり来たりできます。特に、
 AMF や SOAP のやりとりの最中はデバッグ情報がパースエラーの原因と
 なりがちなので、それを防ぐのに有効です。
 
+`static` Configure::**read**($key = null)
 
-:param string $key: 読み込むキー。 :term:`ドット記法` が使えます。
+param string \$key  
+読み込むキー。 `ドット記法` が使えます。
 
 アプリケーションから設定データを読み込むのに使います。デフォルトは
 CakePHP で重要な debug 値です。何らかのキーが指定されたらその
 データを返します。前述の write() の例を元に、そのデータを呼び出して
-みましょう::
+みましょう:
 
-    Configure::read('Company.name');    // 'Pizza, Inc.' が返されます
-    Configure::read('Company.slogan');  // 'Pizza for your body and soul'
-                                        // が返されます
+``` php
+Configure::read('Company.name');    // 'Pizza, Inc.' が返されます
+Configure::read('Company.slogan');  // 'Pizza for your body and soul'
+                                    // が返されます
 
-    Configure::read('Company');
+Configure::read('Company');
 
-    // 返される値:
-    array('name' => 'Pizza, Inc.', 'slogan' => 'Pizza for your body and soul');
+// 返される値:
+array('name' => 'Pizza, Inc.', 'slogan' => 'Pizza for your body and soul');
+```
 
-$key を指定しない場合、 Configure にあるすべての値を返します。指定された $key に関連する
+\$key を指定しない場合、 Configure にあるすべての値を返します。指定された \$key に関連する
 値が存在しない場合、 null を返します。
 
+`static` Configure::**check**($key)
 
-:param string $key: チェックするキー。
+param string \$key  
+チェックするキー。
 
 key/path が存在し、かつ null でない値を持つかどうかをチェックします。
 
-.. versionadded:: 2.3
-    ``Configure::check()`` は 2.3 で追加されました。
+::: info Added in version 2.3
+`Configure::check()` は 2.3 で追加されました。
+:::
 
+`static` Configure::**delete**($key)
 
-:param string $key: 削除するキー。 :term:`ドット記法` が使えます。
+param string \$key  
+削除するキー。 `ドット記法` が使えます。
 
-アプリケーションの設定から情報を削除します::
+アプリケーションの設定から情報を削除します:
 
-    Configure::delete('Company.name');
+``` php
+Configure::delete('Company.name');
+```
 
+`static` Configure::**version**()
 
 現在のアプリケーションで動いている CakePHP のバージョンを返します。
 
+`static` Configure::**config**($name, $reader)
 
-:param string $name: 接続中のリーダー（読み込み機構）の名前
-:param ConfigReaderInterface $reader: 接続されるリーダーのインスタンス
+param string \$name  
+接続中のリーダー（読み込み機構）の名前
+
+param ConfigReaderInterface \$reader  
+接続されるリーダーのインスタンス
 
 Configure に設定リーダーを接続します。接続されたリーダーは、
 設定ファイルをロードするのに使われます。設定ファイルを読み込む
-方法の詳細は :ref:`loading-configuration-files` をごらんください。
+方法の詳細は [Loading Configuration Files](#loading-configuration-files) をごらんください。
 
+`static` Configure::**configured**($name = null)
 
-:param string $name: チェックするリーダーの名前。指定しない場合、
-    接続されているすべてのリーダーの一覧が返されます。
+param string \$name  
+チェックするリーダーの名前。指定しない場合、
+接続されているすべてのリーダーの一覧が返されます。
 
 指定された名前のリーダーが接続されているかをチェックするか、
 または接続されたリーダーの一覧を取得します。
 
+`static` Configure::**drop**($name)
 
 接続されているリーダーオブジェクトを削除します。
-```
 
 ## 設定ファイルを読み書きする
 
@@ -597,15 +625,17 @@ Configure::configured('default');
 
 ### 設定ファイルのロード
 
-> param string \$key  
-> ロードする設定ファイルの識別子
->
-> param string \$config  
-> 設定されたリーダーの別名
->
-> param boolean \$merge  
-> 読まれたファイルの中身をマージするか、
-> それとも既存の値を上書きするか。
+`static` Configure::**load**($key, $config = 'default', $merge = true)
+
+param string \$key  
+ロードする設定ファイルの識別子
+
+param string \$config  
+設定されたリーダーの別名
+
+param boolean \$merge  
+読まれたファイルの中身をマージするか、
+それとも既存の値を上書きするか。
 
 Configure に設定リーダーを接続して、設定ファイルを読み込みます:
 
@@ -621,15 +651,17 @@ Configure::load('my_file', 'default');
 
 ### 設定ファイルを生成／変更する
 
-> param string \$key  
-> ファイル名、または生成されるストレージ設定
->
-> param string \$config  
-> データを格納するリーダーの名前
->
-> param array \$keys  
-> 保存したいトップレベルのキーのリスト。デフォルトは
-> すべてのキー。
+`static` Configure::**dump**($key, $config = 'default', $keys = array())
+
+param string \$key  
+ファイル名、または生成されるストレージ設定
+
+param string \$config  
+データを格納するリーダーの名前
+
+param array \$keys  
+保存したいトップレベルのキーのリスト。デフォルトは
+すべてのキー。
 
 Configure にある全部または一部のデータをダンプして、ファイルまたは
 設定リーダーでサポートされているストレージシステムに格納します。
@@ -660,15 +692,17 @@ Configure::dump('error.php', 'default', array('Error', 'Exception'));
 
 ### 実行時設定を保存する
 
-> param string \$name  
-> キャッシュファイルのストレージキー
->
-> param string \$cacheConfig  
-> 設定データを保存するキャッシュ設定の名前
->
-> param mixed \$data  
-> 保存するデータ、null にすると Configure 中のすべての
-> データを保存。
+`static` Configure::**store**($name, $cacheConfig = 'default', $data = null)
+
+param string \$name  
+キャッシュファイルのストレージキー
+
+param string \$cacheConfig  
+設定データを保存するキャッシュ設定の名前
+
+param mixed \$data  
+保存するデータ、null にすると Configure 中のすべての
+データを保存。
 
 将来取り出して使えるように、実行時設定の値を保存することもできます。
 configure は現在のリクエストの値しか記憶しないので、何らかの変更した
@@ -686,11 +720,13 @@ Configure::store('user_1234', 'default');
 
 ### 実行時設定を呼び出す
 
-> param string \$name  
-> ロードするストレージキー
->
-> param string \$cacheConfig  
-> データをロードするキャッシュ設定
+`static` Configure::**restore**($name, $cacheConfig = 'default')
+
+param string \$name  
+ロードするストレージキー
+
+param string \$cacheConfig  
+データをロードするキャッシュ設定
 
 実行時設定を保存した後は、おそらくそこに再度アクセスして値を取り出す
 ことになります。これは `Configure::restore()` により行います。:

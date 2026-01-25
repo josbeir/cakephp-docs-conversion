@@ -848,6 +848,8 @@ AuthComponent は CakePHP に組み込み済みの認可・認証メカニズム
 
 `method` AuthComponent::**mapActions**($map = array())
 
+`static` AuthComponent::**password**($pass)
+
 ::: info Deprecated in version 2.4
 :::
 
@@ -864,3 +866,18 @@ AuthComponent は CakePHP に組み込み済みの認可・認証メカニズム
 `method` AuthComponent::**shutdown**($Controller)
 
 `method` AuthComponent::**startup**($Controller)
+
+`static` AuthComponent::**user**($key = null)
+
+param string \$key  
+フェッチしたいユーザーデータのキー。null ならユーザーの全データが
+返されます。インスタンスメソッドとしても呼び出し可能です。
+
+ログインしている現在のユーザーのデータを取得する。プロパティのキーを使用することで、
+このユーザーについて特定のデータをフェッチすることができます。 :
+
+``` php
+$id = $this->Auth->user('id');
+```
+
+現在のユーザーがログインしていない、もしくは指定したキーが存在しないなら、null を返します。

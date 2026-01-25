@@ -38,6 +38,8 @@ class UsersController extends AppController
 
 ## Convert Strings into ASCII
 
+`static` Cake\\Utility\\Text::**transliterate**($string, $transliteratorId = null)
+
 Transliterate by default converts all characters in provided string into
 equivalent ASCII characters. The method expects UTF-8 encoding. The character
 conversion can be controlled using transliteration identifiers which you can
@@ -57,6 +59,8 @@ Text::transliterate('Übérmensch', 'Latin-ASCII;');
 ```
 
 ## Creating URL Safe Strings
+
+`static` Cake\\Utility\\Text::**slug**(string $string, array|string $options = [])
 
 Slug transliterates all characters into ASCII versions and converting unmatched
 characters and spaces to dashes. The slug method expects UTF-8 encoding.
@@ -86,6 +90,8 @@ options are:
   ```
 
 ## Generating UUIDs
+
+`static` Cake\\Utility\\Text::**uuid**()
 
 The UUID method is used to generate unique identifiers as per `4122`. The
 UUID is a 128-bit string in the format of
@@ -118,6 +124,8 @@ be used instead of the default UUID generation method.
 
 ## Simple String Parsing
 
+`static` Cake\\Utility\\Text::**tokenize**(string $data, string $separator = ',', string $leftBound = '(', string $rightBound = ')')
+
 Tokenizes a string using `$separator`, ignoring any instance of `$separator`
 that appears between `$leftBound` and `$rightBound`.
 
@@ -142,6 +150,8 @@ $int = Text::parseFileSize('2GB');
 
 ## Formatting Strings
 
+`static` Cake\\Utility\\Text::**insert**(string $str, array $data, array $options = [])
+
 The insert method is used to create string templates and to allow for key/value
 replacements:
 
@@ -152,6 +162,8 @@ Text::insert(
 );
 // Returns: "My name is Bob and I am 65 years old."
 ```
+
+`static` Cake\\Utility\\Text::**cleanInsert**(string $str, array $options)
 
 Cleans up a `Text::insert` formatted string with given `$options` depending
 on the 'clean' key in `$options`. The default method used is text but html is
@@ -173,6 +185,8 @@ $options = [
 
 ## Wrapping Text
 
+`static` Cake\\Utility\\Text::**wrap**(string $text, array|int $options = [])
+
 Wraps a block of text to a set width and indents blocks as well.
 Can intelligently wrap text so words are not sliced across lines:
 
@@ -192,6 +206,8 @@ supported options are:
 - `wordWrap` Whether or not to wrap whole words. Defaults to `true`.
 - `indent` The character to indent lines with. Defaults to ''.
 - `indentAt` The line number to start indenting text. Defaults to 0.
+
+`static` Cake\\Utility\\Text::**wrapBlock**(string $text, array|int $options = [])
 
 If you need to ensure that the total width of the generated block won't
 exceed a certain length even with internal indentation, you need to use

@@ -7,6 +7,8 @@ Xml クラスを利用して、 配列から SimpleXMLElement もしくは DOMDo
 
 ## データを Xml クラスにインポートする
 
+`static` Cake\\Utility\\Xml::**build**($input, array $options = [])
+
 `Xml::build()` を利用することで、XML 形式のデータの読み込みが可能となります。
 `$options` により、このメソッドは SimpleXMLElement (デフォルト) もしくは
 DOMDocument を返却します。
@@ -61,6 +63,8 @@ try {
 > 確認してください。
 
 ## XML 文字列を配列に変換する
+
+`static` Cake\\Utility\\Xml::**toArray**($obj);()
 
 XML テキストを配列に変換するのは、 Xml クラスと同様にシンプルです。
 標準で SimpleXml オブジェクトから受け取ります。 :

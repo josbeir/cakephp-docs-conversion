@@ -392,6 +392,12 @@ $session->write([
 $session->delete('Some.value');
 ```
 
+<div class="php-static-def">
+
+<Session::consume($key)>
+
+</div>
+
 セッションからデータの読込みと削除が必要なら `consume()` が使用できます。 :
 
 ``` php

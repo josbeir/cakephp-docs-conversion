@@ -7,7 +7,7 @@ CakePHP はデバッグ作業やあなたのアプリケーション内部で何
 
 ## 基本的なデバッグ
 
-> noindex  
+`function` **debug(mixed $var, boolean $showHtml = null, $showFrom = true)**
 
 `debug()` 関数は PHP 関数の `print_r()` と同様に、グローバルに利用可能な関数です。
 `debug()` 関数により、さまざまな方法で変数の内容を出力することができます。
@@ -18,8 +18,12 @@ CakePHP はデバッグ作業やあなたのアプリケーション内部で何
 
 `dd()` 、 `pr()` 及び `pj()` もご確認ください。
 
+`function` **stackTrace()**
+
 `stackTrace()` 関数はグローバルに使用でき、関数がどこで呼ばれたかのスタックトレースを
 出力することができます。
+
+`function` **breakpoint()**
 
 もし [Psysh](https://psysh.org/) をインストールしている場合、この関数を
 CLI 環境で使用することで現在のローカルスコープで対話型コンソールを開くことができます。 :
@@ -40,6 +44,8 @@ Debugger を使用する際にはまず、 `Configure::read('debug')` に
 `true` がセットされていることを確認してください。
 
 ## 値の出力
+
+`static` Cake\\Error\\Debugger::**dump**($var, $depth = 3)
 
 dump は変数の内容を出力します。渡された変数のすべてのプロパティーと
 （可能なら）メソッドを出力します。 :
@@ -85,6 +91,8 @@ Debugger::setOutputMask([
 
 ## スタックトレース付きのログ出力
 
+`static` Cake\\Error\\Debugger::**log**($var, $level = 7, $depth = 3)
+
 呼び出されたときに詳細なスタックトレースを生成します。
 `log()` メソッドは `Debugger::dump()` によるものと似たデータを出力しますが、
 出力バッファにではなく、 debug.log に出力します。 `log()` が正常に動作するためには、
@@ -92,6 +100,8 @@ Debugger::setOutputMask([
 書き込み可能でなければならないことに気をつけてください。
 
 ## スタックトレースの生成
+
+`static` Cake\\Error\\Debugger::**trace**($options)
 
 現在のスタックトレースを返します。トレースの各行には、呼び出しているメソッド、
 どこから呼ばれたかというファイルと行番号が含まれています。 :
@@ -113,6 +123,8 @@ Dispatcher::dispatch() - CORE/src/Routing/Dispatcher.php, line 237
 
 ## ファイルから抜粋を取得
 
+`static` Cake\\Error\\Debugger::**excerpt**($file, $line, $context)
+
 \$path（絶対パス）にあるファイルからの抜粋を取得します。\$line 行目をハイライトし、
 \$line 行目の前後 \$context 行もあわせて取得します。 :
 
@@ -133,6 +145,8 @@ Array
 
 このメソッドは内部的に使われているものですが、あなたが独自のエラーメッセージを生成する場合や
 独自の状況でログ出力する場合にも使いやすいものです。
+
+`static` Debugger::**getType**($var)
 
 変数の型を取得します。オブジェクトならクラス名を返します。
 

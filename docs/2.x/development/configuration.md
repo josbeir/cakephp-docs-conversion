@@ -416,8 +416,10 @@ logic in your application, for instance.
 While most configuration options are handled by Configure, there
 are a few constants that CakePHP uses during runtime.
 
-> Error constant. Used for differentiating error logging and
-> debugging. Currently PHP supports LOG_DEBUG.
+`constant` **LOG_ERROR**
+
+Error constant. Used for differentiating error logging and
+debugging. Currently PHP supports LOG_DEBUG.
 
 ### Core Cache Configuration
 
@@ -456,99 +458,127 @@ anywhere within your application, in a static context:
 
 ``` php
 Configure::read('debug');
+```
 
+`static` Configure::**write**($key, $value)
 
-:param string $key: The key to write, can be a :term:`dot notation` value.
-:param mixed $value: The value to store.
+param string \$key  
+The key to write, can be a `dot notation` value.
 
-Use ``write()`` to store data in the application's configuration::
+param mixed \$value  
+The value to store.
 
-    Configure::write('Company.name','Pizza, Inc.');
-    Configure::write('Company.slogan','Pizza for your body and soul');
+Use `write()` to store data in the application's configuration:
 
-.. note::
+``` php
+Configure::write('Company.name','Pizza, Inc.');
+Configure::write('Company.slogan','Pizza for your body and soul');
+```
 
-    The :term:`dot notation` used in the ``$key`` parameter can be used to
-    organize your configuration settings into logical groups.
+> [!NOTE]
+> The `dot notation` used in the `$key` parameter can be used to
+> organize your configuration settings into logical groups.
 
-The above example could also be written in a single call::
+The above example could also be written in a single call:
 
-    Configure::write(
-        'Company',
-        array(
-            'name' => 'Pizza, Inc.',
-            'slogan' => 'Pizza for your body and soul'
-        )
-    );
+``` php
+Configure::write(
+    'Company',
+    array(
+        'name' => 'Pizza, Inc.',
+        'slogan' => 'Pizza for your body and soul'
+    )
+);
+```
 
-You can use ``Configure::write('debug', $int)`` to switch between
+You can use `Configure::write('debug', $int)` to switch between
 debug and production modes on the fly. This is especially handy for
 AMF or SOAP interactions where debugging information can cause
 parsing problems.
 
+`static` Configure::**read**($key = null)
 
-:param string $key: The key to read, can be a :term:`dot notation` value
+param string \$key  
+The key to read, can be a `dot notation` value
 
 Used to read configuration data from the application. Defaults to
 CakePHP's important debug value. If a key is supplied, the data is
 returned. Using our examples from write() above, we can read that
-data back::
+data back:
 
-    Configure::read('Company.name');    //yields: 'Pizza, Inc.'
-    Configure::read('Company.slogan');  //yields: 'Pizza for your body
-                                        //and soul'
+``` php
+Configure::read('Company.name');    //yields: 'Pizza, Inc.'
+Configure::read('Company.slogan');  //yields: 'Pizza for your body
+                                    //and soul'
 
-    Configure::read('Company');
+Configure::read('Company');
 
-    //yields:
-    array('name' => 'Pizza, Inc.', 'slogan' => 'Pizza for your body and soul');
+//yields:
+array('name' => 'Pizza, Inc.', 'slogan' => 'Pizza for your body and soul');
+```
 
-If $key is left null, all values in Configure will be returned. If the value
-corresponding to the specified $key does not exist then null will be
+If \$key is left null, all values in Configure will be returned. If the value
+corresponding to the specified \$key does not exist then null will be
 returned.
 
+`static` Configure::**consume**($key)
 
-:param string $key: The key to read, can use be a :term:`dot notation` value
+param string \$key  
+The key to read, can use be a `dot notation` value
 
 Read and delete a key from Configure. This is useful when you want to
 combine reading and deleting values in a single operation.
 
+`static` Configure::**check**($key)
 
-:param string $key: The key to check.
+param string \$key  
+The key to check.
 
 Used to check if a key/path exists and has not-null value.
 
-.. versionadded:: 2.3
-    ``Configure::check()`` was added in 2.3
+::: info Added in version 2.3
+`Configure::check()` was added in 2.3
+:::
 
+`static` Configure::**delete**($key)
 
-:param string $key: The key to delete, can be a :term:`dot notation` value
+param string \$key  
+The key to delete, can be a `dot notation` value
 
-Used to delete information from the application's configuration::
+Used to delete information from the application's configuration:
 
-    Configure::delete('Company.name');
+``` php
+Configure::delete('Company.name');
+```
 
+`static` Configure::**version**()
 
 Returns the CakePHP version for the current application.
 
+`static` Configure::**config**($name, $reader)
 
-:param string $name: The name of the reader being attached.
-:param ConfigReaderInterface $reader: The reader instance being attached.
+param string \$name  
+The name of the reader being attached.
+
+param ConfigReaderInterface \$reader  
+The reader instance being attached.
 
 Attach a configuration reader to Configure. Attached readers can
-then be used to load configuration files. See :ref:`loading-configuration-files`
+then be used to load configuration files. See [Loading Configuration Files](#loading-configuration-files)
 for more information on how to read configuration files.
 
+`static` Configure::**configured**($name = null)
 
-:param string $name: The name of the reader to check, if null
-    a list of all attached readers will be returned.
+param string \$name  
+The name of the reader to check, if null
+a list of all attached readers will be returned.
 
 Either check that a reader with a given name is attached, or get
 the list of attached readers.
 
+`static` Configure::**drop**($name)
 
 Drops a connected reader object.
-```
 
 ## Reading and writing configuration files
 
@@ -591,15 +621,17 @@ files with that reader would fail.
 
 ### Loading configuration files
 
-> param string \$key  
-> The identifier of the configuration file to load.
->
-> param string \$config  
-> The alias of the configured reader.
->
-> param boolean \$merge  
-> Whether or not the contents of the read file
-> should be merged, or overwrite the existing values.
+`static` Configure::**load**($key, $config = 'default', $merge = true)
+
+param string \$key  
+The identifier of the configuration file to load.
+
+param string \$config  
+The alias of the configured reader.
+
+param boolean \$merge  
+Whether or not the contents of the read file
+should be merged, or overwrite the existing values.
 
 Once you've attached a config reader to Configure you can load configuration files:
 
@@ -615,15 +647,17 @@ will not ever overwrite the existing configuration.
 
 ### Creating or modifying configuration files
 
-> param string \$key  
-> The name of the file/stored configuration to be created.
->
-> param string \$config  
-> The name of the reader to store the data with.
->
-> param array \$keys  
-> The list of top-level keys to save. Defaults to all
-> keys.
+`static` Configure::**dump**($key, $config = 'default', $keys = array())
+
+param string \$key  
+The name of the file/stored configuration to be created.
+
+param string \$config  
+The name of the reader to store the data with.
+
+param array \$keys  
+The list of top-level keys to save. Defaults to all
+keys.
 
 Dumps all or some of the data in Configure into a file or storage system
 supported by a config reader. The serialization format
@@ -653,16 +687,18 @@ configuration files that are readable with `Configure::load()`
 
 ### Storing runtime configuration
 
-> param string \$name  
-> The storage key for the cache file.
->
-> param string \$cacheConfig  
-> The name of the cache configuration to store the
-> configuration data with.
->
-> param mixed \$data  
-> Either the data to store, or leave null to store all data
-> in Configure.
+`static` Configure::**store**($name, $cacheConfig = 'default', $data = null)
+
+param string \$name  
+The storage key for the cache file.
+
+param string \$cacheConfig  
+The name of the cache configuration to store the
+configuration data with.
+
+param mixed \$data  
+Either the data to store, or leave null to store all data
+in Configure.
 
 You can also store runtime configuration values for use in a future request.
 Since configure only remembers values for the current request, you will
@@ -679,11 +715,13 @@ you to store Configuration information in any storage engine that `Cache` can ta
 
 ### Restoring runtime configuration
 
-> param string \$name  
-> The storage key to load.
->
-> param string \$cacheConfig  
-> The cache configuration to load the data from.
+`static` Configure::**restore**($name, $cacheConfig = 'default')
+
+param string \$name  
+The storage key to load.
+
+param string \$cacheConfig  
+The cache configuration to load the data from.
 
 Once you've stored runtime configuration, you'll probably need to restore it
 so you can access it again. `Configure::restore()` does exactly that:

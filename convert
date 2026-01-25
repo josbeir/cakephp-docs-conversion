@@ -304,6 +304,86 @@ sys.stdout.write(fixed_content)
         next
     }
     
+    # Handle static method directives
+    /^.. php:staticmethod::/ {
+        # Get everything after ".. php:staticmethod:: "
+        static_line = $0
+        gsub(/^.. php:staticmethod:: /, "", static_line)
+        
+        # Parse the signature to separate method name from arguments
+        method_name = ""
+        params = ""
+        class_prefix = ""
+        
+        # Check if line already has class prefix
+        if (match(static_line, /^([a-zA-Z_][a-zA-Z0-9_\\]*)::/)) {
+            # Extract existing class prefix
+            class_prefix = substr(static_line, 1, RLENGTH - 2)
+            static_line = substr(static_line, RLENGTH + 1)
+        } else {
+            # Build class prefix from context
+            if (namespace != "" && class != "") {
+                class_prefix = namespace "\\" class
+            } else if (class != "") {
+                class_prefix = class
+            } else {
+                class_prefix = "Class"
+            }
+        }
+        
+        # Parse method name and parameters
+        if (match(static_line, /^([a-zA-Z_][a-zA-Z0-9_]*)\s*\((.*)\)\s*$/)) {
+            method_name = substr(static_line, 1, RLENGTH)
+            gsub(/\(.*$/, "", method_name)
+            params = substr(static_line, length(method_name) + 1)
+        } else {
+            method_name = static_line
+            params = "()"
+        }
+        
+        # Output as directive that Pandoc will process, keeping description attached
+        # Escape backslashes for RST so Pandoc preserves them
+        gsub(/\\/, "\\\\\\\\", class_prefix)
+        
+        print ""
+        print ".. php-static-def:: " class_prefix "::" method_name params
+        next
+    }
+    
+    # Handle function directives  
+    /^.. php:function::/ {
+        # Get everything after ".. php:function:: "
+        func_line = $0
+        gsub(/^.. php:function:: /, "", func_line)
+        
+        # Functions do not need namespace prefix - just the function name
+        # Output as directive that Pandoc will process, keeping description attached
+        print ""
+        print ".. php-function-def:: " func_line
+        next
+    }
+    
+    # Handle constant directives
+    /^.. php:const::/ {
+        # Get everything after ".. php:const:: "
+        const_line = $0
+        gsub(/^.. php:const:: /, "", const_line)
+        
+        # Build namespace prefix with escaped backslashes for RST
+        ns_prefix = ""
+        if (namespace != "") {
+            # Use double backslashes so Pandoc preserves them
+            ns_prefix = namespace
+            gsub(/\\/, "\\\\\\\\", ns_prefix)
+            ns_prefix = ns_prefix "\\\\"
+        }
+        
+        # Output as directive that Pandoc will process, keeping description attached
+        print ""
+        print ".. php-const-def:: " ns_prefix const_line
+        next
+    }
+    
     # Remove other PHP directives we do not handle
     /^.. php:/ { next }
     
@@ -341,6 +421,7 @@ sys.stdout.write(fixed_content)
         --lua-filter="$FILTERS_DIR/doc_links.lua" \
         --lua-filter="$FILTERS_DIR/ref.lua" \
         --lua-filter="$FILTERS_DIR/php_domain.lua" \
+        --lua-filter="$FILTERS_DIR/php_definitions.lua" \
         --lua-filter="$FILTERS_DIR/fqdn_cleanup.lua" \
         --lua-filter="$FILTERS_DIR/url_anchor_cleanup.lua" \
         --lua-filter="$FILTERS_DIR/containers.lua" \

@@ -7,6 +7,8 @@ DOMDocument objects, and back into arrays again.
 
 ## Loading XML documents
 
+`static` Cake\\Utility\\Xml::**build**($input, array $options = [])
+
 You can load XML-ish data using `Xml::build()`. Depending on your
 `$options` parameter, this method will return a SimpleXMLElement (default)
 or DOMDocument object. You can use `Xml::build()` to build XML
@@ -75,6 +77,8 @@ can be enabled with the `loadEntities` and `parseHuge` options respectively.
 :::
 
 ## Transforming a XML String in Array
+
+`static` Cake\\Utility\\Xml::**toArray**($obj);()
 
 Converting XML strings into arrays is simple with the Xml class as well. By
 default you'll get a SimpleXml object back:

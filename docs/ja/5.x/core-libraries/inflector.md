@@ -113,6 +113,10 @@ Inflector の組み込みメソッドの簡単な概要と、複数単語の引�
 
 ## 複数形と単数形の作成
 
+`static` Inflector::**singularize**($singular)
+
+`static` Inflector::**pluralize**($singular)
+
 `pluralize` や `singularize()` の両方は、多くの英語名詞に作用します。
 もし、他の言語の対応が必要な場合、 使用するルールをカスタマイズするために
 [Inflection Configuration](#inflection-configuration) を使用することができます。 :
@@ -135,6 +139,10 @@ echo Inflector::singularize('People');
 
 ## キャメルケースやアンダースコアーの作成
 
+`static` Inflector::**camelize**($underscored)
+
+`static` Inflector::**underscore**($camelCase)
+
 これらのメソッドは、クラス名やプロパティー名を作成する時便利です。 :
 
 ``` php
@@ -150,6 +158,8 @@ underscore メソッドは、 キャメルケース形式の単語のみ変換�
 
 ## 人間が読みやすい形式の作成
 
+`static` Inflector::**humanize**($underscored)
+
 このメソッドは、アンダースコアー形式を人間が読みやすい値
 「タイトルケース」形式に変換する時に便利です。 :
 
@@ -159,6 +169,12 @@ Inflector::humanize('apple_pie');
 ```
 
 ## テーブル名やクラス名の作成
+
+`static` Inflector::**classify**($underscored)
+
+`static` Inflector::**dasherize**($dashed)
+
+`static` Inflector::**tableize**($camelCase)
 
 コードの生成や CakePHP の規約を使用する時、テーブル名やクラス名に加工するために
 必要になります。 :
@@ -175,6 +191,8 @@ Inflector::tableize('UserProfileSetting');
 ```
 
 ## 変数名の作成
+
+`static` Inflector::**variable**($underscored)
 
 規約をもとにしたコード生成や仕事をするのに必要なメタプログログラミングの作業を行う時に、
 変数名はしばしば役に立ちます。 :
@@ -197,6 +215,8 @@ CakePHP の命名規則は、本当に良くなります。あなたはデータ
 CakePHP に特別なケースを伝えることができます。
 
 ### カスタム Inflection のロード
+
+`static` Inflector::**rules**($type, $rules, $reset = false)
 
 Inflector で使用する新しい変換・翻訳の規則を定義します。しばしば、
 このメソッドは、 **config/bootstrap.php** 内で使用されます。 :

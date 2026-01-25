@@ -278,6 +278,23 @@ $this->request->addDetector(
 
 `method` CakeRequest::**accepts**($type = null)
 
+`static` CakeRequest::**acceptLanguage**($language = null)
+
+クライアントが受付けるすべての言語を取得します。また、
+特定の言語が受付られるかどうかを調べます。
+
+受付ける言語のリストを取得:
+
+``` css
+CakeRequest::acceptLanguage();
+```
+
+特定の言語が受付られるかどうかの確認:
+
+``` css
+CakeRequest::acceptLanguage('es-es');
+```
+
 `method` CakeRequest::**param**($name)
 
 <div class="index">

@@ -9,8 +9,12 @@ function RawBlock(elem)
     if elem.format == "html" then
         local text = elem.text
         
-        -- Check if this is a PHP class or method directive
-        if text:match("<code>class.*<strong>.*</strong>.*</code>") or text:match("<code>method.*<strong>.*</strong>.*</code>") then
+        -- Check if this is a PHP class, method, static, function, or constant directive
+        if text:match("<code>class.*<strong>.*</strong>.*</code>") or 
+           text:match("<code>method.*<strong>.*</strong>.*</code>") or
+           text:match("<code>static.*<strong>.*</strong>.*</code>") or
+           text:match("<code>function.*<strong>.*</strong>.*</code>") or
+           text:match("<code>constant.*<strong>.*</strong>.*</code>") then
             -- Convert the HTML code block to proper markdown
             -- Extract the content inside <code>...</code>
             local code_content = text:match("<code>(.-)</code>")
@@ -29,6 +33,24 @@ function RawBlock(elem)
                     rest = markdown_content:match("^method (.+)$")
                     if rest then
                         type_prefix = "method"
+                    else
+                        -- Try static pattern
+                        rest = markdown_content:match("^static (.+)$")
+                        if rest then
+                            type_prefix = "static"
+                        else
+                            -- Try function pattern
+                            rest = markdown_content:match("^function (.+)$")
+                            if rest then
+                                type_prefix = "function"
+                            else
+                                -- Try constant pattern
+                                rest = markdown_content:match("^constant (.+)$")
+                                if rest then
+                                    type_prefix = "constant"
+                                end
+                            end
+                        end
                     end
                 end
                 

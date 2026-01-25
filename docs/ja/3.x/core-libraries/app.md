@@ -6,6 +6,8 @@ App クラスはリソースの位置とパスの管理を担当します。
 
 ## クラスの検索
 
+`static` Cake\\Core\\App::**classname**($name, $type = '', $suffix = '')
+
 この方法は CakePHP 全体でクラス名を解決するために使われます。
 CakePHP が使用する短い形式の名前を解決し、完全解決されたクラス名を返します。 :
 
@@ -29,6 +31,8 @@ App::classname('App\Cache\ComboCache');
 
 ## 名前空間のパスの検索
 
+`static` Cake\\Core\\App::**path**(string $package, string $plugin = null)
+
 規約上のパスについて位置を得るために使われます。 :
 
 ``` php
@@ -47,6 +51,8 @@ App::path('Component', 'DebugKit');
 `App::path()` は既定のパスのみを返し、
 オートローダーに設定された追加のパスに関するいかなる情報も返しません。
 
+`static` Cake\\Core\\App::**core**(string $package)
+
 CakePHP 内部のパッケージのパスを検索するために使われます。 :
 
 ``` php
@@ -55,6 +61,8 @@ App::core('Cache/Engine');
 ```
 
 ## プラグインの検出
+
+`static` Plugin::**path**(string $plugin)
 
 プラグインは Plugin によって検出されます。
 たとえば `Plugin::path('DebugKit');` を使うと、DebugKit プラグインのフルパスが得られます。 :

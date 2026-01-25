@@ -307,6 +307,8 @@ references to existing connections.
 
 ### Accessing Connections
 
+`static` Cake\\Datasource\\ConnectionManager::**get**($name)
+
 Once configured connections can be fetched using
 `Cake\Datasource\ConnectionManager::get()`. This method will
 construct and load a connection if it has not been built before, or return the
@@ -431,6 +433,8 @@ The `binaryuuid` type was added.
 <a id="adding-custom-database-types"></a>
 
 ### Adding Custom Types
+
+`static` Cake\\Database\\Type::**map**($name, $class)
 
 If you need to use vendor specific types that are not built into CakePHP you can
 add additional new types to CakePHP's type system. Type classes are expected to

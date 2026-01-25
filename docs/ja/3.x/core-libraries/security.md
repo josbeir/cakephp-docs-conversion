@@ -7,6 +7,10 @@
 
 ## データの暗号化と復号
 
+`static` Cake\\Utility\\Security::**encrypt**($text, $key, $hmacSalt = null)
+
+`static` Cake\\Utility\\Security::**decrypt**($cipher, $key, $hmacSalt = null)
+
 `$text` の暗号化には AES-256 を利用します。 `$key` は例えば「よいパスワード」のように、
 沢山の分散された値であるべきです。返却される結果は HMAC チェックサム（checksum）つきの
 暗号化された値となります。
@@ -65,6 +69,8 @@ Security::engine(new Mcrypt());
 
 ## データのハッシュ化
 
+`static` Cake\\Utility\\Security::**hash**( $string, $type = NULL, $salt = false )
+
 このメソッドで文字列からハッシュを作成します。次の有効なメソッドを頼ってください。
 もし `$salt` が `true` にセットされていた場合、アプリケーションのソルト値が
 利用されます。 :
@@ -94,6 +100,8 @@ $hash = Security::hash('CakePHP Framework');
 
 ## セキュアなランダムデータの取得
 
+`static` Cake\\Utility\\Security::**randomBytes**($length)
+
 セキュアなランダムソースから `$length` バイト数を取得します。この関数は、
 以下のソースの１つからデータを生成します。
 
@@ -106,6 +114,8 @@ $hash = Security::hash('CakePHP Framework');
 ::: info Added in version 3.2.3
 randomBytes メソッドが追加されました。
 :::
+
+`static` Cake\\Utility\\Security::**randomString**($length)
 
 セキュアなランダムソースから長さ `$length` のランダムな文字列を取得します。
 このメソッドは、 `randomBytes()` と同じランダムソースから生成し、

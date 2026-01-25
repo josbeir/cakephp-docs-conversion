@@ -316,9 +316,58 @@ Log::warning('これは警告です', 'payments');
 
 `class` Cake\\Log\\**Log**
 
+`static` Cake\\Log\\Log::**config**($key, $config)
+
+param string \$name  
+接続されるロガーの名前で、後でロガーを削除するために使用されます。
+
+param array \$config  
+ロガーの設定情報とコンストラクター引数の配列です。
+
+ロガーの設定を取得したり、セットしたりします。詳細は [Log Configuration](#log-configuration) を参照してください。
+
+`static` Cake\\Log\\Log::**configured**()
+
+returns  
+設定されたロガーの配列です。
+
+設定された複数のロガーの名前を取得します。
+
+`static` Cake\\Log\\Log::**drop**($name)
+
+param string \$name  
+今後メッセージを受信させたくないロガーの名前です。
+
+`static` Cake\\Log\\Log::**write**($level, $message, $scope = [])
+
+全ての設定されたロガーにメッセージを書き込みます。
+`$level` は、作成されたログメッセージのレベルを表します。
+`$message` は、書き込みたいログのメッセージです。
+`$scope` は、スコープ（一つもしくは複数）でログメッセージが作成されます。
+
+`static` Cake\\Log\\Log::**levels**()
+
+引数なしでメソッドを呼び出します。例えば、 <span class="title-ref">Log::levels()</span> は、現在のレベルの設定を取得します。
+
 ### 便利なメソッド
 
 以下の便利メソッドは、適切なログレベルで <span class="title-ref">\$message</span> を記録するために追加されました。
+
+`static` Cake\\Log\\Log::**emergency**($message, $scope = [])
+
+`static` Cake\\Log\\Log::**alert**($message, $scope = [])
+
+`static` Cake\\Log\\Log::**critical**($message, $scope = [])
+
+`static` Cake\\Log\\Log::**error**($message, $scope = [])
+
+`static` Cake\\Log\\Log::**warning**($message, $scope = [])
+
+`static` Cake\\Log\\Log::**notice**($message, $scope = [])
+
+`static` Cake\\Log\\Log::**debug**($message, $scope = [])
+
+`static` Cake\\Log\\Log::**info**($message, $scope = [])
 
 ## ロギングトレイト
 
