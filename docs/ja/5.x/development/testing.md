@@ -631,7 +631,7 @@ class ArticlesTest extends CakeTestCase
 
 ### フィクスチャファクトリー
 
-アプリケーションが大規模になると、テストフィクスチャの量も肥大化し、システム全体の管理が困難になりがちです。[フィクスチャファクトリープラグイン](https://github.com/vierge-noire/cakephp-fixture-factories) は、大規模システム管理のための有効な解決手段です。
+アプリケーションが大規模になると、テストフィクスチャの量も肥大化し、システム全体の管理が困難になりがちです。\`フィクスチャファクトリープラグイン \<https://github.com/vierge-noire/cakephp-fixture-factories\>\`\_ は、大規模システム管理のための有効な解決手段です。
 
 このプラグインは、各テストの前にすべてのダーティテーブルを切り捨てるために、 [テストスイートライトプラグイン](https://github.com/vierge-noire/cakephp-test-suite-light) を使用します。
 

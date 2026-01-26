@@ -19,7 +19,7 @@ CakePHP の開発プロセスの極めて重要な部分です。CakePHP のチ�
 - 環境 (OS、PHP バージョン、CakePHP バージョン) についてできるだけ詳しく **書いてください** 。
 - サポートの質問にチケットシステムを使用 **しないでください** 。
   質問には IRC チャンネルの \#cakephp または
-  Stack Overflow \<<https://stackoverflow.com/questions/tagged/cakephp>\>
+  Stack Overflow \<https://stackoverflow.com/questions/tagged/cakephp\>
   を使用してください。
 
 ## セキュリティ問題の報告

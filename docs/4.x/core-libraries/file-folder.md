@@ -217,15 +217,11 @@ The current file's absolute path.
 
 `method` Cake\\Filesystem\\File::**perms**()
 
-<div class="php-static-def">
-
-Cake\Filesystem\\<File::prepare(string> \$data, boolean \$forceWindows = false)
+`static` Cake\\Filesystem\\File::**prepare**(string $data, boolean $forceWindows = false)
 
 Prepares a ascii string for writing. Converts line endings to the
 correct terminator for the current platform. For Windows "\r\n"
 will be used, "\n" for all other platforms.
-
-</div>
 
 `method` Cake\\Filesystem\\File::**pwd**()
 

@@ -13,28 +13,112 @@ Inflector のメソッドは通常では静的にアクセスします。
 
 Inflector の組み込みメソッドの簡単な概要と、複数単語の引数を指定したときに出力される結果:
 
-| メソッド        | 引数       | 出力       |
-|-----------------|------------|------------|
-| `pluralize()`   | BigApple   | BigApples  |
-|                 | big_apple  | big_apples |
-| `singularize()` | BigApples  | BigApple   |
-|                 | big_apples | big_apple  |
-| `camelize()`    | big_apples | BigApples  |
-|                 | big apple  | BigApple   |
-| `underscore()`  | BigApples  | big_apples |
-|                 | Big Apples | big apples |
-| `humanize()`    | big_apples | Big Apples |
-|                 | bigApple   | BigApple   |
-| `classify()`    | big_apples | BigApple   |
-|                 | big apple  | BigApple   |
-| `dasherize()`   | BigApples  | big-apples |
-|                 | big apple  | big apple  |
-| `tableize()`    | BigApple   | big_apples |
-|                 | Big Apple  | big apples |
-| `variable()`    | big_apple  | bigApple   |
-|                 | big apples | bigApples  |
-| `slug()`        | Big Apple  | big-apple  |
-|                 | BigApples  | BigApples  |
+<table style="width:72%;">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>引数</th>
+<th>出力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td rowspan="2"><code>pluralize()</code></td>
+<td>BigApple</td>
+<td>BigApples</td>
+</tr>
+<tr>
+<td>big_apple</td>
+<td>big_apples</td>
+</tr>
+<tr>
+<td rowspan="2"><code>singularize()</code></td>
+<td>BigApples</td>
+<td>BigApple</td>
+</tr>
+<tr>
+<td>big_apples</td>
+<td>big_apple</td>
+</tr>
+<tr>
+<td rowspan="2"><code>camelize()</code></td>
+<td>big_apples</td>
+<td>BigApples</td>
+</tr>
+<tr>
+<td>big apple</td>
+<td>BigApple</td>
+</tr>
+<tr>
+<td rowspan="2"><code>underscore()</code></td>
+<td>BigApples</td>
+<td>big_apples</td>
+</tr>
+<tr>
+<td>Big Apples</td>
+<td>big apples</td>
+</tr>
+<tr>
+<td rowspan="2"><code>humanize()</code></td>
+<td>big_apples</td>
+<td>Big Apples</td>
+</tr>
+<tr>
+<td>bigApple</td>
+<td>BigApple</td>
+</tr>
+<tr>
+<td rowspan="2"><code>classify()</code></td>
+<td>big_apples</td>
+<td>BigApple</td>
+</tr>
+<tr>
+<td>big apple</td>
+<td>BigApple</td>
+</tr>
+<tr>
+<td rowspan="2"><code>dasherize()</code></td>
+<td>BigApples</td>
+<td>big-apples</td>
+</tr>
+<tr>
+<td>big apple</td>
+<td>big apple</td>
+</tr>
+<tr>
+<td rowspan="2"><code>tableize()</code></td>
+<td>BigApple</td>
+<td>big_apples</td>
+</tr>
+<tr>
+<td>Big Apple</td>
+<td>big apples</td>
+</tr>
+<tr>
+<td rowspan="2"><code>variable()</code></td>
+<td>big_apple</td>
+<td>bigApple</td>
+</tr>
+<tr>
+<td>big apples</td>
+<td>bigApples</td>
+</tr>
+<tr>
+<td rowspan="2"><code>slug()</code></td>
+<td>Big Apple</td>
+<td>big-apple</td>
+</tr>
+<tr>
+<td>BigApples</td>
+<td>BigApples</td>
+</tr>
+</tbody>
+</table>
 
 ## 複数形と単数形の作成
 

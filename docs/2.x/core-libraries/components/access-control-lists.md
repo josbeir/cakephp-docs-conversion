@@ -68,92 +68,17 @@ Traditionally, systems were managed using a sort of matrix that
 showed a basic set of users and permissions relating to objects. If
 this information were stored in a table, it might look like this:
 
-<table>
-<thead>
-<tr>
-<th>x</th>
-<th>Weapons</th>
-<th>The Ring</th>
-<th>Salted Pork</th>
-<th>Diplomacy</th>
-<th>Ale</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Gandalf</td>
-<td></td>
-<td></td>
-<td>Allow</td>
-<td>Allow</td>
-<td>Allow</td>
-</tr>
-<tr>
-<td><p>--------Aragorn</p></td>
-<td><p>--------Allow</p></td>
-<td><hr /></td>
-<td><p>------------Allow</p></td>
-<td><p>----------Allow</p></td>
-<td><p>-------Allow</p></td>
-</tr>
-<tr>
-<td><p>--------Bilbo</p></td>
-<td><hr /></td>
-<td><hr /></td>
-<td><hr /></td>
-<td><hr /></td>
-<td><p>-------Allow</p></td>
-</tr>
-<tr>
-<td><p>--------Frodo</p></td>
-<td><hr /></td>
-<td><p>---------Allow</p></td>
-<td><hr /></td>
-<td><hr /></td>
-<td><p>-------Allow</p></td>
-</tr>
-<tr>
-<td><p>--------Gollum</p></td>
-<td><hr /></td>
-<td><hr /></td>
-<td><p>------------Allow</p></td>
-<td><hr /></td>
-<td><hr /></td>
-</tr>
-<tr>
-<td><p>--------Legolas</p></td>
-<td><p>--------Allow</p></td>
-<td><hr /></td>
-<td><p>------------Allow</p></td>
-<td><p>----------Allow</p></td>
-<td><p>-------Allow</p></td>
-</tr>
-<tr>
-<td><p>--------Gimli</p></td>
-<td><p>--------Allow</p></td>
-<td><hr /></td>
-<td><p>------------Allow</p></td>
-<td><hr /></td>
-<td><hr /></td>
-</tr>
-<tr>
-<td><p>--------Pippin</p></td>
-<td><hr /></td>
-<td><hr /></td>
-<td><hr /></td>
-<td><p>----------Allow</p></td>
-<td><p>-------Allow</p></td>
-</tr>
-<tr>
-<td><p>--------Merry</p></td>
-<td><hr /></td>
-<td><hr /></td>
-<td><hr /></td>
-<td><p>----------Allow</p></td>
-<td><p>-------Allow</p></td>
-</tr>
-</tbody>
-</table>
+| x       | Weapons | The Ring | Salted Pork | Diplomacy | Ale   |
+|---------|---------|----------|-------------|-----------|-------|
+| Gandalf |         |          | Allow       | Allow     | Allow |
+| Aragorn | Allow   |          | Allow       | Allow     | Allow |
+| Bilbo   |         |          |             |           | Allow |
+| Frodo   |         | Allow    |             |           | Allow |
+| Gollum  |         |          | Allow       |           |       |
+| Legolas | Allow   |          | Allow       | Allow     | Allow |
+| Gimli   | Allow   |          | Allow       |           |       |
+| Pippin  |         |          |             | Allow     | Allow |
+| Merry   |         |          |             | Allow     | Allow |
 
 At first glance, it seems that this sort of system could work
 rather well. Assignments can be made to protect security (only

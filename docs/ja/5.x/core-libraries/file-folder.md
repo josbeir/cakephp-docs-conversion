@@ -218,15 +218,11 @@ $file = new File('/path/to/file.php', true, 0644);
 
 `method` Cake\\Filesystem\\File::**perms**()
 
-<div class="php-static-def">
-
-Cake\Filesystem\\<File::prepare(string> \$data, boolean \$forceWindows = false)
+`static` Cake\\Filesystem\\File::**prepare**(string $data, boolean $forceWindows = false)
 
 ASCII 文字列をファイルへ書き出す事前処理を行います。
 現在の実行環境に合わせて改行文字を変換します。
 Windows なら "\r\n" を、その他の環境なら "\n" が利用されます。
-
-</div>
 
 `method` Cake\\Filesystem\\File::**pwd**()
 

@@ -163,7 +163,7 @@ previous section. There is plenty to explain here, let's begin with the
 
 As mentioned before, when using filter classes you can only define the order in
 which they are run using the `$priority` property in the class, default value is
-10 if the property is declared, this means that it will get executed \_[after]() the
+10 if the property is declared, this means that it will get executed <span id="after">after</span>\_ the
 Router class has parsed the request. We do not want this to happen in our
 previous example, because most probably you do not have any controller set up
 for answering to that URL, hence we chose 9 as our priority.
