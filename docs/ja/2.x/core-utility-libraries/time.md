@@ -24,6 +24,8 @@ class UsersController extends AppController {
 `CakeTime` は、 `TimeHelper` を元に作られました。
 :::
 
+<!-- start-caketime -->
+
 ## フォーマット
 
 `method` CakeTime::**convert**($serverTime, $timezone = NULL)
@@ -83,3 +85,5 @@ class UsersController extends AppController {
 `method` CakeTime::**isPast**($dateString, $timezone = NULL)
 
 `method` CakeTime::**wasWithinLast**($timeInterval, $dateString, $timezone = NULL)
+
+<!-- end-caketime -->

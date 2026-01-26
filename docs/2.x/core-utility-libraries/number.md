@@ -25,6 +25,8 @@ class UsersController extends AppController {
 `CakeNumber` has been factored out from `NumberHelper`.
 :::
 
+<!-- start-cakenumber -->
+
 All of these functions return the formatted number; They do not
 automatically echo the output into the view.
 
@@ -45,3 +47,5 @@ automatically echo the output into the view.
 `method` CakeNumber::**format**(mixed $number, mixed $options=false)
 
 `method` CakeNumber::**formatDelta**(mixed $number, mixed $options=array())
+
+<!-- end-cakenumber -->

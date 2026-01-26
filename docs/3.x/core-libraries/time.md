@@ -36,6 +36,8 @@ to power its `Time` utility. Anything you can do with `Chronos` and
 
 For more details on Chronos please see [the API documentation](https://api.cakephp.org/chronos/1.0/).
 
+<!-- start-time -->
+
 ## Creating Time Instances
 
 There are a few ways to create `Time` instances:
@@ -383,6 +385,8 @@ echo $time->wasWithinLast(2);
 // Within past 2 weeks.
 echo $time->wasWithinLast('2 weeks');
 ```
+
+<!-- end-time -->
 
 ## Dates
 

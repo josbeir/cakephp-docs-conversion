@@ -38,6 +38,8 @@ class UsersController extends AppController
 
 Chronos についてより詳しく知りたい場合は [API ドキュメント](https://api.cakephp.org/chronos/1.0/) をご覧ください。
 
+<!-- start-time -->
+
 ## Time インスタンスを作成する
 
 `Time` インスタンスを作成するにはいくつかの方法があります。 :
@@ -371,6 +373,8 @@ echo $time->wasWithinLast(2);
 // 過去２週間以内かどうか
 echo $time->wasWithinLast('2 weeks');
 ```
+
+<!-- end-time -->
 
 ## 日付
 

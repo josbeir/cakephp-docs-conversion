@@ -229,6 +229,8 @@ This is the song that
  → never ends.
 ```
 
+<!-- start-text -->
+
 ## Highlighting Substrings
 
 `method` Cake\\Utility\\Text::**highlight**(string $text, array|string $phrase, array $options = [])
@@ -417,3 +419,5 @@ echo Text::toList($colors);
 Output:
 
     red, orange, yellow, green, blue, indigo and violet
+
+<!-- end-text -->

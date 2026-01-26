@@ -29,6 +29,8 @@ class UsersController extends AppController
 }
 ```
 
+<!-- start-cakenumber -->
+
 以下の全ての機能は、整形された数値を返します。これらは自動的にビューに出力を表示しません。
 
 ## 通貨フォーマット
@@ -280,6 +282,8 @@ echo Number::formatDelta('123456.7890', [
 ]);
 // 出力 '[+123,456.79]'
 ```
+
+<!-- end-cakenumber -->
 
 ## フォーマッター設定
 

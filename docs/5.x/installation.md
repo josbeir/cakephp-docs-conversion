@@ -25,7 +25,7 @@ utilize one. CakePHP supports a variety of database storage engines:
 - MariaDB (10.1 or higher)
 - PostgreSQL (9.6 or higher)
 - Microsoft SQL Server (2012 or higher)
-- SQLite 3
+- SQLite (3.8.9 or higher)
 
 The Oracle database is supported through the
 [Driver for Oracle Database](https://github.com/CakeDC/cakephp-oracle-driver)

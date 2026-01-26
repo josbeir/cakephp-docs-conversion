@@ -9,6 +9,9 @@ CakePHP にはビューの作成に役立ついくつかの特徴的なヘルパ
 Ajax 機能をスピードアップさせたりします。CakePHP のヘルパーに関するさらなる情報は、
 各ヘルパーの章をご覧ください。
 
+<!--@include: ../core-libraries/toc-helpers.md-->
+<!-- Include options: start-line: 11 -->
+
 ## ヘルパーの設定と使用
 
 CakePHP でヘルパーを有効にするにはコントローラに認識させる必要があります。各コントローラは

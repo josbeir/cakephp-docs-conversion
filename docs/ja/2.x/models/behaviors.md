@@ -27,6 +27,9 @@ CakePHP には既に、ツリー構造、コンテンツ翻訳、アクセス制
 CakePHP に含まれるいくつかのビヘイビアがあります。それぞれのビヘイビアについて詳しくは、
 以下の章をご覧ください。
 
+<!--@include: ../core-libraries/toc-behaviors.md-->
+<!-- Include options: start-line: 10 -->
+
 ## ビヘイビアの使用
 
 ビヘイビアはモデルのクラス変数 `$actsAs` を通してモデルに割り当てられます。 :

@@ -397,6 +397,8 @@ public function beforeSave(EventInterface $event, EntityInterface $entity, Array
 
 `method` Cake\\ORM\\Table::**addBehavior**($name, array $options = [])
 
+<!-- start-behaviors -->
+
 ビヘイビアーは、テーブルクラスにまたがって関連するロジックの再利用可能な部品を作成する
 簡単な方法を提供します。なぜビヘイビアーが通常のクラスで、トレイトではないのか
 不思議に思うかもしれません。第一の理由は、ビヘイビアーはイベントリスナーだからです。
@@ -441,6 +443,8 @@ class ArticlesTable extends Table
     }
 }
 ```
+
+<!-- end-behaviors -->
 
 CakePHP によって提供されるビヘイビアーを含む、ビヘイビアーに関する詳細は [ビヘイビアー](../orm/behaviors)
 の章をご覧ください。

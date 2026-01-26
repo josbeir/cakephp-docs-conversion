@@ -12,6 +12,9 @@ in formatting text, times and numbers, and can even speed up AJAX
 functionality. For more information on the helpers included in CakePHP,
 check out the chapter for each helper:
 
+<!--@include: ../core-libraries/toc-helpers.md-->
+<!-- Include options: start-line: 11 -->
+
 <a id="configuring-helpers"></a>
 
 ## Using and Configuring Helpers

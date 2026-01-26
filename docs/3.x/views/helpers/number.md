@@ -8,5 +8,7 @@ to format currency, percentages, data sizes, format numbers to
 specific precisions and also to give you more flexibility with
 formatting numbers.
 
+<!--@include: ../../core-libraries/number.md{33,308}-->
+
 > [!WARNING]
 > All symbols are UTF-8.

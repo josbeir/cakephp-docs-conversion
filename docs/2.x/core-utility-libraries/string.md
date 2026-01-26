@@ -111,6 +111,8 @@ supported options are:
 - `indent` The character to indent lines with. Defaults to ''.
 - `indentAt` The line number to start indenting text. Defaults to 0.
 
+<!-- start-string -->
+
 `method` CakeText::**highlight**(string $haystack, string $needle, array $options = array() )
 
 `method` CakeText::**stripLinks**($text)
@@ -126,3 +128,5 @@ supported options are:
 `method` CakeText::**excerpt**(string $haystack, string $needle, integer $radius=100, string $ellipsis="...")
 
 `method` CakeText::**toList**(array $list, $and='and')
+
+<!-- end-string -->

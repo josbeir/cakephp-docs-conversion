@@ -107,6 +107,8 @@ that never ends.
 - `indent` インデントの文字数。デフォルトは '' 。
 - `indentAt` インデントを開始する数。デフォルトは 0 。
 
+<!-- start-string -->
+
 `method` CakeText::**highlight**(string $haystack, string $needle, array $options = array() )
 
 `method` CakeText::**stripLinks**($text)
@@ -122,3 +124,5 @@ that never ends.
 `method` CakeText::**excerpt**(string $haystack, string $needle, integer $radius=100, string $ellipsis="...")
 
 `method` CakeText::**toList**(array $list, $and='and')
+
+<!-- end-string -->

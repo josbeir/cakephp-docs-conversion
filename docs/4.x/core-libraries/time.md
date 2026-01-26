@@ -33,6 +33,8 @@ to power its `FrozenTime` utility. Anything you can do with `Chronos` and
 
 For more details on Chronos please see [the API documentation](https://api.cakephp.org/chronos/1.0/).
 
+<!-- start-time -->
+
 ## Creating FrozenTime Instances
 
 `FrozenTime` are immutable objects that are useful when you want to prevent
@@ -443,6 +445,8 @@ debug($time->wasWithinLast('3 days'));
 // Within past 2 weeks. Outputs 'true'
 debug($time->wasWithinLast('2 weeks'));
 ```
+
+<!-- end-time -->
 
 ## FrozenDate
 

@@ -12,50 +12,7 @@
 
 ## ビヘイビアーの利用
 
-ビヘイビアーは、テーブルクラスにまたがって関連するロジックの再利用可能な部品を作成する
-簡単な方法を提供します。なぜビヘイビアーが通常のクラスで、トレイトではないのか
-不思議に思うかもしれません。第一の理由は、ビヘイビアーはイベントリスナーだからです。
-トレイトは再利用可能なロジックの部品になりえますが、イベントをバインドするのは厄介です。
-
-ビヘイビアーをテーブルに追加するために `addBehavior()` メソッドが使えます。
-一般的に、これを `initialize()` でやるのがもっともよいです。 :
-
-``` php
-namespace App\Model\Table;
-
-use Cake\ORM\Table;
-
-class ArticlesTable extends Table
-{
-    public function initialize(array $config)
-    {
-        $this->addBehavior('Timestamp');
-    }
-}
-```
-
-アソシエーションには `プラグイン記法` と追加の設定オプションが使えます。 :
-
-``` php
-namespace App\Model\Table;
-
-use Cake\ORM\Table;
-
-class ArticlesTable extends Table
-{
-    public function initialize(array $config): void
-    {
-        $this->addBehavior('Timestamp', [
-            'events' => [
-                'Model.beforeSave' => [
-                    'created_at' => 'new',
-                    'modified_at' => 'always'
-                ]
-            ]
-        ]);
-    }
-}
-```
+<!--@include: ./table-objects.md{401,446}-->
 
 ## コアビヘイビアー
 

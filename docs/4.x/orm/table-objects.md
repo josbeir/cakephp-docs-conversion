@@ -413,6 +413,8 @@ You can manage event priorities in one of a few ways:
 
 `method` Cake\\ORM\\Table::**addBehavior**($name, array $options = [])
 
+<!-- start-behaviors -->
+
 Behaviors provide a way to create horizontally re-usable pieces of logic
 related to table classes. You may be wondering why behaviors are regular classes
 and not traits. The primary reason for this is event listeners. While traits
@@ -458,6 +460,8 @@ class ArticlesTable extends Table
     }
 }
 ```
+
+<!-- end-behaviors -->
 
 You can find out more about behaviors, including the behaviors provided by
 CakePHP in the chapter on [Behaviors](../orm/behaviors).

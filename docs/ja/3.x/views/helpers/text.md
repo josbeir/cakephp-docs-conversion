@@ -67,3 +67,5 @@ $formattedText = $this->Text->autoParagraph($myText);
 regarding our world-famous pastries and desserts.</p>
 <p>contact info@example.com</p>
 ```
+
+<!--@include: ../../core-libraries/text.md{204,392}-->

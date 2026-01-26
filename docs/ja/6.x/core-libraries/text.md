@@ -200,6 +200,8 @@ This is the song that
  → never ends.
 ```
 
+<!-- start-text -->
+
 ## 文字列の一部をハイライトする
 
 `method` Cake\\Utility\\Text::**highlight**(string $haystack, string $needle, array $options = [] )
@@ -387,3 +389,5 @@ echo Text::toList($colors);
 出力:
 
     red, orange, yellow, green, blue, indigo and violet
+
+<!-- end-text -->

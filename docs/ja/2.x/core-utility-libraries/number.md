@@ -25,6 +25,8 @@ class UsersController extends AppController {
 `CakeNumber` は、 `NumberHelper` を元に作られました。
 :::
 
+<!-- start-cakenumber -->
+
 以下の全ての関数は、整形された数値を返します。
 これらは自動的にビューに出力を表示しません。
 
@@ -45,3 +47,5 @@ class UsersController extends AppController {
 `method` CakeNumber::**format**(mixed $number, mixed $options=false)
 
 `method` CakeNumber::**formatDelta**(mixed $number, mixed $options=array())
+
+<!-- end-cakenumber -->

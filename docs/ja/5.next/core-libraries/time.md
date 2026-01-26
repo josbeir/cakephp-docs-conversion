@@ -33,6 +33,8 @@ class UsersController extends AppController
 
 Chronos についてより詳しく知りたい場合は [API ドキュメント](https://api.cakephp.org/chronos/1.0/) をご覧ください。
 
+<!-- start-time -->
+
 ## Time インスタンスを作成する
 
 `FrozenTime` インスタンスを作成するにはいくつかの方法があります。 :
@@ -387,6 +389,8 @@ debug($time->wasWithinLast('3 days'));
 // Within past 2 weeks. Outputs 'true'
 debug($time->wasWithinLast('2 weeks'));
 ```
+
+<!-- end-time -->
 
 ## FrozenDate
 

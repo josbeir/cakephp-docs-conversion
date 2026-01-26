@@ -34,6 +34,8 @@ PHP's `DateTimeImmutable`, you can do with `DateTime`.
 
 For more details on Chronos please see [the API documentation](https://api.cakephp.org/chronos/).
 
+<!-- start-time -->
+
 ## Creating DateTime Instances
 
 `DateTime` are immutable objects as immutability prevents accidental changes
@@ -454,6 +456,8 @@ debug($time->wasWithinLast('3 days'));
 // Within past 2 weeks. Outputs 'true'
 debug($time->wasWithinLast('2 weeks'));
 ```
+
+<!-- end-time -->
 
 ## Date
 

@@ -492,6 +492,8 @@ CakePHP は `find()` を使う際、デフォルトでは関連データを **�
 結果の中にロードしたい各関連データは 'contain' で指定するか、イーガーロード (eager load)
 する必要があります。
 
+<!-- start-contain -->
+
 イーガーロードは、ORM のレイジーロード (lazy load) 周辺に潜むパフォーマンス問題の多くを避けるのに役立ちます。
 イーガーロードで生成されたクエリーは JOIN に影響を与えて、効率的なクエリーが作られるようになります。
 CakePHP では 'contain' メソッドを使って関連データのイーガーロードを定義します。 :
@@ -689,7 +691,11 @@ $query->contain([
 ]);
 ```
 
+<!-- end-contain -->
+
 ### matching と joins を用いた関連データによるフィルタリング
+
+<!-- start-filtering -->
 
 関連データに関するクエリーでよくあるのは、指定の関連データに「マッチする (matching)」レコードを
 見つけるものです。たとえば、 'Articles belongsToMany Tags' である場合、かなりの確率で、
@@ -874,6 +880,8 @@ $query = $authorsTable
 ::: info Added in version 3.1
 [Query::leftJoinWith](Query::leftJoinWith)() は 3.1 で追加されました。
 :::
+
+<!-- end-filtering -->
 
 ## フェッチの戦略の変更する
 

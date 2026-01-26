@@ -29,6 +29,8 @@ class UsersController extends AppController
 }
 ```
 
+<!-- start-cakenumber -->
+
 All of these functions return the formatted number; they do not
 automatically echo the output into the view.
 
@@ -303,6 +305,8 @@ echo Number::formatDelta('123456.7890', [
 ]);
 // Output '[+123,456.79]'
 ```
+
+<!-- end-cakenumber -->
 
 ## Configure formatters
 

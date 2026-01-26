@@ -32,6 +32,9 @@ In essence, Behaviors are
 There are a number of Behaviors included in CakePHP. To find out more about each
 one, reference the chapters below:
 
+<!--@include: ../core-libraries/toc-behaviors.md-->
+<!-- Include options: start-line: 10 -->
+
 ## Using Behaviors
 
 Behaviors are attached to models through the `$actsAs` model class

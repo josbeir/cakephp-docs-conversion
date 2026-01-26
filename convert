@@ -55,8 +55,33 @@ echo "Converting RST documentation from $INPUT_DIR to $OUTPUT_DIR..."
 echo "Using filters from: $FILTERS_DIR"
 
 # Find all .rst files and convert them
+# First, determine the doc root (language folder) by finding en/ja/es/etc in INPUT_DIR
+DOC_ROOT=""
+for lang in en ja es fr pt de; do
+    # Check if INPUT_DIR ends with /$lang or is exactly $lang
+    if [[ "$INPUT_DIR" == */"$lang" ]] || [[ "$INPUT_DIR" == "$lang" ]]; then
+        DOC_ROOT="$INPUT_DIR"
+        break
+    # Check if INPUT_DIR contains /$lang/ (language folder in the middle)
+    elif [[ "$INPUT_DIR" == */"$lang"/* ]]; then
+        # Extract path up to and including the language folder
+        DOC_ROOT="${INPUT_DIR%/$lang/*}/$lang"
+        break
+    fi
+done
+
+# If no language folder found, use INPUT_DIR as doc root
+if [[ -z "$DOC_ROOT" ]]; then
+    DOC_ROOT="$INPUT_DIR"
+fi
+
+echo "Doc root: $DOC_ROOT"
+
 find "$INPUT_DIR" -name "*.rst" -type f | while read -r rst_file; do
-    # Get relative path from input directory
+    # Get relative path from doc root for CURRENT_RST_FILE (used by includes)
+    rst_file_from_docroot="${rst_file#$DOC_ROOT/}"
+    
+    # Get relative path from INPUT_DIR for output file placement
     rel_path="${rst_file#$INPUT_DIR/}"
     
     # Create output path with .md extension
@@ -70,150 +95,16 @@ find "$INPUT_DIR" -name "*.rst" -type f | while read -r rst_file; do
     # Create a temporary file with substitutions and include path fixes applied
     temp_file=$(mktemp)
     
-    # Pre-process the RST file to handle substitutions, PHP directives, and fix include paths
+    # Pre-process the RST file to handle substitutions, PHP directives, and include directives
     # Preserve version variables as literal text for markdown-it processing
     # Note: Order matters - process minphpversion first to avoid partial matches
+    # Set environment variables for Python script (use doc-root-relative path for includes)
+    export CURRENT_RST_FILE="$rst_file_from_docroot"
+    export SOURCE_FOLDER="$(cd "$INPUT_DIR" && pwd)"
     sed -e "s/|minphpversion|/MINPHPVERSION_MARKER/g" \
         -e "s/|phpversion|/PHPVERSION_MARKER/g" \
         "$rst_file" | \
-    python3 -c "
-import re
-import sys
-
-def fix_include_paths(content):
-    lines = content.split('\n')
-    result_lines = []
-    
-    for line in lines:
-        # Check if this is an include directive with absolute path
-        include_match = re.match(r'^(\s*\.\. include::\s*)(/.*)', line)
-        if include_match:
-            indent = include_match.group(1)
-            absolute_path = include_match.group(2)
-            # Convert absolute path to relative path (remove leading slash)
-            relative_path = absolute_path[1:]
-            line = indent + relative_path
-            
-        result_lines.append(line)
-    
-    return '\n'.join(result_lines)
-
-def fix_literal_blocks_in_directives(content):
-    \"\"\"
-    Convert literal blocks (::) inside directives (note, warning, etc.) 
-    into explicit code-block directives so Pandoc preserves them as code.
-    \"\"\"
-    lines = content.split('\n')
-    result = []
-    i = 0
-    
-    while i < len(lines):
-        line = lines[i]
-        
-        # Check if this is a directive (note, warning, tip, etc.)
-        directive_match = re.match(r'^(\s*)\.\.\s+(note|warning|tip|important|caution|danger|attention|hint|seealso|admonition)::\s*(.*)$', line)
-        
-        if directive_match:
-            indent = directive_match.group(1)
-            directive_type = directive_match.group(2)
-            directive_args = directive_match.group(3)
-            
-            # Add the directive line
-            result.append(line)
-            i += 1
-            
-            # Expected content indentation (directive indent + 4 spaces)
-            content_indent = indent + '    '
-            
-            # Process the content of the directive
-            while i < len(lines):
-                current_line = lines[i]
-                
-                # Check if we've left the directive (dedented or empty line at directive level)
-                if current_line.strip() and not current_line.startswith(content_indent):
-                    # We've left the directive
-                    break
-                
-                # Check if this line ends with :: (literal block marker)
-                if current_line.rstrip().endswith('::') and current_line.strip() != '::':
-                    # This is a literal block marker
-                    # Remove the :: and add it as regular text
-                    result.append(current_line[:-1])  # Remove the trailing :
-                    i += 1
-                    
-                    # Skip any blank lines
-                    while i < len(lines) and not lines[i].strip():
-                        result.append(lines[i])
-                        i += 1
-                    
-                    # Now we should have the code block
-                    # Expected code indent is content_indent + 4 more spaces
-                    code_indent = content_indent + '    '
-                    
-                    if i < len(lines) and lines[i].startswith(code_indent):
-                        # We have a code block - determine the language
-                        # Look at multiple lines to guess the language more accurately
-                        first_code_line = lines[i].strip()
-                        # Look ahead at more lines for better detection
-                        code_sample = []
-                        temp_i = i
-                        while temp_i < len(lines) and temp_i < i + 10 and (lines[temp_i].startswith(code_indent) or not lines[temp_i].strip()):
-                            if lines[temp_i].strip():
-                                code_sample.append(lines[temp_i].strip())
-                            temp_i += 1
-                        
-                        code_text = ' '.join(code_sample).lower()
-                        language = 'php'  # default to php for CakePHP docs
-                        
-                        # Detect bash/shell commands
-                        if first_code_line.startswith('bin/cake') or first_code_line.startswith('composer') or first_code_line.startswith('$') or first_code_line.startswith('user@'):
-                            language = 'bash'
-                        # Detect SQL
-                        elif first_code_line.startswith('SELECT') or first_code_line.startswith('CREATE') or first_code_line.startswith('INSERT') or first_code_line.startswith('UPDATE') or first_code_line.startswith('DELETE'):
-                            language = 'sql'
-                        # PHP is already the default, but let's be explicit about strong indicators
-                        elif first_code_line.startswith('<?php') or 'namespace' in code_text or '->' in code_text or '::' in code_text or first_code_line.startswith('class ') or first_code_line.startswith('public ') or first_code_line.startswith('private ') or first_code_line.startswith('protected '):
-                            language = 'php'
-                        
-                        # Add explicit code-block directive
-                        result.append('')
-                        result.append(content_indent + '.. code-block:: ' + language)
-                        result.append('')
-                        
-                        # Add all the code lines with proper indentation
-                        # Code blocks in RST need to be indented relative to the directive
-                        code_block_indent = content_indent + '    '
-                        while i < len(lines) and (lines[i].startswith(code_indent) or not lines[i].strip()):
-                            if lines[i].strip():
-                                # Keep the original code indentation but adjust the base
-                                # Remove code_indent and add code_block_indent
-                                code_content = lines[i][len(code_indent):]
-                                result.append(code_block_indent + code_content)
-                            else:
-                                result.append(lines[i])
-                            i += 1
-                        
-                        continue
-                
-                # Regular line in directive
-                result.append(current_line)
-                i += 1
-        else:
-            # Not a directive, just add the line
-            result.append(line)
-            i += 1
-    
-    return '\n'.join(result)
-
-# Read from stdin
-content = sys.stdin.read()
-# Fix include paths
-fixed_content = fix_include_paths(content)
-# Fix literal blocks in directives
-fixed_content = fix_literal_blocks_in_directives(fixed_content)
-# Output the result
-sys.stdout.write(fixed_content)
-" | \
+    python3 "$SCRIPT_DIR/preprocess_rst.py" | \
     awk '
     BEGIN { namespace = ""; class = "" }
     
@@ -418,6 +309,7 @@ sys.stdout.write(fixed_content)
         --to=gfm \
         --wrap=preserve \
         --lua-filter="$FILTERS_DIR/meta.lua" \
+        --lua-filter="$FILTERS_DIR/preserve_markers.lua" \
         --lua-filter="$FILTERS_DIR/doc_links.lua" \
         --lua-filter="$FILTERS_DIR/ref.lua" \
         --lua-filter="$FILTERS_DIR/php_domain.lua" \
@@ -545,4 +437,9 @@ EOF
 done
 
 echo "Conversion completed!"
+echo "Resolving marker-based includes to line numbers..."
+
+# Post-process all markdown files to resolve marker-based includes
+python3 "$(dirname "$0")/resolve_markers.py" "$OUTPUT_DIR"
+
 echo "Converted files are in: $OUTPUT_DIR"

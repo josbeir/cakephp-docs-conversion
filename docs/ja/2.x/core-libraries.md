@@ -11,31 +11,19 @@ CakePHP は沢山の組込関数とクラスを備えています。これらの
 
 ## ビヘイビア
 
-ビヘイビアはモデルに拡張機能を追加します。CakePHP は
-`TreeBehavior` や `ContainableBehavior` など、
-いくつかの組込みビヘイビアを備えています。
-
-ビヘイビアの作成方法と使い方については学ぶには
-[ビヘイビア](models/behaviors) を読んでください。
+<!--@include: core-libraries/toc-behaviors.md{#,#toctree}-->
 
 - [ビヘイビア](core-libraries/toc-behaviors)
 
 ## コンポーネント
 
-CakePHP はコントローラ内の基本的なタスクをこなすのに役立つコンポーネントを取り揃えています。
-コンポーネントの使い方と設定方法については [コンポーネント](controllers/components) を参照して下さい。
+<!--@include: core-libraries/toc-components.md{#,#toctree}-->
 
 - [コンポーネント](core-libraries/toc-components)
 
 ## ヘルパー
 
-CakePHP にはビューを作成を手助けする沢山のヘルパーがあります。それらは整形式で
-マークアップする手助けをしたり (フォームを含む)、テキスト、時間、数値の整形に役立ったり、
-よく使われている JavaScript ライブラリを導入することさえできます。
-組込みのヘルパーの概要は以下の通りです。
-
-ヘルパーやその API、独自のヘルパーの作成方法や使い方についてさらに学習したい場合は、
-[ヘルパー](views/helpers) を読んでください。
+<!--@include: core-libraries/toc-helpers.md{#,#toctree}-->
 
 - [ヘルパー](core-libraries/toc-helpers)
 

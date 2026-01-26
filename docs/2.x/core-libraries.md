@@ -15,12 +15,7 @@ CakePHP.
 
 ## Behaviors
 
-Behaviors add extra functionality to your models. CakePHP comes
-with a number of built-in behaviors such as `TreeBehavior`
-and `ContainableBehavior`.
-
-To learn about creating and using behaviors, read the section
-on [Behaviors](models/behaviors).
+<!--@include: core-libraries/toc-behaviors.md{#,#toctree}-->
 
 - [Behaviors](core-libraries/toc-behaviors)
 
@@ -28,9 +23,7 @@ on [Behaviors](models/behaviors).
 
 ## Components
 
-CakePHP has a selection of components to help take care of basic tasks in your
-controllers. See the section on [Components](controllers/components) for how to
-configure and use components.
+<!--@include: core-libraries/toc-components.md{#,#toctree}-->
 
 - [Components](core-libraries/toc-components)
 
@@ -38,13 +31,7 @@ configure and use components.
 
 ## Helpers
 
-CakePHP features a number of helpers that aid in view creation. They assist in
-creating well-formed markup (including forms), aid in formatting text, times and
-numbers, and can even integrate with popular JavaScript libraries. Here is a
-summary of the built-in helpers.
-
-Read [Helpers](views/helpers) to learn more about helpers, their API, and how you
-can create and use your own helpers.
+<!--@include: core-libraries/toc-helpers.md{#,#toctree}-->
 
 - [Helpers](core-libraries/toc-helpers)
 

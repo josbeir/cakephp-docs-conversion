@@ -13,51 +13,7 @@ a perfect fit for.
 
 ## Using Behaviors
 
-Behaviors provide a way to create horizontally re-usable pieces of logic
-related to table classes. You may be wondering why behaviors are regular classes
-and not traits. The primary reason for this is event listeners. While traits
-would allow for re-usable pieces of logic, they would complicate binding events.
-
-To add a behavior to your table you can call the `addBehavior()` method.
-Generally the best place to do this is in the `initialize()` method:
-
-``` php
-namespace App\Model\Table;
-
-use Cake\ORM\Table;
-
-class ArticlesTable extends Table
-{
-    public function initialize(array $config): void
-    {
-        $this->addBehavior('Timestamp');
-    }
-}
-```
-
-As with associations, you can use `plugin syntax` and provide additional
-configuration options:
-
-``` php
-namespace App\Model\Table;
-
-use Cake\ORM\Table;
-
-class ArticlesTable extends Table
-{
-    public function initialize(array $config): void
-    {
-        $this->addBehavior('Timestamp', [
-            'events' => [
-                'Model.beforeSave' => [
-                    'created_at' => 'new',
-                    'modified_at' => 'always'
-                ]
-            ]
-        ]);
-    }
-}
-```
+<!--@include: ./table-objects.md{417,463}-->
 
 ## Core Behaviors
 
