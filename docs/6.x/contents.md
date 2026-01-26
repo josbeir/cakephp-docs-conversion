@@ -46,6 +46,7 @@
 
 - [App Class](core-libraries/app)
 - [Collections](core-libraries/collections)
+- [Filesystem](core-libraries/filesystem)
 - [Hash](core-libraries/hash)
 - [Http Client](core-libraries/httpclient)
 - [Inflector](core-libraries/inflector)

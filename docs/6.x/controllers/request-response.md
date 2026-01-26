@@ -1229,7 +1229,7 @@ public function beforeFilter(EventInterface $event)
             ->maxAge(86400)
             ->build();
 
-        return $this->response;
+        $event->setResult($this->response);
     }
 }
 

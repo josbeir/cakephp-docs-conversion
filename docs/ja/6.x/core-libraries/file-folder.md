@@ -1,5 +1,9 @@
 # Folder & File
 
+::: info Deprecated in version 4.0
+`File` クラスと `Folder` は バージョン5.0で削除されます。 `SplFileInfo` や `SplFileObject` などの SPL クラス、 および、`RecursiveDirectoryIterator`, `RecursiveRegexIterator` などのような イテレータクラスを使用してください。
+:::
+
 Folder と File ユーティリティは、ファイルの読み書きやフォルダー内のファイル名一覧の取得、
 その他ディレクトリーに関連するタスクにおいて便利なクラスです。
 

@@ -125,4 +125,3 @@ information on how to use table objects and entities in your application.
 - [Deleting Data](orm/deleting-data)
 - [Behaviors](orm/behaviors)
 - [Schema System](orm/schema-system)
-- [Schema Cache Tool](console-commands/schema-cache)

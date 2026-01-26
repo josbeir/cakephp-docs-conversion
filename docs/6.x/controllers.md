@@ -631,3 +631,4 @@ Middleware defined by a controller will be called **before** `beforeFilter()` an
 
 - [The Pages Controller](controllers/pages-controller)
 - [Components](controllers/components)
+- [Rate Limiting Middleware](controllers/middleware/rate-limit)

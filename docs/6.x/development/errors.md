@@ -618,7 +618,7 @@ If necessary, you can swap out CakePHP's error handling logic with your own.
 
 Error handlers use instances of `Cake\Error\ErrorLoggingInterface` to create
 log messages and log them to the appropriate place. You can replace the error
-logger using the `Error.errorLogger` configure value. An example error
+logger using the `Error.logger` configure value. An example error
 logger:
 
 ``` php

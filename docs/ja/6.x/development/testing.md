@@ -1027,7 +1027,7 @@ Basic 認証のようなステートレス認証を使用する API をテスト
 
 Basic または Digest 認証をテストする際、自動的に
 [PHP が作成する](https://php.net/manual/ja/features.http-auth.php)
-環境変数を追加できます。これらの環境変数は、 [Basic Authentication](#basic-authentication) に概説されている
+環境変数を追加できます。これらの環境変数は、 に概説されている
 認証アダプター内で使用されます。 :
 
 ``` php
