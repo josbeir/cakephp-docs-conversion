@@ -221,32 +221,29 @@ mkdir -p "$TEMP_DIR"
 # Create docs directory if it doesn't exist
 mkdir -p "$DOCS_DIR"
 
-# Function to get version from branch name
-get_version_from_branch() {
-    case "$1" in
-        "5.x") echo "5" ;;
-        "4.x") echo "4" ;;
-        "3.x") echo "3" ;;
-        "2.x") echo "2" ;;
-        *) echo "" ;;
-    esac
-}
-
 # Function to process a single branch-language combination
 process_branch_lang() {
     local branch="$1"
     local lang="$2"
-    local version=$(get_version_from_branch "$branch")
+    local version="$3"
     local branch_dir="$TEMP_DIR/$branch"
     local lang_source_dir="$branch_dir/$lang"
+
+    # Determine output version format
+    # If version is just a number (2, 3, 4, 5), append .x
+    # Otherwise use as-is (e.g., 5.next stays 5.next)
+    local output_version="$version"
+    if [[ "$version" =~ ^[0-9]+$ ]]; then
+        output_version="${version}.x"
+    fi
 
     # Set destination directory based on language
     if [ "$lang" = "en" ]; then
         # English goes to root docs folder
-        local lang_dest_dir="$DOCS_DIR/$version.x"
+        local lang_dest_dir="$DOCS_DIR/$output_version"
     else
         # Other languages go to language-specific subfolder
-        local lang_dest_dir="$DOCS_DIR/$lang/$version.x"
+        local lang_dest_dir="$DOCS_DIR/$lang/$output_version"
     fi
 
     # Check if language directory exists in the branch
@@ -283,7 +280,7 @@ process_branch_lang() {
 }
 
 # Export functions for parallel to use
-export -f process_branch_lang get_version_from_branch
+export -f process_branch_lang
 export TEMP_DIR DOCS_DIR YELLOW GREEN RED NC VERBOSE QUIET
 
 # First, clone all branches
@@ -312,7 +309,7 @@ for branch in "${!BRANCHES[@]}"; do
     # Show commit information
     if [ -d "$branch_dir" ]; then
         commit_info=$(get_commit_info "$branch_dir")
-        echo -e "${GREEN}✓ Branch $branch (v$version.x): $commit_info${NC}"
+        echo -e "${GREEN}✓ Branch $branch (v$version): $commit_info${NC}"
     else
         echo -e "${RED}✗ Failed to fetch branch $branch${NC}"
     fi
@@ -325,8 +322,9 @@ if [ "$USE_PARALLEL" = true ]; then
     # Build job list for parallel processing
     job_list=()
     for branch in "${!BRANCHES[@]}"; do
+        version="${BRANCHES[$branch]}"
         for lang in "${LANGUAGES[@]}"; do
-            job_list+=("$branch $lang")
+            job_list+=("$branch $lang $version")
         done
     done
 
@@ -340,11 +338,11 @@ if [ "$USE_PARALLEL" = true ]; then
 
     if [ "$VERBOSE" = true ]; then
         # Show real-time output from parallel jobs
-        printf '%s\n' "${job_list[@]}" | parallel "${parallel_args[@]}" --line-buffer process_branch_lang {1} {2}
+        printf '%s\n' "${job_list[@]}" | parallel "${parallel_args[@]}" --line-buffer process_branch_lang {1} {2} {3}
         echo -e "${GREEN}✓ Parallel conversion completed${NC}"
     else
         # Run jobs in parallel in background and show loading indicator (if not quiet)
-        printf '%s\n' "${job_list[@]}" | parallel "${parallel_args[@]}" process_branch_lang {1} {2} &
+        printf '%s\n' "${job_list[@]}" | parallel "${parallel_args[@]}" process_branch_lang {1} {2} {3} &
         if [ "$QUIET" = false ]; then
             show_loading "Converting documentation" $!
         fi
@@ -357,12 +355,12 @@ else
         version="${BRANCHES[$branch]}"
 
         echo ""
-        echo -e "${GREEN}Processing branch: $branch (version $version.x)${NC}"
+        echo -e "${GREEN}Processing branch: $branch (version $version)${NC}"
         echo "----------------------------------------"
 
         # Process each language
         for lang in "${LANGUAGES[@]}"; do
-            process_branch_lang "$branch" "$lang"
+            process_branch_lang "$branch" "$lang" "$version"
         done
     done
 fi
@@ -390,13 +388,18 @@ echo -e "${GREEN}Conversion completed in $FORMATTED_DURATION!${NC}"
 echo "Converted documentation is available in:"
 for branch in "${!BRANCHES[@]}"; do
     version="${BRANCHES[$branch]}"
+    # Determine output version format
+    output_version="$version"
+    if [[ "$version" =~ ^[0-9]+$ ]]; then
+        output_version="${version}.x"
+    fi
     for lang in "${LANGUAGES[@]}"; do
         if [ "$lang" = "en" ]; then
-            lang_dest_dir="$DOCS_DIR/$version.x"
-            display_path="./docs/$version.x/"
+            lang_dest_dir="$DOCS_DIR/$output_version"
+            display_path="./docs/$output_version/"
         else
-            lang_dest_dir="$DOCS_DIR/$lang/$version.x"
-            display_path="./docs/$lang/$version.x/"
+            lang_dest_dir="$DOCS_DIR/$lang/$output_version"
+            display_path="./docs/$lang/$output_version/"
         fi
 
         if [ -d "$lang_dest_dir" ]; then

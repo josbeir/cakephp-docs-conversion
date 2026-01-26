@@ -75,7 +75,11 @@ function utils.get_file_title(file_path)
 
     -- Detect language from destination folder and add appropriate legacy path
     local language = utils.detect_language_from_path(utils.destination_folder)
-    table.insert(possible_paths, "legacy/" .. language .. "/" .. clean_path .. ".rst")
+    
+    -- Try legacy path in source folder (relative to source folder)
+    if utils.source_folder and utils.source_folder ~= "" then
+        table.insert(possible_paths, utils.source_folder .. "/" .. clean_path .. ".rst")
+    end
 
     for _, path in ipairs(possible_paths) do
         local file = io.open(path, "r")
