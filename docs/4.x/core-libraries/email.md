@@ -327,7 +327,7 @@ Example:
 Email::deliver('you@example.com', 'Subject', 'Message', ['from' => 'me@example.com']);
 ```
 
-This method will send an email to "you@example.com", from "me@example.com" with
+This method will send an email to "<you@example.com>", from "<me@example.com>" with
 subject "Subject" and content "Message".
 
 The return of `deliver()` is a `Cake\Mailer\Email` instance with all

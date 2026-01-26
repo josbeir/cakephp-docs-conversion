@@ -20,7 +20,7 @@ the best bug report possible:
   version, CakePHP version).
 - **Don't** use the ticket system to ask support questions. Use the [Google
   Group](https://groups.google.com/group/cake-php), the \#cakephp IRC channel or
-  Stack Overflow \<https://stackoverflow.com/questions/tagged/cakephp\>
+  Stack Overflow \<<https://stackoverflow.com/questions/tagged/cakephp>\>
   for that.
 
 ## Reporting security issues

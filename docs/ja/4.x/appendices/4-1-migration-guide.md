@@ -155,7 +155,7 @@ bin/cake upgrade rector --rules cakephp41 <path/to/app/src>
 - PostgreSQL と SQLServer は エイリアスを持つ集約関数に対して `HAVING` 条件をサポートするようになりました。
 - `FunctionsBuilder::cast()` が追加されました。
 - Common Table Expression (CTE) が追加されました。
-  CTEは、\`Query::with()\` を用いてクエリにアタッチすることが可能です。
+  CTEは、\`<Query::with>()\` を用いてクエリにアタッチすることが可能です。
 - `Query::orderAsc()` と `Query::orderDesc()` はClosureをフィールドとして受け付けるようになり、
   提供されている `QueryExpression` オブジェクトを使って複雑なオーダー式を構築できるようになりました。
 

@@ -65,17 +65,92 @@ Gandalf にとって次にやることは、システムが取り扱う ACO（�
 管理されてきました。もしこの情報がテーブルの中に格納されていれば、
 それは以下のようになるでしょう:
 
-| x       | 武器  | 指輪  | 塩漬け豚 | 外交交渉権 | ビール |
-|---------|-------|-------|----------|------------|--------|
-| Gandalf |       |       | Allow    | Allow      | Allow  |
-| Aragorn | Allow |       | Allow    | Allow      | Allow  |
-| Bilbo   |       |       |          |            | Allow  |
-| Frodo   |       | Allow |          |            | Allow  |
-| Gollum  |       |       | Allow    |            |        |
-| Legolas | Allow |       | Allow    | Allow      | Allow  |
-| Gimli   | Allow |       | Allow    |            |        |
-| Pippin  |       |       |          | Allow      | Allow  |
-| Merry   |       |       |          | Allow      | Allow  |
+<table>
+<thead>
+<tr>
+<th>x</th>
+<th>武器</th>
+<th>指輪</th>
+<th>塩漬け豚</th>
+<th>外交交渉権</th>
+<th>ビール</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gandalf</td>
+<td></td>
+<td></td>
+<td>Allow</td>
+<td>Allow</td>
+<td>Allow</td>
+</tr>
+<tr>
+<td><p>--------Aragorn</p></td>
+<td><p>--------Allow</p></td>
+<td><hr /></td>
+<td><p>------------Allow</p></td>
+<td><p>----------Allow</p></td>
+<td><p>-------Allow</p></td>
+</tr>
+<tr>
+<td><p>--------Bilbo</p></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><p>-------Allow</p></td>
+</tr>
+<tr>
+<td><p>--------Frodo</p></td>
+<td><hr /></td>
+<td><p>---------Allow</p></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><p>-------Allow</p></td>
+</tr>
+<tr>
+<td><p>--------Gollum</p></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><p>------------Allow</p></td>
+<td><hr /></td>
+<td><hr /></td>
+</tr>
+<tr>
+<td><p>--------Legolas</p></td>
+<td><p>--------Allow</p></td>
+<td><hr /></td>
+<td><p>------------Allow</p></td>
+<td><p>----------Allow</p></td>
+<td><p>-------Allow</p></td>
+</tr>
+<tr>
+<td><p>--------Gimli</p></td>
+<td><p>--------Allow</p></td>
+<td><hr /></td>
+<td><p>------------Allow</p></td>
+<td><hr /></td>
+<td><hr /></td>
+</tr>
+<tr>
+<td><p>--------Pippin</p></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><p>----------Allow</p></td>
+<td><p>-------Allow</p></td>
+</tr>
+<tr>
+<td><p>--------Merry</p></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><p>----------Allow</p></td>
+<td><p>-------Allow</p></td>
+</tr>
+</tbody>
+</table>
 
 ちょっと見た限りでは、これでこのシステムは問題なく動くように
 見えますよね。セキュリティを維持しながら任務の割り当てが行われ

@@ -211,7 +211,7 @@ Shells and Tasks have been moved from `Console/Command` and
 ### ApiShell Removed
 
 The ApiShell was removed as it didn't provide any benefit over the file source
-itself and the online documentation/\`API \<https://api.cakephp.org/\>\`\_.
+itself and the online documentation/[API](https://api.cakephp.org/).
 
 ### SchemaShell Removed
 

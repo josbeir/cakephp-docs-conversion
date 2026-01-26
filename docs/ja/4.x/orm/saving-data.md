@@ -238,7 +238,7 @@ $entity = $articles->newEntity($this->request->getData(), [
 どんなことが起きるのかの概要を示しています。
 
 <figure class="align-left">
-<img src="/validation-cycle.png" alt="Flow diagram showing the marshalling/validation process." />
+<img src="/validation-cycle.png" alt="/_static/img/validation-cycle.png" />
 </figure>
 
 `newEntity()` からはいつでもエンティティーが返されることを当てにすることができます。
@@ -817,7 +817,7 @@ INSERT INTO articles (title) VALUES ('私の新しいタイトル');
 以下の図表は上記の工程を図解しています。
 
 <figure class="align-left">
-<img src="/save-cycle.png" alt="Flow diagram showing the save process." />
+<img src="/save-cycle.png" alt="/_static/img/save-cycle.png" />
 </figure>
 
 作成および更新のルールについてのより詳しい情報は [Application Rules](../orm/validation#application-rules) のセクションを

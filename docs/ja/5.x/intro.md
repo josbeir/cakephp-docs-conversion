@@ -108,7 +108,7 @@ public function add()
 色々なレイヤーに親しんでいただきました。次は、リクエストサイクルがどのように働くのか見て行きましょう:
 
 <figure class="align-center">
-<img src="/typical-cake-request.png" alt="Flow diagram showing a typical CakePHP request" />
+<img src="/typical-cake-request.png" alt="/_static/img/typical-cake-request.png" />
 </figure>
 
 典型的な CakePHP のリクエストサイクルはユーザーがアプリケーション内でページまたはリソースにリクエストを

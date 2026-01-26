@@ -283,7 +283,7 @@ XML や JSON のリクエストボディーのコンテンツと対話すると�
 $jsonData = $this->request->input('json_decode');
 ```
 
-### 環境変数 (\$ <span id="server">SERVER</span> と \$ <span id="env">ENV</span> より)
+### 環境変数 (\$ \_SERVER と \$ \_ENV より)
 
 `method` Cake\\Http\\ServerRequest::**env**($key, $value = null)
 

@@ -211,7 +211,7 @@ CakePHP 3.0 は、ゼロから再構築された新しい ORM を提供してい
 
 ### ApiShell を削除
 
-ファイルソース自身とオンラインドキュメント/\`API \<https://api.cakephp.org/\>\`\_
+ファイルソース自身とオンラインドキュメント/[API](https://api.cakephp.org/)
 以上の何の利益も提供しなかったので ApiShell は削除されました。
 
 ### SchemaShell を削除
@@ -230,8 +230,7 @@ CakePHP 3.0 は、ゼロから再構築された新しい ORM を提供してい
 
 ### BakeShell / TemplateTask
 
-- Bake は、コアソースの一部ではなくなり、\`CakePHP Bake プラグイン
-  \<https://github.com/cakephp/bake\>\`\_ に置き換えられます。
+- Bake は、コアソースの一部ではなくなり、[CakePHP Bake プラグイン](https://github.com/cakephp/bake) に置き換えられます。
 - Bake テンプレートは **src/Template/Bake** の下に移動されました。
 - Bake テンプレートの構文は PHP コードがプレーンテキストとして扱うことを可能し、
   テンプレートのロジックを示すために、erb 書式のタグ (`<% %>`) を使用しています。

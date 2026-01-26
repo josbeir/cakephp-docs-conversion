@@ -57,7 +57,7 @@ as well as many other plugins for CakePHP. The CakePHP releases are available at
 
 Alternatively you can get fresh off the press code, with all the bug-fixes and
 up to the minute enhancements. These can be accessed from GitHub by cloning the
-[GitHub](https://github.com/cakephp/cakephp) repository:
+[GitHub]() repository:
 
     git clone -b 2.x git://github.com/cakephp/cakephp.git
 
